@@ -3,62 +3,73 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Подработка рядом — прототип 2</title>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&display=swap" rel="stylesheet">
+<title>Дело — подработка рядом</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Manrope:wght@500;700;800&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#EEF1F6;--card:#fff;--ink:#14213D;--mute:#5E6B85;--line:#DDE3EE;--pri:#2B4BFF;--onpri:#fff;--ok:#0E9F57;--teen:#FFD23F;--teenink:#4A3B00;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0E1424;--card:#172038;--ink:#EAF0FF;--mute:#93A0BE;--line:#26324F;--pri:#6F86FF;--onpri:#0E1424;--ok:#3DD28A}}
-:root[data-theme="dark"]{--bg:#0E1424;--card:#172038;--ink:#EAF0FF;--mute:#93A0BE;--line:#26324F;--pri:#6F86FF;--onpri:#0E1424;--ok:#3DD28A}
+:root{--bg:#F6EFE4;--card:#FFFDF9;--ink:#2A2018;--mute:#8A7761;--line:#E9DCC8;--pri:#8A641F;--onpri:#fff;--gold:#C9A24F;--ok:#4C8A57;--teen:#F0CDB8;--teenink:#5C2F1B;--park:#DCE5CC;--river:#BDD3E4;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#17120D;--card:#211A13;--ink:#F4EAD9;--mute:#B09C82;--line:#3A2E22;--pri:#D8B067;--onpri:#1A130B;--gold:#D8B067;--ok:#7FC58B;--teen:#5A3A28;--teenink:#F6D9C6;--park:#2C3523;--river:#2B3F52}}
+:root[data-theme="dark"]{--bg:#17120D;--card:#211A13;--ink:#F4EAD9;--mute:#B09C82;--line:#3A2E22;--pri:#D8B067;--onpri:#1A130B;--gold:#D8B067;--ok:#7FC58B;--teen:#5A3A28;--teenink:#F6D9C6;--park:#2C3523;--river:#2B3F52}
 *{box-sizing:border-box}html,body{margin:0}
 body{background:var(--bg);color:var(--ink);font-family:Manrope,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-weight:500;line-height:1.4}
 .app{max-width:560px;margin:0 auto;padding:0 14px 96px}
 header{padding:16px 0 8px}
 .top{display:flex;justify-content:space-between;align-items:center;gap:8px}
-h1{font-size:22px;margin:0;font-weight:800}
-h3{margin:0 0 4px;font-size:17px;font-weight:800}
-select,input,button{font:inherit;color:inherit}
-input,select{width:100%;padding:11px 12px;border-radius:10px;border:1px solid var(--line);background:var(--bg)}
+h1,h2,.brand{font-family:"Cormorant Garamond",Georgia,serif}
+h1{font-size:30px;margin:0;font-weight:700}
+h3{margin:0 0 4px;font-size:16px;font-weight:800}
+.brand{font-size:20px;font-weight:700;color:var(--gold);letter-spacing:.14em}
+select,input,button,textarea{font:inherit;color:inherit}
+input,select,textarea{width:100%;padding:11px 12px;border-radius:8px;border:1px solid var(--line);background:var(--bg)}
 .chips{display:flex;gap:8px;overflow-x:auto;padding:8px 0 10px;scrollbar-width:none}
 .chip{flex:none;border:1px solid var(--line);background:var(--card);border-radius:20px;padding:7px 13px;cursor:pointer;font-weight:700;font-size:14px}
 .chip.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
-.seg{display:flex;background:var(--line);border-radius:12px;padding:3px;gap:3px;flex:1}
-.seg button{flex:1;border:0;background:none;border-radius:10px;padding:8px;font-weight:700;cursor:pointer;color:var(--mute)}
+.seg{display:flex;background:var(--line);border-radius:10px;padding:3px;gap:3px;flex:1}
+.seg button{flex:1;border:0;background:none;border-radius:8px;padding:8px;font-weight:700;cursor:pointer;color:var(--mute)}
 .seg button.on{background:var(--card);color:var(--ink)}
-.bar2{display:flex;gap:8px;margin:6px 0 8px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:10px}
+.bar2{display:flex;gap:8px;margin:6px 0 8px;align-items:center}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:10px}
 .card[data-open]{cursor:pointer}
 :focus-visible{outline:3px solid var(--pri);outline-offset:2px}
 .row{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
-.price{font-weight:800;font-size:19px;white-space:nowrap}
+.price{font-family:"Cormorant Garamond",Georgia,serif;font-weight:700;font-size:24px;white-space:nowrap;line-height:1}
 .meta{color:var(--mute);font-size:14px}
 .tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
-.tag{font-size:12.5px;font-weight:700;border-radius:8px;padding:3px 8px;background:var(--bg)}
+.tag{font-size:12.5px;font-weight:700;border-radius:6px;padding:3px 8px;background:var(--bg)}
 .tag.teen{background:var(--teen);color:var(--teenink)}
-.btn{background:var(--pri);color:var(--onpri);border:0;border-radius:12px;padding:13px 16px;font-weight:800;width:100%;cursor:pointer}
-.btn.sec{background:var(--bg);color:var(--ink);border:1px solid var(--line)}
+.btn{background:var(--pri);color:var(--onpri);border:0;border-radius:8px;padding:13px 16px;font-weight:800;width:100%;cursor:pointer;letter-spacing:.02em}
+.btn.sec{background:transparent;color:var(--ink);border:1px solid var(--gold)}
 .btn.sm{width:auto;padding:9px 14px}
-.btn[disabled]{opacity:.5;cursor:default}
+.btn[disabled]{opacity:.5}
+.lnk{background:none;border:0;padding:0;color:var(--pri);font-weight:800;cursor:pointer;text-align:left}
 nav{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px);z-index:5}
 nav div{max-width:560px;margin:0 auto;display:grid;align-items:center}
 nav button{background:none;border:0;padding:10px 0 8px;font-size:12px;font-weight:700;color:var(--mute);cursor:pointer}
 nav button.on{color:var(--pri)}
 nav button span{display:block;font-size:20px;line-height:1.1}
-nav .plus{background:var(--pri);color:var(--onpri);border-radius:16px;width:48px;height:48px;margin:0 auto;font-size:28px;padding:0}
-.sheet-bg{position:fixed;inset:0;background:rgba(10,15,30,.55);display:none;align-items:flex-end;justify-content:center;z-index:10}
+nav .plus{background:var(--pri);color:var(--onpri);border-radius:12px;width:48px;height:48px;margin:0 auto;font-size:28px;padding:0}
+.sheet-bg{position:fixed;inset:0;background:rgba(20,12,4,.55);display:none;align-items:flex-end;justify-content:center;z-index:10}
 .sheet-bg.open{display:flex}
-.sheet{background:var(--card);width:100%;max-width:560px;border-radius:20px 20px 0 0;padding:18px 16px calc(18px + env(safe-area-inset-bottom,0px));max-height:88vh;overflow:auto}
-.sheet h2{margin:0 0 6px;font-size:20px}
+.sheet{background:var(--card);width:100%;max-width:560px;border-radius:18px 18px 0 0;padding:18px 16px calc(18px + env(safe-area-inset-bottom,0px));max-height:90vh;overflow:auto}
+.sheet h2{margin:0 0 6px;font-size:26px}
 label{display:block;font-weight:700;font-size:14px;margin:12px 0 4px}
-.note{background:var(--bg);border-radius:12px;padding:12px;font-size:14px;margin:12px 0}
-.prog{height:8px;border-radius:4px;background:var(--line);margin:6px 0}
-.prog i{display:block;height:100%;border-radius:4px;background:var(--ok)}
-.big{font-size:32px;font-weight:800}
-.timer{font-weight:800;color:var(--pri);font-size:18px}
-.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(88px + env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:12px;font-weight:700;z-index:20;display:none}
-.empty{text-align:center;color:var(--mute);padding:36px 10px}
-.map{width:100%;border-radius:14px;border:1px solid var(--line);background:var(--card);display:block}
-.map text{font-family:inherit;font-weight:800;font-size:8px;fill:#fff;pointer-events:none}
+.note{background:var(--bg);border-radius:10px;padding:12px;font-size:14px;margin:12px 0}
+.prog{height:6px;border-radius:3px;background:var(--line);margin:6px 0}
+.prog i{display:block;height:100%;border-radius:3px;background:var(--gold)}
+.big{font-family:"Cormorant Garamond",Georgia,serif;font-size:40px;font-weight:700;line-height:1.1}
+.timer{font-weight:800;color:var(--pri);font-size:20px}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(88px + env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:10px;font-weight:700;z-index:20;display:none;max-width:90%}
+.empty{text-align:center;color:var(--mute);padding:30px 10px}
+.empty .btn{margin-top:14px}
+.who{display:flex;gap:12px;align-items:center}
+.stars{color:var(--gold);letter-spacing:1px}
+.map{width:100%;border-radius:12px;border:1px solid var(--line);display:block}
+.land{fill:var(--card)}.park{fill:var(--park)}.river{fill:none;stroke:var(--river);stroke-width:7;stroke-linecap:round}
+.rd{stroke:var(--line);stroke-width:2;fill:none}.rd2{stroke:var(--line);stroke-width:1;fill:none}
+.ring{fill:none;stroke:var(--mute);stroke-width:2}.ring2{fill:none;stroke:var(--mute);stroke-width:1;stroke-dasharray:4 4}
+.mt{fill:#D0342C}.lb{font-size:6.5px;fill:var(--mute);font-weight:700;font-family:Manrope,sans-serif}.pt{font-size:7.5px;font-weight:800;fill:#fff;font-family:Manrope,sans-serif;pointer-events:none}
 .pin{cursor:pointer}
+.leg{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:8px;font-size:13px;color:var(--mute)}
+.leg i{display:inline-block;width:11px;height:11px;border-radius:50%;margin-right:5px;vertical-align:-1px}
 </style>
 </head>
 <body>
@@ -68,70 +79,87 @@ label{display:block;font-weight:700;font-size:14px;margin:12px 0 4px}
 <div class="toast" id="toast"></div>
 <script>
 var FEE=.1,CATS=["Животные","Уборка","Переезд","Стройка и ремонт","Доставка","Сборка","Дача и сад","Другое"];
-var REG=["Москва и Московская область","Санкт-Петербург и область","Казань","Екатеринбург","Новосибирск","Краснодар","Другой регион"];
+var REG=["Москва и Московская область","Санкт-Петербург и Ленинградская область","Казань","Екатеринбург","Новосибирск","Нижний Новгород","Краснодар","Сочи","Самара","Ростов-на-Дону","Уфа","Красноярск","Воронеж","Пермь","Челябинск","Калининград","Другой регион"];
+var CU=[{n:"Мария С.",o:14,rv:[[5,"Анна","Всё чётко объяснила, оплата пришла сразу."],[5,"Игорь","Приятная, ключи передала вовремя."],[4,"Олег","Адрес указан точно, всё как договорились."]]},
+{n:"Дмитрий П.",o:3,rv:[[2,"Артём","На месте изменил задание и отказался доплатить."],[3,"Никита","Долго не отвечал в чате."],[4,"Сергей","В целом нормально, но поторапливал."]]},
+{n:"Ольга В.",o:7,rv:[[5,"Анна","Очень вежливая, чай предложила."],[5,"Кирилл","Всё без обмана, спасибо."]]},
+{n:"Алексей К.",o:5,rv:[[5,"Анна","Вежливый, сразу подтвердил заказ."],[5,"Игорь","Чёткие инструкции."],[4,"Олег","Чуть поздно написал адрес."],[5,"Никита","Рекомендую."]]}];
+var WR=[[5,"Мария С.","Заказывала выгул лабрадора. Всё отлично: я смотрела по геолокации, собака гуляла по парку, за ней всё убрали. Очень довольна, закажу ещё."],[5,"Ольга В.","Пришёл вовремя, аккуратно убрал квартиру. Ничего не пропало."],[4,"Сергей Н.","Собрал шкаф, но задержался минут на 20. В остальном хорошо."],[5,"Елена Т.","Донёс продукты соседке, приятный и вежливый."],[5,"Андрей Л.","Выручил с листовками, всё раздал за вечер."],[5,"Ирина М.","Полил цветы, покормил кота и прислал фото. Рекомендую."]];
 var orders=[
-{id:1,t:"Выгулять лабрадора, 40 минут",c:"Животные",p:800,w:"Завтра, 10:00",d:"Хамовники",km:1.2,m:5,age:14,lim:60,x:140,y:165,x2:"Дружелюбный пёс, поводок дома."},
-{id:2,t:"Донести продукты пожилой соседке",c:"Доставка",p:600,w:"Сегодня, до 19:00",d:"Тверской",km:.8,m:3,age:14,lim:90,x:150,y:138,x2:"8 позиций, магазин в соседнем доме."},
-{id:3,t:"Настроить телефон бабушке",c:"Другое",p:700,w:"Завтра, 16:00",d:"Центр",km:2.4,m:7,age:14,lim:60,x:158,y:150,x2:"Установить мессенджер, показать видеозвонок."},
-{id:4,t:"Раздать листовки у метро",c:"Другое",p:1200,w:"Завтра, 9:00",d:"Выхино",km:3.1,m:1,age:14,lim:180,x:205,y:178,x2:"Около 300 листовок, выдам на месте."},
-{id:5,t:"Покормить кота и полить цветы",c:"Животные",p:1500,w:"Пт–Вс, раз в день",d:"Химки",km:6.5,m:12,age:14,lim:45,x:118,y:72,x2:"Ключи передам лично."},
-{id:6,t:"Прибраться в однокомнатной",c:"Уборка",p:3000,w:"Сб, 12:00",d:"Митино",km:4.7,m:10,age:16,lim:180,x:85,y:98,x2:"Около 38 м², средства есть."},
-{id:7,t:"Собрать шкаф из ИКЕА",c:"Сборка",p:2000,w:"Вс, 14:00",d:"Мытищи",km:9.8,m:15,age:18,lim:150,x:192,y:62,x2:"Шкаф PAX, инструменты есть."},
-{id:8,t:"Погрузить коробки и мебель",c:"Переезд",p:2500,w:"Сегодня, 18:00",d:"Бутово",km:7.2,m:8,age:18,lim:120,x:150,y:240,x2:"3 этаж без лифта, нужны двое."},
-{id:9,t:"Снять плитку на балконе",c:"Стройка и ремонт",p:4500,w:"Сб, 10:00",d:"Люберцы",km:11.3,m:20,age:18,lim:240,x:232,y:205,x2:"4 м², мусор вынести."},
-{id:10,t:"Покрасить забор на даче",c:"Дача и сад",p:3500,w:"Вс, 9:00",d:"Одинцово",km:14,m:18,age:18,lim:300,x:42,y:155,x2:"Около 30 метров, краска на месте."}];
-var S={role:null,tab:"feed",view:"list",region:REG[0],cat:"Все",sort:"km",min:0,maxKm:0,maxM:0,age:"all",mine:[],my:[],slots:[],nid:100};
+{id:1,t:"Выгулять лабрадора, 40 минут",c:"Животные",p:889,dt:"9 октября",w:"10:00",d:"Хамовники",ad:"ул. Остоженка, 12, кв. 45",st:"Парк культуры",km:1.2,m:5,age:14,lim:60,cx:2,ub:0,cu:0,x:140,y:165,x2:"Дружелюбный пёс, поводок дома.",nt:""},
+{id:2,t:"Донести продукты пожилой соседке",c:"Доставка",p:667,dt:"8 октября",w:"до 19:00",d:"Тверской",ad:"Страстной бульвар, 8, под. 2",st:"Чеховская",km:.8,m:3,age:14,lim:90,cx:1,ub:100,cu:2,x:150,y:138,x2:"8 позиций, магазин в соседнем доме.",nt:"Подойдёт аккуратный и вежливый человек."},
+{id:3,t:"Настроить телефон бабушке",c:"Другое",p:778,dt:"9 октября",w:"16:00",d:"Центр",ad:"Староконюшенный пер., 5",st:"Арбатская",km:2.4,m:7,age:14,lim:60,cx:3,ub:0,cu:0,x:158,y:150,x2:"Установить мессенджер, показать видеозвонок.",nt:"Нужно терпение, бабушка слышит плохо."},
+{id:4,t:"Раздать листовки у метро",c:"Другое",p:1333,dt:"9 октября",w:"09:00",d:"Выхино",ad:"Рязанский пр-т, 99",st:"Выхино",km:3.1,m:1,age:14,lim:180,cx:2,ub:0,cu:2,x:205,y:178,x2:"Около 300 листовок, выдам на месте.",nt:""},
+{id:5,t:"Покормить кота и полить цветы",c:"Животные",p:1667,dt:"9–11 октября",w:"раз в день",d:"Химки",ad:"ул. Совхозная, 20, кв. 7",st:"Речной вокзал",km:6.5,m:12,age:14,lim:45,cx:2,ub:0,cu:0,x:118,y:72,x2:"Ключи передам лично.",nt:""},
+{id:6,t:"Прибраться в однокомнатной",c:"Уборка",p:3333,dt:"10 октября",w:"12:00",d:"Митино",ad:"ул. Дубравная, 34, кв. 112",st:"Митино",km:4.7,m:10,age:16,lim:180,cx:4,ub:0,cu:2,x:85,y:98,x2:"Около 38 м², средства есть.",nt:"Только девушки или пожилые женщины."},
+{id:7,t:"Собрать шкаф из ИКЕА",c:"Сборка",p:2222,dt:"11 октября",w:"14:00",d:"Мытищи",ad:"Олимпийский пр-т, 29",st:"Медведково",km:9.8,m:15,age:18,lim:150,cx:5,ub:0,cu:1,x:192,y:62,x2:"Шкаф PAX, инструменты есть.",nt:""},
+{id:8,t:"Погрузить коробки и мебель",c:"Переезд",p:2778,dt:"8 октября",w:"18:00",d:"Бутово",ad:"ул. Академика Понтрягина, 9",st:"Бульвар Адм. Ушакова",km:7.2,m:8,age:18,lim:120,cx:7,ub:300,cu:1,x:150,y:240,x2:"3 этаж без лифта, нужны двое.",nt:""},
+{id:9,t:"Снять плитку на балконе",c:"Стройка и ремонт",p:5000,dt:"10 октября",w:"10:00",d:"Люберцы",ad:"Октябрьский пр-т, 112",st:"Котельники",km:11.3,m:20,age:18,lim:240,cx:8,ub:0,cu:1,x:232,y:205,x2:"4 м², мусор вынести.",nt:""},
+{id:10,t:"Покрасить забор на даче",c:"Дача и сад",p:3889,dt:"11 октября",w:"09:00",d:"Одинцово",ad:"СНТ «Лесное», уч. 14",st:"Одинцово (МЦД)",km:14,m:18,age:18,lim:300,cx:6,ub:0,cu:2,x:42,y:155,x2:"Около 30 метров, краска на месте.",nt:""}];
+var SL=[{id:1,dt:"9 октября",a:"Выхино",f:10,t:18,h:350},{id:2,dt:"9 октября",a:"Мытищи",f:12,t:20,h:350},{id:3,dt:"9 октября",a:"Митино",f:9,t:17,h:350},{id:4,dt:"9 октября",a:"Центр, Арбатская",f:14,t:22,h:400},{id:5,dt:"10 октября",a:"Выхино",f:10,t:18,h:350},{id:6,dt:"10 октября",a:"Центр, Арбатская",f:12,t:20,h:400},{id:7,dt:"10 октября",a:"Митино",f:8,t:16,h:350}];
+var MS=[["Арбатская",150,152],["Тверская",150,138],["Парк культуры",138,162],["Выхино",205,178],["Речной вокзал",118,72],["Митино",85,98],["Медведково",190,70],["Котельники",228,200],["Бульвар Адм. Ушакова",150,238]];
+var S={role:null,pick:"worker",tab:"feed",view:"list",st:"all",region:REG[0],cat:"Все",sort:"km",min:0,maxKm:0,maxM:0,age:"all",mine:[],my:[],bk:{},bal:0,nid:100};
 function $(i){return document.getElementById(i)}
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
 function rub(n){return Math.round(n).toLocaleString("ru-RU")+" ₽"}
-function toast(m){var t=$("toast");t.textContent=m;t.style.display="block";clearTimeout(toast.h);toast.h=setTimeout(function(){t.style.display="none"},2200)}
+function wp(o){return Math.round(o.p*(1-FEE))}
+function avg(l){var s=0;l.forEach(function(r){s+=r[0]});return l.length?s/l.length:0}
+function f1(n){return n.toFixed(1).replace(".",",")}
+function stars(n){return "★★★★★".slice(0,n)+"☆☆☆☆☆".slice(0,5-n)}
+function av(z){return '<svg width="'+z+'" height="'+z+'" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="20" fill="var(--line)"/><circle cx="20" cy="15" r="7" fill="var(--gold)"/><path d="M6 36c1-8 7-12 14-12s13 4 14 12a20 20 0 0 1-28 0z" fill="var(--gold)"/></svg>'}
+function toast(m){var t=$("toast");t.textContent=m;t.style.display="block";clearTimeout(toast.h);toast.h=setTimeout(function(){t.style.display="none"},2400)}
 function openSheet(h){$("sheet").innerHTML=h;$("bg").classList.add("open")}
 function closeSheet(){$("bg").classList.remove("open")}
-$("bg").addEventListener("click",function(e){if(e.target===this)closeSheet()});
-document.addEventListener("keydown",function(e){if(e.key==="Escape")closeSheet()});
-function done(){return S.mine.filter(function(m){return m.s===3})}
+$("bg").addEventListener("click",function(e){if(e.target===this&&S.role)closeSheet()});
+document.addEventListener("keydown",function(e){if(e.key==="Escape"&&S.role)closeSheet()});
 function flt(){
  if(S.region!==REG[0])return[];
- return orders.filter(function(o){return(S.cat==="Все"||o.c===S.cat)&&o.p>=S.min&&(!S.maxKm||o.km<=S.maxKm)&&(!S.maxM||o.m<=S.maxM)&&(S.age==="all"||(S.age==="14"&&o.age===14)||(S.age==="18"&&o.age===18))}).sort(function(a,b){return S.sort==="p"?b.p-a.p:S.sort==="m"?a.m-b.m:a.km-b.km});
+ return orders.filter(function(o){var q=wp(o);return(S.cat==="Все"||o.c===S.cat)&&q>=S.min&&(!S.maxKm||o.km<=S.maxKm)&&(!S.maxM||o.m<=S.maxM)&&(S.age==="all"||(S.age==="14"&&o.age===14)||(S.age==="18"&&o.age===18))}).sort(function(a,b){return S.sort==="p"?b.p-a.p:S.sort==="m"?a.m-b.m:a.km-b.km});
 }
 function card(o){
- return '<div class="card" data-open="'+o.id+'" tabindex="0" role="button"><div class="row"><div><h3>'+esc(o.t)+'</h3><div class="meta">'+esc(o.w)+' · на выполнение '+o.lim+' мин</div></div><div class="price">'+rub(o.p)+'</div></div><div class="tags"><span class="tag">'+esc(o.c)+'</span><span class="tag">'+esc(o.d)+' · '+String(o.km).replace(".",",")+' км</span><span class="tag">🚇 '+o.m+' мин пешком</span>'+(o.age===14?'<span class="tag teen">С 14 лет</span>':'<span class="tag">'+o.age+'+</span>')+'</div></div>';
+ return '<div class="card" data-open="'+o.id+'" tabindex="0" role="button"><div class="row"><div><h3>'+esc(o.t)+'</h3><div class="meta">'+esc(o.dt)+', '+esc(o.w)+'</div></div><div class="price">'+rub(wp(o))+'</div></div><div class="tags"><span class="tag">'+esc(o.c)+'</span><span class="tag">'+esc(o.d)+' · '+String(o.km).replace(".",",")+' км</span><span class="tag">м. '+esc(o.st)+' · '+o.m+' мин пешком</span>'+(o.age===14?'<span class="tag teen">С 14 лет</span>':'<span class="tag">'+o.age+'+</span>')+(o.ub?'<span class="tag">Срочно +'+o.ub+' ₽</span>':'')+'</div></div>';
 }
 function mapSvg(l){
- var pins=l.map(function(o){return '<g class="pin" data-open="'+o.id+'" tabindex="0" role="button" aria-label="'+esc(o.t)+'"><circle cx="'+o.x+'" cy="'+o.y+'" r="11" fill="'+(o.age===14?'#E0A800':'#2B4BFF')+'" stroke="#fff" stroke-width="2"/><text x="'+o.x+'" y="'+(o.y+3)+'" text-anchor="middle">'+(o.p>=1000?(o.p/1000).toString().replace(".",",")+"к":o.p)+'</text></g>'}).join("");
- return '<svg class="map" viewBox="0 0 300 300" role="img" aria-label="Схема заказов"><circle cx="150" cy="150" r="125" fill="none" stroke="#9AA6C2" stroke-dasharray="4 4"/><circle cx="150" cy="150" r="72" fill="none" stroke="#9AA6C2" stroke-width="2"/><path d="M20 210 C80 190 110 150 150 160 S230 120 285 90" fill="none" stroke="#7FB6FF" stroke-width="6" opacity=".7"/><text x="150" y="152" text-anchor="middle" style="fill:#9AA6C2;font-size:9px">МОСКВА</text>'+pins+'</svg><div class="meta" style="margin-top:6px">Схема-заглушка. Настоящая карта (Яндекс или OpenStreetMap) подключится вместе с бэкендом. Жёлтые метки: можно с 14 лет.</div>';
+ var pins=l.map(function(o){var q=wp(o);return '<g class="pin" data-open="'+o.id+'" tabindex="0" role="button" aria-label="'+esc(o.t)+'"><circle cx="'+o.x+'" cy="'+o.y+'" r="12" fill="'+(o.age===14?'#C9772E':'#8A641F')+'" stroke="#fff" stroke-width="2"/><text class="pt" x="'+o.x+'" y="'+(o.y+3)+'" text-anchor="middle">'+(q>=1000?f1(q/1000)+"к":q)+'</text></g>'}).join("");
+ var mt=MS.map(function(m){return '<circle class="mt" cx="'+m[1]+'" cy="'+m[2]+'" r="2.8"/><text class="lb" x="'+(m[1]+5)+'" y="'+(m[2]+2)+'">'+m[0]+'</text>'}).join("");
+ return '<svg class="map" viewBox="0 0 300 300" role="img" aria-label="Схема заказов"><rect class="land" width="300" height="300"/><ellipse class="park" cx="105" cy="130" rx="22" ry="14"/><ellipse class="park" cx="195" cy="120" rx="18" ry="12"/><ellipse class="park" cx="70" cy="200" rx="26" ry="15"/><ellipse class="park" cx="235" cy="150" rx="15" ry="10"/><path class="river" d="M10 215 C70 195 105 150 150 165 S230 125 292 92"/><path class="rd" d="M150 150 L150 0M150 150 L150 300M150 150 L0 150M150 150 L300 150M150 150 L40 40M150 150 L260 40M150 150 L40 260M150 150 L260 260"/><path class="rd2" d="M0 100 H300M0 205 H300M100 0 V300M205 0 V300"/><circle class="ring2" cx="150" cy="150" r="125"/><circle class="ring" cx="150" cy="150" r="72"/><text class="lb" x="150" y="147" text-anchor="middle" style="font-size:9px">МОСКВА</text><text class="lb" x="150" y="12" text-anchor="middle">ЦКАД</text><text class="lb" x="150" y="85" text-anchor="middle">МКАД</text>'+mt+pins+'</svg><div class="leg"><span><i style="background:#C9772E"></i>можно с 14 лет</span><span><i style="background:#8A641F"></i>18+</span><span><i style="background:#D0342C"></i>метро</span><span><i style="background:var(--river)"></i>река</span><span><i style="background:var(--park)"></i>парки</span><span>─ МКАД · ┄ ЦКАД · число на метке: ваша оплата, ₽</span></div>';
 }
 function feed(){
  var l=flt(),act=(S.min||S.maxKm||S.maxM||S.age!=="all");
  var chips=['Все'].concat(CATS).map(function(c){return '<button class="chip '+(S.cat===c?'on':'')+'" data-cat="'+c+'">'+c+'</button>'}).join("");
- return '<header><div class="top"><h1>Заказы</h1><div class="meta">'+esc(S.region)+'</div></div><div class="bar2"><div class="seg"><button class="'+(S.view==="list"?'on':'')+'" data-view="list">Список</button><button class="'+(S.view==="map"?'on':'')+'" data-view="map">Карта</button></div><button class="chip" data-filter="1">Фильтры'+(act?' ●':'')+'</button></div><div class="chips">'+chips+'</div></header><div class="meta" style="margin-bottom:8px">Найдено: '+l.length+'</div>'+(!l.length?'<div class="empty">'+(S.region!==REG[0]?'В этом регионе заказов пока нет, он подключится позже.':'Ничего не найдено. Измените фильтры.')+'</div>':S.view==="map"?mapSvg(l):l.map(card).join(""));
+ return '<header><div class="top"><h1>Заказы</h1><div class="meta">'+esc(S.region.split(" и ")[0])+'</div></div><div class="bar2"><div class="seg"><button class="'+(S.view==="list"?'on':'')+'" data-view="list">Список</button><button class="'+(S.view==="map"?'on':'')+'" data-view="map">Карта</button></div><button class="chip" data-filter="1">Фильтры'+(act?' ●':'')+'</button></div><div class="chips">'+chips+'</div></header><div class="meta" style="margin-bottom:8px">Найдено: '+l.length+'</div>'+(!l.length?'<div class="empty">'+(S.region!==REG[0]?'В этом регионе заказов пока нет, он подключится позже.':'Ничего не найдено. Измените фильтры.')+'</div>':S.view==="map"?mapSvg(l):l.map(card).join(""));
 }
 function timerTxt(ms){if(ms<=0)return"время вышло";var s=Math.floor(ms/1000),h=Math.floor(s/3600),m=Math.floor(s%3600/60);s%=60;return(h?h+":":"")+("0"+m).slice(-2)+":"+("0"+s).slice(-2)}
 var ST=["Выполняется","Отмечено «готово», ждём заказчика","","Оплачено, деньги на балансе"];
 function mineV(){
- if(!S.mine.length)return '<header><h1>Мои заказы</h1></header><div class="empty">Вы пока ничего не взяли. Откройте ленту и выберите заказ.</div>';
+ if(!S.mine.length)return '<header><h1>Мои заказы</h1></header><div class="empty">Вы пока ничего не взяли.<br><button class="btn" data-tab="feed">Посмотреть заказы рядом</button></div>';
  return '<header><h1>Мои заказы</h1></header>'+S.mine.map(function(m,i){
   var o=m.o,b=m.s===0?'<button class="btn" data-fin="'+i+'">Я выполнил заказ</button>':m.s===1?'<button class="btn sec" data-conf="'+i+'">Демо: заказчик подтвердил</button>':'';
-  return '<div class="card"><div class="row"><h3>'+esc(o.t)+'</h3><div class="price">'+rub(o.p)+'</div></div>'+(m.s===0?'<div class="meta">Осталось времени</div><div class="timer" data-end="'+m.end+'">'+timerTxt(m.end-Date.now())+'</div>':'')+'<div class="meta" style="margin:6px 0 10px">'+ST[m.s]+'</div>'+b+'</div>';
+  return '<div class="card"><div class="row"><h3>'+esc(o.t)+'</h3><div class="price">'+rub(wp(o))+'</div></div><div class="meta">'+esc(o.dt)+', '+esc(o.w)+' · '+esc(o.ad)+'</div>'+(m.s===0?'<div class="meta" style="margin-top:8px">Осталось времени</div><div class="timer" data-end="'+m.end+'">'+timerTxt(m.end-Date.now())+'</div>':'')+'<div class="meta" style="margin:6px 0 10px">'+ST[m.s]+'</div>'+b+'</div>';
  }).join("");
 }
+function hrs(s){return s.t-s.f}
 function slotsV(){
- var days=["Сегодня","Завтра","Послезавтра"],hr=[];for(var i=6;i<=23;i++)hr.push(i);
- var op=hr.map(function(h){return '<option value="'+h+'">'+h+':00</option>'}).join("");
- return '<header><h1>Слоты</h1></header><div class="card"><h3>Я работаю в это время</h3><div class="meta">Укажите окно и фиксированную сумму. В будущем ИИ сам подберёт заказы под ваш слот.</div><label for="sd">День</label><select id="sd">'+days.map(function(d){return '<option>'+d+'</option>'}).join("")+'</select><div class="bar2"><div style="flex:1"><label for="sf">С</label><select id="sf">'+op+'</select></div><div style="flex:1"><label for="st">До</label><select id="st">'+op.replace('value="'+14+'"','value="14"')+'</select></div></div><label for="sp">Хочу заработать за слот, ₽</label><input id="sp" type="number" min="100" placeholder="3000"><div style="height:12px"></div><button class="btn" id="sadd">Добавить слот</button></div>'+(S.slots.length?S.slots.map(function(s,i){return '<div class="card row"><div><h3>'+s.d+', '+s.f+':00–'+s.t+':00</h3><div class="meta">Фиксированная оплата: '+rub(s.p)+'</div></div><button class="btn sec sm" data-delslot="'+i+'">Убрать</button></div>'}).join(""):'<div class="empty">Слотов пока нет.</div>');
+ var mine=Object.keys(S.bk).length,h='<header><h1>Слоты</h1></header><div class="bar2"><div class="seg"><button class="'+(S.st==="all"?'on':'')+'" data-sl="all">Свободные</button><button class="'+(S.st==="my"?'on':'')+'" data-sl="my">Мои слоты ('+mine+')</button></div></div>';
+ if(S.st==="my"){
+  var l=SL.filter(function(s){return S.bk[s.id]});
+  return h+(l.length?l.map(function(s){var c=S.bk[s.id]==="ok";return '<div class="card"><h3>'+s.dt+', '+s.f+':00–'+s.t+':00</h3><div class="meta">'+s.a+' · гарантия '+rub(s.h*hrs(s))+'</div><div class="note" style="margin:10px 0">'+(c?'Участие подтверждено. Ждём вас в начале слота.':'За 12 часов до начала нужно подтвердить участие, иначе слот освободится.')+'</div>'+(c?'':'<button class="btn" data-slok="'+s.id+'">Подтвердить участие</button><div style="height:8px"></div>')+'<button class="btn sec" data-slx="'+s.id+'">Отменить бронь</button></div>'}).join(""):'<div class="empty">Вы пока не бронировали слоты.<br><button class="btn" data-sl="all">Выбрать слот</button></div>');
+ }
+ var dts=["9 октября","10 октября"];
+ return h+dts.map(function(d){var l=SL.filter(function(s){return s.dt===d&&!S.bk[s.id]});return '<div class="meta" style="margin:12px 0 8px"><b>'+d+' · свободно слотов: '+l.length+'</b></div>'+l.map(function(s){return '<div class="card"><div class="row"><div><h3>'+s.a+'</h3><div class="meta">'+s.f+':00–'+s.t+':00 · '+hrs(s)+' ч</div></div><div style="text-align:right"><div class="price">от '+rub(s.h*hrs(s))+'</div><div class="meta">гарантия '+s.h+' ₽/час</div></div></div><div style="height:10px"></div><button class="btn sec" data-slb="'+s.id+'">Забронировать</button></div>'}).join("")}).join("");
 }
-function bonusRow(n,need,sum,name){var ok=n>=need;return '<div style="margin-top:12px"><div class="row"><b>'+name+'</b><b>'+(ok?'✓ ':'')+'+'+rub(sum).replace(" ₽"," бонусов")+'</b></div><div class="prog"><i style="width:'+Math.min(100,n/need*100)+'%"></i></div><div class="meta">'+Math.min(n,need)+' из '+need+'</div></div>'}
+function rate(l){return '★ '+f1(avg(l))+' · '+l.length+' '+(l.length<5?'отзыва':'отзывов')}
+function bonusRow(n,need,name){var ok=n>=need;return '<div style="margin-top:12px"><div class="row"><b>'+name+'</b><b>'+(ok?'✓ ':'')+'+'+({1:300,5:1000,10:1500})[need]+' бонусов</b></div><div class="prog"><i style="width:'+Math.min(100,n/need*100)+'%"></i></div><div class="meta">выполнено '+Math.min(n,need)+' из '+need+'</div></div>'}
 function profV(){
- var n=done().length,bonus=(n>=1?300:0)+(n>=5?1000:0)+(n>=10?1500:0),w=S.role==="worker";
- var held=S.mine.filter(function(m){return m.s<3}).reduce(function(a,m){return a+m.o.p*(1-FEE)},0);
- var h='<header><h1>Профиль</h1></header><div class="card"><div class="row"><div><h3>Алексей К.</h3><div class="meta">'+(w?'★ 4,9 · 3 отзыва':'Заказчик')+'</div></div></div><label>Режим</label><div class="seg"><button class="'+(w?'on':'')+'" data-role="worker">Исполнитель</button><button class="'+(!w?'on':'')+'" data-role="customer">Заказчик</button></div><label for="rg">Регион, в котором беру заказы</label><select id="rg">'+REG.map(function(r){return '<option'+(r===S.region?' selected':'')+'>'+r+'</option>'}).join("")+'</select><div style="height:10px"></div><button class="btn sec" id="rgs">Сохранить регион</button></div>';
- if(w)h+='<div class="card"><h3>Баланс</h3><div class="big">'+rub(S.bal||0)+'</div><div class="meta">В ожидании подтверждения: '+rub(held)+' · комиссия сервиса '+FEE*100+'%</div><div style="height:10px"></div><button class="btn sec" id="wd">Вывести деньги</button></div><div class="card"><h3>Бонусы: '+bonus+'</h3>'+bonusRow(n,1,300,'Первый заказ')+bonusRow(n,5,1000,'5 заказов')+bonusRow(n,10,1500,'10 заказов')+'</div>';
- h+='<div class="card"><h3>Пригласи друга</h3><div class="meta">Вы получаете 5% от первых 10 заказов друга. Друг, который выполнит 10 заказов в течение месяца после регистрации, получает 800 ₽.</div><div class="note"><b>Ваш код: PODR-7K2M</b></div><button class="btn sec" id="cp">Скопировать код</button><div class="meta" style="margin-top:8px">Это макет: система начислений заработает с бэкендом.</div></div>';
- if(w)h+='<div class="card"><h3>Отзывы</h3><div class="meta">★★★★★ «Пришёл вовремя, собака довольна»</div><div class="meta" style="margin-top:6px">★★★★★ «Аккуратно убрался, спасибо»</div><div class="meta" style="margin-top:6px">★★★★☆ «Всё хорошо, немного задержался»</div></div>';
+ var n=S.mine.filter(function(m){return m.s===3}).length,bonus=(n>=1?300:0)+(n>=5?1000:0)+(n>=10?1500:0),w=S.role==="worker",l=w?WR:CU[3].rv;
+ var held=S.mine.filter(function(m){return m.s<3}).reduce(function(a,m){return a+wp(m.o)},0);
+ var h='<header><div class="top"><h1>Профиль</h1><span class="brand">ДЕЛО</span></div></header><div class="card"><div class="who">'+av(56)+'<div><h3 style="font-size:19px;margin:0">Алексей К.</h3><button class="lnk" data-revs="'+(w?'w':'c')+'"><span class="stars">★</span> '+f1(avg(l))+' · '+l.length+' '+(l.length<5?'отзыва':'отзывов')+' ›</button></div></div><label>Режим</label><div class="seg"><button class="'+(S.pick==="worker"?'on':'')+'" data-pick="worker">Исполнитель</button><button class="'+(S.pick==="customer"?'on':'')+'" data-pick="customer">Заказчик</button></div>'+(S.pick!==S.role?'<div style="height:10px"></div><button class="btn" data-apply="1">Готово</button>':'')+'<label for="rg">'+(w?'Регион, где я работаю':'Регион, где мне нужна помощь')+'</label><select id="rg">'+REG.map(function(r){return '<option'+(r===S.region?' selected':'')+'>'+r+'</option>'}).join("")+'</select><div style="height:10px"></div><button class="btn sec" id="rgs">Сохранить регион</button></div>';
+ if(w)h+='<div class="card"><h3>Баланс</h3><div class="big">'+rub(S.bal)+'</div><div class="meta">В ожидании подтверждения: '+rub(held)+'</div><div style="height:10px"></div><button class="btn sec" id="wd">Вывести деньги</button></div><div class="card"><h3>Бонусы: '+bonus+'</h3><div class="meta">Вы недавно создали аккаунт, поэтому вам доступны приветственные бонусы. Они начисляются за выполненные заказы:</div>'+bonusRow(n,1,'Первый заказ')+bonusRow(n,5,'5 заказов')+bonusRow(n,10,'10 заказов')+'</div>';
+ h+='<div class="card"><h3>Пригласи друга</h3><div class="meta">Вы получаете 5% от первых 10 заказов друга. Друг, который выполнит 10 заказов в течение месяца после регистрации, получает 800 ₽.</div><div class="note"><b>Ваш код: DELO-7K2M</b></div><button class="btn sec" id="cp">Скопировать код</button></div>';
  return h;
 }
 function myV(){
- return '<header><h1>Мои заказы</h1></header>'+(S.my.length?S.my.map(function(o,i){return '<div class="card"><div class="row"><h3>'+esc(o.t)+'</h3><div class="price">'+rub(o.p)+'</div></div><div class="meta" style="margin:4px 0 10px">'+(o.fin?'Выполнен, деньги переданы исполнителю':'Деньги заморожены на сайте, ищем исполнителя')+'</div>'+(o.fin?'':'<button class="btn sec" data-cfin="'+i+'">Демо: подтвердить выполнение</button>')+'</div>'}).join(""):'<div class="empty">Вы ещё не создавали заказы. Нажмите «+».</div>');
+ return '<header><h1>Мои заказы</h1></header><button class="btn" data-tab="new" style="margin-bottom:12px">Создать заказ</button>'+(S.my.length?S.my.map(function(o,i){return '<div class="card"><div class="row"><h3>'+esc(o.t)+'</h3><div class="price">'+rub(o.p)+'</div></div><div class="meta">'+esc(o.dt)+', '+esc(o.w)+' · '+esc(o.ad)+'</div><div class="meta" style="margin:6px 0 10px">'+(o.fin?'Выполнен, оплата передана исполнителю':'Ищем исполнителя')+'</div>'+(o.fin?'':'<button class="btn sec" data-cfin="'+i+'">Демо: подтвердить выполнение</button>')+'</div>'}).join(""):'<div class="empty">Вы ещё не создавали заказы.</div>');
 }
 function render(){
  if(!S.role){openRole();return}
@@ -142,42 +170,63 @@ function render(){
  $("nav").style.gridTemplateColumns="repeat("+it.length+",1fr)";
  $("nav").innerHTML=it.map(function(x){return x[0]==="new"?'<button class="plus" data-tab="new" aria-label="Создать заказ">+</button>':'<button class="'+(S.tab===x[0]?'on':'')+'" data-tab="'+x[0]+'"><span>'+x[1]+'</span>'+x[2]+'</button>'}).join("");
 }
-function openRole(){openSheet('<h2>Кто вы сейчас?</h2><div class="meta">Роль можно сменить в любой момент в профиле. Аккаунт один.</div><div style="height:14px"></div><button class="btn" data-role="customer">Хочу заказать</button><div style="height:10px"></div><button class="btn sec" data-role="worker">Хочу подработать</button>')}
+function openRole(){openSheet('<h2>Добро пожаловать в Дело</h2><div class="meta">Роль можно сменить в любой момент в профиле. Аккаунт один.</div><div style="height:14px"></div><button class="btn" data-role="customer">Хочу заказать</button><div style="height:10px"></div><button class="btn sec" data-role="worker">Хочу подработать</button>')}
+function revList(l){return l.map(function(r){return '<div style="margin-top:14px"><div class="who">'+av(34)+'<div><b>'+esc(r[1])+'</b><div class="stars">'+stars(r[0])+'</div></div></div>'+(r[2]?'<div style="margin-top:6px">'+esc(r[2])+'</div>':'')+'</div>'}).join("")}
+function revSheet(k){
+ var l=k==="w"?WR:CU[3].rv,mk=function(r){return r.length===3?[r[0],r[1],r[2]]:r};
+ openSheet('<h2>Отзывы</h2><div class="who">'+av(48)+'<div><h3 style="margin:0">Алексей К.</h3><div><span class="stars">★</span> '+f1(avg(l))+' · '+l.length+' '+(l.length<5?'отзыва':'отзывов')+'</div></div></div>'+revList(l));
+}
+function custSheet(i){
+ var c=CU[i],a=avg(c.rv);
+ openSheet('<h2>Заказчик</h2><div class="who">'+av(56)+'<div><h3 style="margin:0;font-size:19px">'+esc(c.n)+'</h3><div><span class="stars">★</span> '+f1(a)+' · '+c.rv.length+' '+(c.rv.length<5?'отзыва':'отзывов')+'</div></div></div><div class="note">Заказов создано: <b>'+c.o+'</b><br>Оценки от исполнителей ниже.'+(a<3.5?'<br><b>Низкий рейтинг: будьте внимательны.</b>':'')+'</div>'+revList(c.rv));
+}
 function detail(id){
- var o=orders.filter(function(x){return x.id===id})[0];if(!o)return;var w=S.role==="worker";
- openSheet('<h2>'+esc(o.t)+'</h2><div class="meta">'+esc(o.c)+' · '+esc(o.d)+', '+String(o.km).replace(".",",")+' км · '+esc(o.w)+'</div><p>'+esc(o.x2)+'</p><div class="note"><b>Оплата: '+rub(o.p)+'</b><br>Заказчик уже внёс сумму на сайт. Вы получите '+rub(o.p*(1-FEE))+' после подтверждения с обеих сторон.<br>Время на выполнение: '+o.lim+' мин (таймер запустится, когда вы возьмёте заказ). До метро пешком: '+o.m+' мин. Возраст: от '+o.age+' лет.</div>'+(w?'<button class="btn" id="take">Взять заказ</button>':'<div class="meta">Чтобы брать заказы, переключитесь на роль «Исполнитель» в профиле.</div>'));
+ var o=orders.filter(function(x){return x.id===id})[0];if(!o)return;var w=S.role==="worker",c=CU[o.cu];
+ openSheet('<h2>'+esc(o.t)+'</h2><div class="meta">'+esc(o.c)+' · '+esc(o.d)+'</div><div class="note"><b>Когда:</b> '+esc(o.dt)+', '+esc(o.w)+'<br><b>Адрес:</b> '+esc(o.ad)+'<br><b>Метро:</b> '+esc(o.st)+', '+o.m+' мин пешком<br><b>Сложность:</b> '+o.cx+' из 10'+(o.ub?'<br><b>За срочность:</b> +'+o.ub+' ₽ уже входит в оплату':'')+'<br><b>Время на выполнение:</b> '+o.lim+' мин<br><b>Возраст исполнителя:</b> от '+o.age+' лет</div><p style="margin:0 0 6px">'+esc(o.x2)+'</p>'+(o.nt?'<p class="meta" style="margin:0 0 8px">Примечание заказчика: '+esc(o.nt)+'</p>':'')+'<div style="margin:10px 0"><span class="meta">Заказчик: </span><button class="lnk" data-cust="'+o.cu+'">'+esc(c.n)+' · ★ '+f1(avg(c.rv))+' ›</button></div><div class="row" style="align-items:center;margin-bottom:12px"><b>Ваша оплата</b><div class="price">'+rub(wp(o))+'</div></div>'+(w?'<button class="btn" id="take">Взять заказ</button>':'<div class="meta">Чтобы брать заказы, переключитесь на роль «Исполнитель» в профиле.</div>'));
  if(w)$("take").onclick=function(){S.mine.push({o:o,s:0,end:Date.now()+o.lim*60000});orders=orders.filter(function(x){return x.id!==id});closeSheet();toast("Заказ взят, таймер запущен");render()};
 }
 function filterSheet(){
  function op(a,v){return a.map(function(x){return '<option value="'+x[0]+'"'+(String(v)===String(x[0])?' selected':'')+'>'+x[1]+'</option>'}).join("")}
- openSheet('<h2>Фильтры</h2><label for="fs">Сортировать</label><select id="fs">'+op([["km","Сначала ближайшие"],["p","Сначала дороже"],["m","Ближе к метро"]],S.sort)+'</select><label for="fp">Цена от, ₽</label><input id="fp" type="number" min="0" value="'+(S.min||"")+'" placeholder="1000"><label for="fk">Расстояние</label><select id="fk">'+op([[0,"Любое"],[3,"до 3 км"],[5,"до 5 км"],[10,"до 10 км"]],S.maxKm)+'</select><label for="fm">От метро пешком</label><select id="fm">'+op([[0,"Любое"],[5,"до 5 мин"],[10,"до 10 мин"],[15,"до 15 мин"]],S.maxM)+'</select><label for="fa">Возраст</label><select id="fa">'+op([["all","Любой"],["14","Только с 14 лет"],["18","Только 18+"]],S.age)+'</select><div style="height:14px"></div><button class="btn" id="fok">Показать заказы</button><div style="height:8px"></div><button class="btn sec" id="frs">Сбросить</button>');
+ openSheet('<h2>Фильтры</h2><label for="fs">Сортировать</label><select id="fs">'+op([["km","Сначала ближайшие"],["p","Сначала дороже"],["m","Ближе к метро"]],S.sort)+'</select><label for="fp">Оплата от, ₽</label><input id="fp" type="number" min="0" value="'+(S.min||"")+'" placeholder="1000"><label for="fk">Расстояние</label><select id="fk">'+op([[0,"Любое"],[3,"до 3 км"],[5,"до 5 км"],[10,"до 10 км"]],S.maxKm)+'</select><label for="fm">От метро пешком</label><select id="fm">'+op([[0,"Любое"],[5,"до 5 мин"],[10,"до 10 мин"],[15,"до 15 мин"]],S.maxM)+'</select><label for="fa">Возраст</label><select id="fa">'+op([["all","Любой"],["14","Только с 14 лет"],["18","Только 18+"]],S.age)+'</select><div style="height:14px"></div><button class="btn" id="fok">Показать заказы</button><div style="height:8px"></div><button class="btn sec" id="frs">Сбросить</button>');
  $("fok").onclick=function(){S.sort=$("fs").value;S.min=parseInt($("fp").value,10)||0;S.maxKm=+$("fk").value;S.maxM=+$("fm").value;S.age=$("fa").value;closeSheet();render()};
  $("frs").onclick=function(){S.sort="km";S.min=S.maxKm=S.maxM=0;S.age="all";S.cat="Все";closeSheet();render()};
 }
 function createForm(){
- openSheet('<h2>Новый заказ</h2><label for="n_t">Что нужно сделать</label><input id="n_t" placeholder="Выгулять собаку"><label for="n_c">Категория</label><select id="n_c">'+CATS.map(function(c){return '<option>'+c+'</option>'}).join("")+'</select><label for="n_p">Ваша цена, ₽</label><input id="n_p" type="number" min="100" placeholder="800"><label for="n_l">Время на выполнение, мин</label><input id="n_l" type="number" min="15" placeholder="60"><label for="n_w">Когда</label><input id="n_w" placeholder="Завтра, 10:00"><label for="n_d">Район</label><input id="n_d" placeholder="Хамовники"><div class="note">Сумма заморозится на сайте и уйдёт исполнителю только после подтверждения.</div><button class="btn" id="n_go">Оплатить и опубликовать</button>');
+ var cx="";for(var i=0;i<=10;i++)cx+='<option>'+i+'</option>';
+ openSheet('<h2>Новый заказ</h2><label for="n_t">Что нужно сделать</label><input id="n_t" placeholder="Выгулять собаку"><label for="n_c">Категория</label><select id="n_c">'+CATS.map(function(c){return '<option>'+c+'</option>'}).join("")+'</select><label for="n_a">Адрес</label><input id="n_a" placeholder="Улица, дом, квартира"><label for="n_dt">Дата</label><input id="n_dt" placeholder="9 октября"><label for="n_w">Время</label><input id="n_w" placeholder="10:00"><label for="n_p">Цена, ₽</label><input id="n_p" type="number" min="100" placeholder="1000"><label for="n_x">Сложность задачи (0–10)</label><select id="n_x">'+cx+'</select><label for="n_u">Доплата за срочность, ₽ (необязательно)</label><input id="n_u" type="number" min="0" placeholder="0"><label for="n_l">Время на выполнение, мин</label><input id="n_l" type="number" min="15" placeholder="60"><label for="n_n">Примечания к исполнителю</label><textarea id="n_n" rows="2" placeholder="Например: нужен аккуратный человек, лучше пожилой"></textarea><div style="height:14px"></div><button class="btn" id="n_go">Опубликовать</button>');
  $("n_go").onclick=function(){
   var t=$("n_t").value.trim(),p=parseInt($("n_p").value,10);if(!t||!p||p<100){toast("Укажите задачу и цену от 100 ₽");return}
-  var o={id:S.nid++,t:t,c:$("n_c").value,p:p,w:$("n_w").value||"По договорённости",d:$("n_d").value||"Рядом",km:.5,m:5,age:18,lim:parseInt($("n_l").value,10)||60,x:120+Math.random()*60,y:120+Math.random()*60,x2:"Ваш демо-заказ."};
+  var u=parseInt($("n_u").value,10)||0,o={id:S.nid++,t:t,c:$("n_c").value,p:p+u,dt:$("n_dt").value||"Дата уточняется",w:$("n_w").value||"",d:"Рядом",ad:$("n_a").value||"Адрес уточняется",st:"Ближайшее",km:.5,m:5,age:18,lim:parseInt($("n_l").value,10)||60,cx:+$("n_x").value,ub:u,cu:3,x:120+Math.random()*60,y:120+Math.random()*60,x2:"Ваш заказ.",nt:$("n_n").value.trim()};
   orders.unshift(o);S.my.unshift(o);closeSheet();S.tab="my";toast("Заказ опубликован");render();
  };
 }
+function wdSheet(){
+ openSheet('<h2>Вывод денег</h2><div class="meta">Доступно: '+rub(S.bal)+'</div><label for="wa">Сколько вывести, ₽</label><input id="wa" type="number" min="1" placeholder="1000"><div style="height:14px"></div><button class="btn" id="wgo">Вывести</button><div style="height:8px"></div><button class="btn sec" id="wall">Вывести всё</button>');
+ function go(a){if(!a||a<=0||a>S.bal){toast(S.bal?"Введите сумму не больше доступной":"На балансе пока нет денег");return}S.bal-=a;closeSheet();toast("Выведено "+rub(a));render()}
+ $("wgo").onclick=function(){go(parseInt($("wa").value,10))};$("wall").onclick=function(){go(S.bal)};
+}
 document.addEventListener("click",function(e){
- var el=e.target.closest("[data-open],[data-cat],[data-view],[data-filter],[data-tab],[data-role],[data-fin],[data-conf],[data-cfin],[data-delslot],#sadd,#rgs,#wd,#cp");if(!el)return;var d=el.dataset;
+ var el=e.target.closest("[data-open],[data-cat],[data-view],[data-filter],[data-tab],[data-role],[data-pick],[data-apply],[data-fin],[data-conf],[data-cfin],[data-sl],[data-slb],[data-slx],[data-slok],[data-revs],[data-cust],#rgs,#wd,#cp");if(!el)return;var d=el.dataset;
  if(d.open)detail(+d.open);
  else if(d.cat){S.cat=d.cat;render()}
  else if(d.view){S.view=d.view;render()}
  else if(d.filter)filterSheet();
  else if(d.tab){if(d.tab==="new")createForm();else{S.tab=d.tab;render();scrollTo(0,0)}}
- else if(d.role){S.role=d.role;S.tab=d.role==="worker"?"feed":"my";closeSheet();render()}
+ else if(d.role){S.role=S.pick=d.role;S.tab=d.role==="worker"?"feed":"my";closeSheet();render()}
+ else if(d.pick){S.pick=d.pick;render()}
+ else if(d.apply){S.role=S.pick;S.tab="prof";toast("Режим переключён");render()}
  else if(d.fin){S.mine[+d.fin].s=1;render()}
- else if(d.conf){var m=S.mine[+d.conf];m.s=3;S.bal=(S.bal||0)+m.o.p*(1-FEE);toast("+"+rub(m.o.p*(1-FEE))+" на баланс");render()}
+ else if(d.conf){var m=S.mine[+d.conf];m.s=3;S.bal+=wp(m.o);toast("+"+rub(wp(m.o))+" на баланс");render()}
  else if(d.cfin){S.my[+d.cfin].fin=1;render()}
- else if(d.delslot){S.slots.splice(+d.delslot,1);render()}
- else if(el.id==="sadd"){var p=parseInt($("sp").value,10),f=+$("sf").value,t=+$("st").value;if(!p||t<=f){toast("Проверьте время и сумму");return}S.slots.push({d:$("sd").value,f:f,t:t,p:p});render();toast("Слот добавлен")}
- else if(el.id==="rgs"){S.region=$("rg").value;toast("Регион сохранён: "+S.region)}
- else if(el.id==="wd")toast("В демо вывод не подключён");
- else if(el.id==="cp"){try{navigator.clipboard.writeText("PODR-7K2M")}catch(x){}toast("Код скопирован")}
+ else if(d.sl){S.st=d.sl;render()}
+ else if(d.slb){S.bk[d.slb]="b";toast("Слот забронирован. Подтвердите его за 12 часов до начала");render()}
+ else if(d.slx){delete S.bk[d.slx];render()}
+ else if(d.slok){S.bk[d.slok]="ok";toast("Участие подтверждено");render()}
+ else if(d.revs)revSheet(d.revs);
+ else if(d.cust)custSheet(+d.cust);
+ else if(el.id==="rgs"){S.region=$("rg").value;toast("Регион сохранён")}
+ else if(el.id==="wd")wdSheet();
+ else if(el.id==="cp"){try{navigator.clipboard.writeText("DELO-7K2M")}catch(x){}toast("Код скопирован")}
 });
 document.addEventListener("keydown",function(e){if((e.key==="Enter"||e.key===" ")&&e.target.dataset&&e.target.dataset.open){e.preventDefault();detail(+e.target.dataset.open)}});
 setInterval(function(){var n=document.querySelectorAll("[data-end]");for(var i=0;i<n.length;i++)n[i].textContent=timerTxt(+n[i].dataset.end-Date.now())},1000);
