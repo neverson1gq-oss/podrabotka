@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Дело — подработка рядом</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Manrope:wght@500;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <style>
 :root{--bg:#F6EFE4;--card:#FFFDF9;--ink:#2A2018;--mute:#8A7761;--line:#E9DCC8;--pri:#8A641F;--onpri:#fff;--gold:#C9A24F;--ok:#4C8A57;--teen:#F0CDB8;--teenink:#5C2F1B;--park:#DCE5CC;--river:#BDD3E4;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#17120D;--card:#211A13;--ink:#F4EAD9;--mute:#B09C82;--line:#3A2E22;--pri:#D8B067;--onpri:#1A130B;--gold:#D8B067;--ok:#7FC58B;--teen:#5A3A28;--teenink:#F6D9C6;--park:#2C3523;--river:#2B3F52}}
@@ -68,6 +70,10 @@ label{display:block;font-weight:700;font-size:14px;margin:12px 0 4px}
 .ring{fill:none;stroke:var(--mute);stroke-width:2}.ring2{fill:none;stroke:var(--mute);stroke-width:1;stroke-dasharray:4 4}
 .mt{fill:#D0342C}.lb{font-size:6.5px;fill:var(--mute);font-weight:700;font-family:Manrope,sans-serif}.pt{font-size:7.5px;font-weight:800;fill:#fff;font-family:Manrope,sans-serif;pointer-events:none}
 .pin{cursor:pointer}
+#lmap{height:62vh;min-height:320px;border-radius:12px;border:1px solid var(--line);position:relative;z-index:0}
+.mk{background:#8A641F;color:#fff;border:2px solid #fff;border-radius:14px;font:800 12px Manrope,sans-serif;padding:3px 7px;text-align:center;box-shadow:0 1px 4px rgba(0,0,0,.4);white-space:nowrap}
+.mk.t{background:#C9772E}
+.x{position:sticky;top:0;float:right;width:36px;height:36px;border-radius:50%;border:1px solid var(--line);background:var(--card);color:var(--ink);font-size:18px;line-height:1;cursor:pointer;margin:0 0 6px 8px;z-index:2}
 .leg{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:8px;font-size:13px;color:var(--mute)}
 .leg i{display:inline-block;width:11px;height:11px;border-radius:50%;margin-right:5px;vertical-align:-1px}
 </style>
@@ -96,6 +102,8 @@ var orders=[
 {id:8,t:"Погрузить коробки и мебель",c:"Переезд",p:2778,dt:"8 октября",w:"18:00",d:"Бутово",ad:"ул. Академика Понтрягина, 9",st:"Бульвар Адм. Ушакова",km:7.2,m:8,age:18,lim:120,cx:7,ub:300,cu:1,x:150,y:240,x2:"3 этаж без лифта, нужны двое.",nt:""},
 {id:9,t:"Снять плитку на балконе",c:"Стройка и ремонт",p:5000,dt:"10 октября",w:"10:00",d:"Люберцы",ad:"Октябрьский пр-т, 112",st:"Котельники",km:11.3,m:20,age:18,lim:240,cx:8,ub:0,cu:1,x:232,y:205,x2:"4 м², мусор вынести.",nt:""},
 {id:10,t:"Покрасить забор на даче",c:"Дача и сад",p:3889,dt:"11 октября",w:"09:00",d:"Одинцово",ad:"СНТ «Лесное», уч. 14",st:"Одинцово (МЦД)",km:14,m:18,age:18,lim:300,cx:6,ub:0,cu:2,x:42,y:155,x2:"Около 30 метров, краска на месте.",nt:""}];
+var GEO={"Хамовники":[55.739,37.597],"Тверской":[55.765,37.607],"Центр":[55.748,37.590],"Выхино":[55.716,37.817],"Химки":[55.895,37.436],"Митино":[55.846,37.360],"Мытищи":[55.910,37.733],"Бутово":[55.547,37.542],"Люберцы":[55.676,37.898],"Одинцово":[55.679,37.278]};
+orders.forEach(function(o){var g=GEO[o.d];o.la=g[0];o.lo=g[1]});
 var SL=[{id:1,dt:"9 октября",a:"Выхино",f:10,t:18,h:350},{id:2,dt:"9 октября",a:"Мытищи",f:12,t:20,h:350},{id:3,dt:"9 октября",a:"Митино",f:9,t:17,h:350},{id:4,dt:"9 октября",a:"Центр, Арбатская",f:14,t:22,h:400},{id:5,dt:"10 октября",a:"Выхино",f:10,t:18,h:350},{id:6,dt:"10 октября",a:"Центр, Арбатская",f:12,t:20,h:400},{id:7,dt:"10 октября",a:"Митино",f:8,t:16,h:350}];
 var MS=[["Арбатская",150,152],["Тверская",150,138],["Парк культуры",138,162],["Выхино",205,178],["Речной вокзал",118,72],["Митино",85,98],["Медведково",190,70],["Котельники",228,200],["Бульвар Адм. Ушакова",150,238]];
 var S={role:null,pick:"worker",tab:"feed",view:"list",st:"all",region:REG[0],cat:"Все",sort:"km",min:0,maxKm:0,maxM:0,age:"all",mine:[],my:[],bk:{},bal:0,nid:100};
@@ -108,7 +116,7 @@ function f1(n){return n.toFixed(1).replace(".",",")}
 function stars(n){return "★★★★★".slice(0,n)+"☆☆☆☆☆".slice(0,5-n)}
 function av(z){return '<svg width="'+z+'" height="'+z+'" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="20" fill="var(--line)"/><circle cx="20" cy="15" r="7" fill="var(--gold)"/><path d="M6 36c1-8 7-12 14-12s13 4 14 12a20 20 0 0 1-28 0z" fill="var(--gold)"/></svg>'}
 function toast(m){var t=$("toast");t.textContent=m;t.style.display="block";clearTimeout(toast.h);toast.h=setTimeout(function(){t.style.display="none"},2400)}
-function openSheet(h){$("sheet").innerHTML=h;$("bg").classList.add("open")}
+function openSheet(h){$("sheet").innerHTML=(S.role?'<button class="x" data-x="1" aria-label="Закрыть">✕</button>':"")+h;$("sheet").scrollTop=0;$("bg").classList.add("open")}
 function closeSheet(){$("bg").classList.remove("open")}
 $("bg").addEventListener("click",function(e){if(e.target===this&&S.role)closeSheet()});
 document.addEventListener("keydown",function(e){if(e.key==="Escape"&&S.role)closeSheet()});
@@ -127,7 +135,7 @@ function mapSvg(l){
 function feed(){
  var l=flt(),act=(S.min||S.maxKm||S.maxM||S.age!=="all");
  var chips=['Все'].concat(CATS).map(function(c){return '<button class="chip '+(S.cat===c?'on':'')+'" data-cat="'+c+'">'+c+'</button>'}).join("");
- return '<header><div class="top"><h1>Заказы</h1><div class="meta">'+esc(S.region.split(" и ")[0])+'</div></div><div class="bar2"><div class="seg"><button class="'+(S.view==="list"?'on':'')+'" data-view="list">Список</button><button class="'+(S.view==="map"?'on':'')+'" data-view="map">Карта</button></div><button class="chip" data-filter="1">Фильтры'+(act?' ●':'')+'</button></div><div class="chips">'+chips+'</div></header><div class="meta" style="margin-bottom:8px">Найдено: '+l.length+'</div>'+(!l.length?'<div class="empty">'+(S.region!==REG[0]?'В этом регионе заказов пока нет, он подключится позже.':'Ничего не найдено. Измените фильтры.')+'</div>':S.view==="map"?mapSvg(l):l.map(card).join(""));
+ return '<header><div class="top"><h1>Заказы</h1><div class="meta">'+esc(S.region.split(" и ")[0])+'</div></div><div class="bar2"><div class="seg"><button class="'+(S.view==="list"?'on':'')+'" data-view="list">Список</button><button class="'+(S.view==="map"?'on':'')+'" data-view="map">Карта</button></div><button class="chip" data-filter="1">Фильтры'+(act?' ●':'')+'</button></div><div class="chips">'+chips+'</div></header><div class="meta" style="margin-bottom:8px">Найдено: '+l.length+'</div>'+(!l.length?'<div class="empty">'+(S.region!==REG[0]?'В этом регионе заказов пока нет, он подключится позже.':'Ничего не найдено. Измените фильтры.')+'</div>':S.view==="map"?'<div id="lmap"></div><div class="meta" style="margin-top:8px">Коричневые метки: 18+, оранжевые: можно с 14 лет. Число на метке: ваша оплата, ₽. Нажмите на метку, чтобы открыть заказ.</div>':l.map(card).join(""));
 }
 function timerTxt(ms){if(ms<=0)return"время вышло";var s=Math.floor(ms/1000),h=Math.floor(s/3600),m=Math.floor(s%3600/60);s%=60;return(h?h+":":"")+("0"+m).slice(-2)+":"+("0"+s).slice(-2)}
 var ST=["Выполняется","Отмечено «готово», ждём заказчика","","Оплачено, деньги на балансе"];
@@ -161,12 +169,29 @@ function profV(){
 function myV(){
  return '<header><h1>Мои заказы</h1></header><button class="btn" data-tab="new" style="margin-bottom:12px">Создать заказ</button>'+(S.my.length?S.my.map(function(o,i){return '<div class="card"><div class="row"><h3>'+esc(o.t)+'</h3><div class="price">'+rub(o.p)+'</div></div><div class="meta">'+esc(o.dt)+', '+esc(o.w)+' · '+esc(o.ad)+'</div><div class="meta" style="margin:6px 0 10px">'+(o.fin?'Выполнен, оплата передана исполнителю':'Ищем исполнителя')+'</div>'+(o.fin?'':'<button class="btn sec" data-cfin="'+i+'">Демо: подтвердить выполнение</button>')+'</div>'}).join(""):'<div class="empty">Вы ещё не создавали заказы.</div>');
 }
+var LM=null;
+function pl(o){var q=wp(o);return q>=1000?f1(q/1000)+"к":q}
+function mapFallback(l){var e=$("lmap");if(LM){LM.remove();LM=null}if(e)e.outerHTML='<div class="meta" style="margin-bottom:8px">Настоящая карта здесь не загрузилась (она работает на опубликованном сайте), показываю схему.</div>'+mapSvg(l)}
+function initMap(){
+ var e=$("lmap");if(!e)return;var l=flt();
+ if(LM){LM.remove();LM=null}
+ if(typeof L==="undefined"||!l.length){if(l.length)mapFallback(l);return}
+ try{
+  LM=L.map("lmap",{zoomControl:true}).setView([55.75,37.62],10);
+  var bad=0,tl=L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:18,attribution:"© OpenStreetMap"}).addTo(LM);
+  tl.on("tileerror",function(){if(++bad===3)mapFallback(l)});
+  var pts=[];
+  l.forEach(function(o){pts.push([o.la,o.lo]);L.marker([o.la,o.lo],{icon:L.divIcon({className:"",html:'<div class="mk'+(o.age===14?' t':'')+'">'+pl(o)+'</div>',iconSize:[46,26],iconAnchor:[23,13]})}).addTo(LM).on("click",function(){detail(o.id)})});
+  LM.fitBounds(pts,{padding:[30,30],maxZoom:12});
+ }catch(x){mapFallback(l)}
+}
 function render(){
  if(!S.role){openRole();return}
  var w=S.role==="worker";
  if(w&&S.tab==="my")S.tab="feed";if(!w&&(S.tab==="feed"||S.tab==="mine"||S.tab==="slots"))S.tab="my";
  $("app").innerHTML=S.tab==="feed"?feed():S.tab==="mine"?mineV():S.tab==="slots"?slotsV():S.tab==="my"?myV():profV();
  var it=w?[["feed","📋","Заказы"],["mine","✅","Мои"],["slots","🕒","Слоты"],["prof","👤","Профиль"]]:[["my","📦","Заказы"],["new","+",""],["prof","👤","Профиль"]];
+ if(S.tab==="feed"&&S.view==="map")initMap();else if(LM){LM.remove();LM=null}
  $("nav").style.gridTemplateColumns="repeat("+it.length+",1fr)";
  $("nav").innerHTML=it.map(function(x){return x[0]==="new"?'<button class="plus" data-tab="new" aria-label="Создать заказ">+</button>':'<button class="'+(S.tab===x[0]?'on':'')+'" data-tab="'+x[0]+'"><span>'+x[1]+'</span>'+x[2]+'</button>'}).join("");
 }
@@ -196,7 +221,7 @@ function createForm(){
  openSheet('<h2>Новый заказ</h2><label for="n_t">Что нужно сделать</label><input id="n_t" placeholder="Выгулять собаку"><label for="n_c">Категория</label><select id="n_c">'+CATS.map(function(c){return '<option>'+c+'</option>'}).join("")+'</select><label for="n_a">Адрес</label><input id="n_a" placeholder="Улица, дом, квартира"><label for="n_dt">Дата</label><input id="n_dt" placeholder="9 октября"><label for="n_w">Время</label><input id="n_w" placeholder="10:00"><label for="n_p">Цена, ₽</label><input id="n_p" type="number" min="100" placeholder="1000"><label for="n_x">Сложность задачи (0–10)</label><select id="n_x">'+cx+'</select><label for="n_u">Доплата за срочность, ₽ (необязательно)</label><input id="n_u" type="number" min="0" placeholder="0"><label for="n_l">Время на выполнение, мин</label><input id="n_l" type="number" min="15" placeholder="60"><label for="n_n">Примечания к исполнителю</label><textarea id="n_n" rows="2" placeholder="Например: нужен аккуратный человек, лучше пожилой"></textarea><div style="height:14px"></div><button class="btn" id="n_go">Опубликовать</button>');
  $("n_go").onclick=function(){
   var t=$("n_t").value.trim(),p=parseInt($("n_p").value,10);if(!t||!p||p<100){toast("Укажите задачу и цену от 100 ₽");return}
-  var u=parseInt($("n_u").value,10)||0,o={id:S.nid++,t:t,c:$("n_c").value,p:p+u,dt:$("n_dt").value||"Дата уточняется",w:$("n_w").value||"",d:"Рядом",ad:$("n_a").value||"Адрес уточняется",st:"Ближайшее",km:.5,m:5,age:18,lim:parseInt($("n_l").value,10)||60,cx:+$("n_x").value,ub:u,cu:3,x:120+Math.random()*60,y:120+Math.random()*60,x2:"Ваш заказ.",nt:$("n_n").value.trim()};
+  var u=parseInt($("n_u").value,10)||0,o={id:S.nid++,t:t,c:$("n_c").value,p:p+u,dt:$("n_dt").value||"Дата уточняется",w:$("n_w").value||"",d:"Рядом",ad:$("n_a").value||"Адрес уточняется",st:"Ближайшее",km:.5,m:5,age:18,lim:parseInt($("n_l").value,10)||60,cx:+$("n_x").value,ub:u,cu:3,la:55.75+Math.random()*.03,lo:37.6+Math.random()*.04,x:120+Math.random()*60,y:120+Math.random()*60,x2:"Ваш заказ.",nt:$("n_n").value.trim()};
   orders.unshift(o);S.my.unshift(o);closeSheet();S.tab="my";toast("Заказ опубликован");render();
  };
 }
@@ -206,8 +231,9 @@ function wdSheet(){
  $("wgo").onclick=function(){go(parseInt($("wa").value,10))};$("wall").onclick=function(){go(S.bal)};
 }
 document.addEventListener("click",function(e){
- var el=e.target.closest("[data-open],[data-cat],[data-view],[data-filter],[data-tab],[data-role],[data-pick],[data-apply],[data-fin],[data-conf],[data-cfin],[data-sl],[data-slb],[data-slx],[data-slok],[data-revs],[data-cust],#rgs,#wd,#cp");if(!el)return;var d=el.dataset;
- if(d.open)detail(+d.open);
+ var el=e.target.closest("[data-open],[data-cat],[data-view],[data-filter],[data-tab],[data-role],[data-pick],[data-apply],[data-fin],[data-conf],[data-cfin],[data-sl],[data-slb],[data-slx],[data-slok],[data-revs],[data-cust],[data-x],#rgs,#wd,#cp");if(!el)return;var d=el.dataset;
+ if(d.x)closeSheet();
+ else if(d.open)detail(+d.open);
  else if(d.cat){S.cat=d.cat;render()}
  else if(d.view){S.view=d.view;render()}
  else if(d.filter)filterSheet();
