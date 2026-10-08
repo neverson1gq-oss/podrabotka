@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Подработка рядом — прототип</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#EEF1F6;--card:#fff;--ink:#14213D;--mute:#5E6B85;--line:#DDE3EE;--pri:#2B4BFF;--onpri:#fff;--ok:#0E9F57;--teen:#FFD23F;--teenink:#4A3B00;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0E1424;--card:#172038;--ink:#EAF0FF;--mute:#93A0BE;--line:#26324F;--pri:#6F86FF;--onpri:#0E1424;--ok:#3DD28A}}
+:root[data-theme="dark"]{--bg:#0E1424;--card:#172038;--ink:#EAF0FF;--mute:#93A0BE;--line:#26324F;--pri:#6F86FF;--onpri:#0E1424;--ok:#3DD28A}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:Manrope,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-weight:500;line-height:1.4}
+.app{max-width:560px;margin:0 auto;padding:0 14px 96px}
+header{padding:16px 0 8px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+h1{font-size:22px;margin:0;font-weight:800;letter-spacing:-.3px}
+select,input,button{font:inherit;color:inherit}
+.city{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:8px 10px}
+.search{width:100%;margin:12px 0 4px;padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:var(--card)}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:8px 0 10px;scrollbar-width:none}
+.chip{flex:none;border:1px solid var(--line);background:var(--card);border-radius:20px;padding:7px 13px;cursor:pointer;font-weight:700;font-size:14px}
+.chip.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.chip.teen.on{background:var(--teen);color:var(--teenink);border-color:var(--teen)}
+.count{color:var(--mute);font-size:14px;margin:2px 0 8px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:10px;cursor:pointer}
+.card:focus-visible,.chip:focus-visible,button:focus-visible,select:focus-visible,input:focus-visible{outline:3px solid var(--pri);outline-offset:2px}
+.row{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.card h3{margin:0 0 4px;font-size:17px;font-weight:800}
+.price{font-weight:800;font-size:19px;white-space:nowrap}
+.meta{color:var(--mute);font-size:14px}
+.tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.tag{font-size:12.5px;font-weight:700;border-radius:8px;padding:3px 8px;background:var(--bg)}
+.tag.teen{background:var(--teen);color:var(--teenink)}
+.tag.adult{background:var(--line);color:var(--mute)}
+.btn{background:var(--pri);color:var(--onpri);border:0;border-radius:12px;padding:13px 16px;font-weight:800;width:100%;cursor:pointer}
+.btn.sec{background:var(--bg);color:var(--ink);border:1px solid var(--line)}
+.btn[disabled]{opacity:.5;cursor:default}
+nav{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px);z-index:5}
+nav div{max-width:560px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr);align-items:center}
+nav button{background:none;border:0;padding:10px 0 8px;font-size:12px;font-weight:700;color:var(--mute);cursor:pointer}
+nav button.on{color:var(--pri)}
+nav button span{display:block;font-size:20px;line-height:1.1}
+nav .plus{background:var(--pri);color:var(--onpri);border-radius:16px;width:48px;height:48px;margin:0 auto;font-size:28px;font-weight:800;padding:0}
+.sheet-bg{position:fixed;inset:0;background:rgba(10,15,30,.55);display:none;align-items:flex-end;justify-content:center;z-index:10}
+.sheet-bg.open{display:flex}
+.sheet{background:var(--card);width:100%;max-width:560px;border-radius:20px 20px 0 0;padding:18px 16px calc(18px + env(safe-area-inset-bottom,0px));max-height:88vh;overflow:auto}
+.sheet h2{margin:0 0 6px;font-size:20px}
+.sheet label{display:block;font-weight:700;font-size:14px;margin:12px 0 4px}
+.sheet input,.sheet select{width:100%;padding:11px 12px;border-radius:10px;border:1px solid var(--line);background:var(--bg)}
+.note{background:var(--bg);border-radius:12px;padding:12px;font-size:14px;margin:12px 0}
+.steps{display:flex;gap:4px;margin:10px 0}
+.steps i{flex:1;height:6px;border-radius:3px;background:var(--line)}
+.steps i.on{background:var(--ok)}
+.big{font-size:34px;font-weight:800;margin:4px 0}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(88px + env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:12px;font-weight:700;z-index:20;display:none}
+.empty{text-align:center;color:var(--mute);padding:36px 10px}
+.banner{font-size:12.5px;color:var(--mute);text-align:center;padding:6px 0 0}
+</style>
+</head>
+<body>
+<div class="app" id="app"></div>
+<nav><div id="nav"></div></nav>
+<div class="sheet-bg" id="bg"><div class="sheet" id="sheet" role="dialog" aria-modal="true"></div></div>
+<div class="toast" id="toast"></div>
+<script>
+var FEE=0.10;
+var CATS=["Животные","Уборка","Переезд","Стройка и ремонт","Доставка","Сборка","Дача и сад","Другое"];
+var orders=[
+{id:1,t:"Выгулять лабрадора, 40 минут",c:"Животные",p:800,when:"Завтра, 10:00",d:"Хамовники",km:1.2,age:14,txt:"Дружелюбный пёс, тянет не сильно. Поводок и пакеты дома."},
+{id:2,t:"Донести продукты пожилой соседке",c:"Доставка",p:600,when:"Сегодня, до 19:00",d:"Тверской",km:0.8,age:14,txt:"Список из 8 позиций, магазин в соседнем доме. Деньги на продукты передам заранее."},
+{id:3,t:"Помочь настроить телефон бабушке",c:"Другое",p:700,when:"Завтра, 16:00",d:"Центр",km:2.4,age:14,txt:"Нужно установить мессенджер и показать, как звонить по видео."},
+{id:4,t:"Раздать листовки у метро",c:"Другое",p:1200,when:"Завтра, 9:00–12:00",d:"Выхино",km:3.1,age:14,txt:"Около 300 листовок, формат небольшой. Листовки выдам на месте."},
+{id:5,t:"Покормить кота и полить цветы, 3 дня",c:"Животные",p:1500,when:"Пт–Вс, раз в день",d:"Химки",km:6.5,age:14,txt:"Ключи передам лично, кот спокойный. Нужно приходить примерно в одно время."},
+{id:6,t:"Прибраться в однокомнатной квартире",c:"Уборка",p:3000,when:"Сб, 12:00",d:"Митино",km:4.7,age:16,txt:"Около 38 м². Моющие средства есть, нужны руки и пара часов."},
+{id:7,t:"Собрать шкаф из ИКЕА",c:"Сборка",p:2000,when:"Вс, 14:00",d:"Мытищи",km:9.8,age:18,txt:"Шкаф PAX, 2 двери. Инструменты есть."},
+{id:8,t:"Погрузить коробки и мебель в машину",c:"Переезд",p:2500,when:"Сегодня, 18:00",d:"Бутово",km:7.2,age:18,txt:"Третий этаж без лифта, нужны двое. Работы примерно на 2 часа."},
+{id:9,t:"Снять плитку на балконе",c:"Стройка и ремонт",p:4500,when:"Сб, 10:00",d:"Люберцы",km:11.3,age:18,txt:"Площадь 4 м², мусор вынести. Перфоратор есть."},
+{id:10,t:"Покрасить забор на даче",c:"Дача и сад",p:3500,when:"Вс, 9:00",d:"Одинцово",km:14.0,age:18,txt:"Около 30 метров, краска и кисти на месте."}
+];
+var mine=[],balance=0,tab="feed",f={cat:"Все",teen:false,q:"",city:"Москва"};
+var nid=100;
+function $(i){return document.getElementById(i)}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function rub(n){return Math.round(n).toLocaleString("ru-RU")+" ₽"}
+function toast(m){var t=$("toast");t.textContent=m;t.style.display="block";clearTimeout(toast.h);toast.h=setTimeout(function(){t.style.display="none"},2200)}
+function openSheet(h){$("sheet").innerHTML=h;$("bg").classList.add("open")}
+function closeSheet(){$("bg").classList.remove("open")}
+$("bg").addEventListener("click",function(e){if(e.target===this)closeSheet()});
+document.addEventListener("keydown",function(e){if(e.key==="Escape")closeSheet()});
+
+function card(o){
+ var ageTag=o.age===14?'<span class="tag teen">С 14 лет</span>':'<span class="tag adult">'+o.age+'+</span>';
+ return '<div class="card" tabindex="0" role="button" data-id="'+o.id+'"><div class="row"><div><h3>'+esc(o.t)+'</h3><div class="meta">'+esc(o.when)+'</div></div><div class="price">'+rub(o.p)+'</div></div><div class="tags"><span class="tag">'+esc(o.c)+'</span><span class="tag">'+esc(o.d)+' · '+o.km.toString().replace(".",",")+' км</span>'+ageTag+'</div></div>';
+}
+function feed(){
+ var list=orders.filter(function(o){
+  return (f.cat==="Все"||o.c===f.cat)&&(!f.teen||o.age===14)&&(!f.q||(o.t+o.d+o.c).toLowerCase().indexOf(f.q.toLowerCase())>-1);
+ }).sort(function(a,b){return a.km-b.km});
+ var chips='<button class="chip teen '+(f.teen?'on':'')+'" data-teen="1">Только с 14 лет</button><button class="chip '+(f.cat==="Все"?'on':'')+'" data-cat="Все">Все</button>'+CATS.map(function(c){return '<button class="chip '+(f.cat===c?'on':'')+'" data-cat="'+c+'">'+c+'</button>'}).join("");
+ return '<header><div class="top"><h1>Заказы рядом</h1><select class="city" id="city" aria-label="Город"><option'+(f.city==="Москва"?" selected":"")+'>Москва</option><option'+(f.city==="Московская область"?" selected":"")+'>Московская область</option></select></div><input class="search" id="q" placeholder="Поиск: собака, уборка, Бутово…" value="'+esc(f.q)+'"><div class="chips">'+chips+'</div></header><div class="count">Найдено заказов: '+list.length+'</div>'+(list.length?list.map(card).join(""):'<div class="empty">Ничего не нашлось. Сбросьте фильтры или создайте свой заказ кнопкой «+».</div>')+'<div class="banner">Демо-версия: все заказы вымышленные</div>';
+}
+function stepsHtml(n){return '<div class="steps">'+[0,1,2,3].map(function(i){return '<i class="'+(i<=n?'on':'')+'"></i>'}).join("")+'</div>'}
+var STAGE=["Заказ взят, выполняется","Вы отметили: готово. Ждём заказчика","Заказчик подтвердил","Деньги на вашем балансе"];
+function mineView(){
+ if(!mine.length)return '<header><h1>Мои заказы</h1></header><div class="empty">Вы пока не взяли ни одного заказа. Откройте ленту и нажмите на любой заказ.</div>';
+ return '<header><h1>Мои заказы</h1></header>'+mine.map(function(m,i){
+  var o=m.o,btn="";
+  if(m.s===0)btn='<button class="btn" data-done="'+i+'">Я выполнил заказ</button>';
+  else if(m.s===1)btn='<button class="btn sec" data-conf="'+i+'">Демо: заказчик подтвердил</button>';
+  return '<div class="card" style="cursor:default"><div class="row"><h3>'+esc(o.t)+'</h3><div class="price">'+rub(o.p)+'</div></div>'+stepsHtml(m.s)+'<div class="meta" style="margin-bottom:10px">'+STAGE[m.s]+'</div>'+btn+'</div>';
+ }).join("");
+}
+function balView(){
+ var held=mine.filter(function(m){return m.s<3}).reduce(function(a,m){return a+m.o.p*(1-FEE)},0);
+ return '<header><h1>Баланс</h1></header><div class="card" style="cursor:default"><div class="meta">Доступно</div><div class="big">'+rub(balance)+'</div><div class="meta">В ожидании подтверждения: '+rub(held)+'</div></div><div class="note">Как это работает: заказчик оплачивает заказ заранее, деньги хранятся на сайте. Исполнитель получает их, только когда обе стороны подтвердили, что работа сделана. Комиссия платформы в демо: '+Math.round(FEE*100)+'%.</div><button class="btn" id="wd">Вывести деньги</button>';
+}
+function profView(){
+ return '<header><h1>Профиль</h1></header><div class="card" style="cursor:default"><h3>Ваш аккаунт</h3><div class="meta">Здесь будут имя, фото, возраст, рейтинг и отзывы.</div></div><div class="note">Для исполнителей от 14 до 17 лет планируется подтверждение от родителей, а для некоторых видов работ действует ограничение по возрасту: тяжёлые и опасные заказы доступны только взрослым.</div>';
+}
+function render(){
+ $("app").innerHTML=tab==="feed"?feed():tab==="mine"?mineView():tab==="bal"?balView():profView();
+ var items=[["feed","📋","Заказы"],["mine","✅","Мои"],["new","+",""],["bal","💰","Баланс"],["prof","👤","Профиль"]];
+ $("nav").innerHTML=items.map(function(x){
+  if(x[0]==="new")return '<button class="plus" data-tab="new" aria-label="Создать заказ">+</button>';
+  return '<button class="'+(tab===x[0]?'on':'')+'" data-tab="'+x[0]+'"><span>'+x[1]+'</span>'+x[2]+'</button>';
+ }).join("");
+}
+function detail(id){
+ var o=orders.filter(function(x){return x.id===id})[0],taken=mine.some(function(m){return m.o.id===id});
+ var net=o.p*(1-FEE);
+ openSheet('<h2>'+esc(o.t)+'</h2><div class="meta">'+esc(o.c)+' · '+esc(o.d)+', '+o.km.toString().replace(".",",")+' км от вас · '+esc(o.when)+'</div><p>'+esc(o.txt)+'</p><div class="note"><b>Оплата: '+rub(o.p)+'</b><br>Заказчик уже внёс эту сумму на сайт. После подтверждения с обеих сторон вы получите '+rub(net)+' (комиссия '+Math.round(FEE*100)+'%).</div><div class="meta" style="margin-bottom:12px">Возраст исполнителя: от '+o.age+' лет</div><button class="btn" id="take" '+(taken?'disabled':'')+'>'+(taken?'Вы уже взяли этот заказ':'Взять заказ')+'</button>');
+ var b=$("take");
+ if(!taken)b.onclick=function(){mine.push({o:o,s:0});orders=orders.filter(function(x){return x.id!==id});closeSheet();toast("Заказ взят. Он в разделе «Мои»");render()};
+}
+function createForm(){
+ openSheet('<h2>Новый заказ</h2><label for="n_t">Что нужно сделать</label><input id="n_t" placeholder="Например: выгулять собаку"><label for="n_c">Категория</label><select id="n_c">'+CATS.map(function(c){return '<option>'+c+'</option>'}).join("")+'</select><label for="n_p">Ваша цена, ₽</label><input id="n_p" type="number" min="100" placeholder="800"><label for="n_w">Когда</label><input id="n_w" placeholder="Завтра, 10:00"><label for="n_d">Район</label><input id="n_d" placeholder="Хамовники"><div class="note">Сумма спишется при создании и будет храниться на сайте, пока работа не будет подтверждена.</div><button class="btn" id="n_go">Оплатить и опубликовать</button>');
+ $("n_go").onclick=function(){
+  var t=$("n_t").value.trim(),p=parseInt($("n_p").value,10);
+  if(!t||!p||p<100){toast("Укажите задачу и цену от 100 ₽");return}
+  orders.unshift({id:nid++,t:t,c:$("n_c").value,p:p,when:$("n_w").value||"По договорённости",d:$("n_d").value||"Рядом",km:0.5,age:18,txt:"Ваш демо-заказ."});
+  closeSheet();tab="feed";f={cat:"Все",teen:false,q:"",city:f.city};toast("Заказ опубликован");render();
+ };
+}
+document.addEventListener("click",function(e){
+ var el=e.target.closest("[data-cat],[data-teen],[data-id],[data-tab],[data-done],[data-conf],#wd");
+ if(!el)return;
+ if(el.dataset.cat){f.cat=el.dataset.cat;render()}
+ else if(el.dataset.teen){f.teen=!f.teen;render()}
+ else if(el.dataset.id&&el.classList.contains("card")){detail(+el.dataset.id)}
+ else if(el.dataset.tab){if(el.dataset.tab==="new")createForm();else{tab=el.dataset.tab;render();scrollTo(0,0)}}
+ else if(el.dataset.done){mine[+el.dataset.done].s=1;render()}
+ else if(el.dataset.conf){var m=mine[+el.dataset.conf];m.s=3;balance+=m.o.p*(1-FEE);toast("+"+rub(m.o.p*(1-FEE))+" на баланс");render()}
+ else if(el.id==="wd"){toast("В демо вывод денег не подключён")}
+});
+document.addEventListener("keydown",function(e){if((e.key==="Enter"||e.key===" ")&&e.target.classList&&e.target.classList.contains("card")&&e.target.dataset.id){e.preventDefault();detail(+e.target.dataset.id)}});
+document.addEventListener("input",function(e){if(e.target.id==="q"){f.q=e.target.value;var pos=e.target.selectionStart;render();var q=$("q");q.focus();q.setSelectionRange(pos,pos)}});
+document.addEventListener("change",function(e){if(e.target.id==="city"){f.city=e.target.value;toast("Пока в демо одни и те же заказы")}});
+render();
+</script>
+</body>
+</html>
