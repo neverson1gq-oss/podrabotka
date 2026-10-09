@@ -13,7 +13,7 @@
 :root[data-theme="dark"]{--bg:#17120D;--card:#211A13;--ink:#F4EAD9;--mute:#B09C82;--line:#3A2E22;--pri:#D8B067;--onpri:#1A130B;--gold:#D8B067;--ok:#7FC58B;--teen:#5A3A28;--teenink:#F6D9C6;--park:#2C3523;--river:#2B3F52}
 *{box-sizing:border-box}html,body{margin:0}
 body{background:var(--bg);color:var(--ink);font-family:Manrope,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-weight:500;line-height:1.4}
-.app{max-width:560px;margin:0 auto;padding:0 14px 96px}
+.app{max-width:560px;margin:0 auto;padding:0 14px 118px}
 header{padding:16px 0 8px}
 .top{display:flex;justify-content:space-between;align-items:center;gap:8px}
 h1,h2,.brand{font-family:"Cormorant Garamond",Georgia,serif}
@@ -29,11 +29,11 @@ input,select,textarea{width:100%;padding:11px 12px;border-radius:8px;border:1px 
 .seg button{flex:1;border:0;background:none;border-radius:8px;padding:8px;font-weight:700;cursor:pointer;color:var(--mute)}
 .seg button.on{background:var(--card);color:var(--ink)}
 .bar2{display:flex;gap:8px;margin:6px 0 8px;align-items:center}
-.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:10px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:10px;box-shadow:0 1px 2px rgba(90,60,20,.05)}
 .card[data-open]{cursor:pointer}
 :focus-visible{outline:3px solid var(--pri);outline-offset:2px}
 .row{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
-.price{font-family:"Cormorant Garamond",Georgia,serif;font-weight:700;font-size:24px;white-space:nowrap;line-height:1}
+.price{font-weight:800;font-size:18px;white-space:nowrap;line-height:1.15}
 .meta{color:var(--mute);font-size:14px}
 .tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
 .tag{font-size:12.5px;font-weight:700;border-radius:6px;padding:3px 8px;background:var(--bg)}
@@ -43,11 +43,11 @@ input,select,textarea{width:100%;padding:11px 12px;border-radius:8px;border:1px 
 .btn.sm{width:auto;padding:9px 14px}
 .btn[disabled]{opacity:.5}
 .lnk{background:none;border:0;padding:0;color:var(--pri);font-weight:800;cursor:pointer;text-align:left}
-nav{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px);z-index:5}
-nav div{max-width:560px;margin:0 auto;display:grid;align-items:center}
-nav button{background:none;border:0;padding:10px 0 8px;font-size:12px;font-weight:700;color:var(--mute);cursor:pointer}
-nav button.on{color:var(--pri)}
-nav button span{display:block;font-size:20px;line-height:1.1}
+nav{position:fixed;left:10px;right:10px;bottom:calc(10px + env(safe-area-inset-bottom,0px));background:var(--card);border:1px solid var(--line);border-radius:22px;box-shadow:0 8px 24px rgba(60,40,10,.16);z-index:5}
+nav div{max-width:540px;margin:0 auto;display:grid;align-items:center;padding:5px;gap:2px}
+nav button{background:none;border:0;border-radius:16px;padding:8px 0 6px;font-size:11.5px;font-weight:700;color:var(--mute);cursor:pointer}
+nav button.on{color:var(--pri);background:var(--bg)}
+nav button span{display:flex;justify-content:center;margin-bottom:2px;font-size:22px;line-height:1.1;position:relative}
 nav .plus{background:var(--pri);color:var(--onpri);border-radius:12px;width:48px;height:48px;margin:0 auto;font-size:28px;padding:0}
 .sheet-bg{position:fixed;inset:0;background:rgba(20,12,4,.55);display:none;align-items:flex-end;justify-content:center;z-index:10}
 .sheet-bg.open{display:flex}
@@ -57,9 +57,9 @@ label{display:block;font-weight:700;font-size:14px;margin:12px 0 4px}
 .note{background:var(--bg);border-radius:10px;padding:12px;font-size:14px;margin:12px 0}
 .prog{height:6px;border-radius:3px;background:var(--line);margin:6px 0}
 .prog i{display:block;height:100%;border-radius:3px;background:var(--gold)}
-.big{font-family:"Cormorant Garamond",Georgia,serif;font-size:40px;font-weight:700;line-height:1.1}
+.big{font-size:28px;font-weight:800;line-height:1.15}.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .timer{font-weight:800;color:var(--pri);font-size:20px}
-.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(88px + env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:10px;font-weight:700;z-index:20;display:none;max-width:90%}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(100px + env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:10px;font-weight:700;z-index:20;display:none;max-width:90%}
 .empty{text-align:center;color:var(--mute);padding:30px 10px}
 .empty .btn{margin-top:14px}
 .who{display:flex;gap:12px;align-items:center}
@@ -70,6 +70,18 @@ label{display:block;font-weight:700;font-size:14px;margin:12px 0 4px}
 .ring{fill:none;stroke:var(--mute);stroke-width:2}.ring2{fill:none;stroke:var(--mute);stroke-width:1;stroke-dasharray:4 4}
 .mt{fill:#D0342C}.lb{font-size:6.5px;fill:var(--mute);font-weight:700;font-family:Manrope,sans-serif}.pt{font-size:7.5px;font-weight:800;fill:#fff;font-family:Manrope,sans-serif;pointer-events:none}
 .pin{cursor:pointer}
+.tag.urg{background:#B3402A;color:#fff}
+.dot{position:absolute;top:-5px;left:calc(50% + 6px);background:#B3402A;color:#fff;border-radius:9px;font-size:10px;line-height:1;padding:3px 5px;font-weight:800}
+.mi{display:flex;justify-content:space-between;width:100%;background:none;border:0;border-top:1px solid var(--line);padding:14px 0;font-weight:700;cursor:pointer;text-align:left;color:var(--ink)}.mi:first-child{border-top:0}
+details summary{cursor:pointer}details p{margin:8px 0}
+.chk{display:flex;gap:10px;align-items:center;font-weight:700;margin:14px 0 0}.chk input{width:auto}
+#msgs{max-height:42vh;overflow:auto;display:flex;flex-direction:column;gap:8px;padding:10px 0}
+.msg{max-width:82%;align-self:flex-start;background:var(--bg);border-radius:14px 14px 14px 4px;padding:9px 12px;font-size:15px;display:flex;gap:8px;align-items:center}
+.msg.me{align-self:flex-end;background:var(--pri);color:var(--onpri);border-radius:14px 14px 4px 14px}
+.msg .lnk{color:inherit;display:flex}
+.wave{letter-spacing:1px;opacity:.8}
+.cbar{display:flex;gap:8px;align-items:center}.cbar input{flex:1}
+#mic.rec{background:#B3402A;color:#fff;border-color:#B3402A}
 #lmap{height:62vh;min-height:320px;border-radius:12px;border:1px solid var(--line);position:relative;z-index:0}
 .mk{background:#8A641F;color:#fff;border:2px solid #fff;border-radius:14px;font:800 12px Manrope,sans-serif;padding:3px 7px;text-align:center;box-shadow:0 1px 4px rgba(0,0,0,.4);white-space:nowrap}
 .mk.t{background:#C9772E}
@@ -101,12 +113,23 @@ var orders=[
 {id:7,t:"Собрать шкаф из ИКЕА",c:"Сборка",p:2222,dt:"11 октября",w:"14:00",d:"Мытищи",ad:"Олимпийский пр-т, 29",st:"Медведково",km:9.8,m:15,age:18,lim:150,cx:5,ub:0,cu:1,x:192,y:62,x2:"Шкаф PAX, инструменты есть.",nt:""},
 {id:8,t:"Погрузить коробки и мебель",c:"Переезд",p:2778,dt:"8 октября",w:"18:00",d:"Бутово",ad:"ул. Академика Понтрягина, 9",st:"Бульвар Адм. Ушакова",km:7.2,m:8,age:18,lim:120,cx:7,ub:300,cu:1,x:150,y:240,x2:"3 этаж без лифта, нужны двое.",nt:""},
 {id:9,t:"Снять плитку на балконе",c:"Стройка и ремонт",p:5000,dt:"10 октября",w:"10:00",d:"Люберцы",ad:"Октябрьский пр-т, 112",st:"Котельники",km:11.3,m:20,age:18,lim:240,cx:8,ub:0,cu:1,x:232,y:205,x2:"4 м², мусор вынести.",nt:""},
-{id:10,t:"Покрасить забор на даче",c:"Дача и сад",p:3889,dt:"11 октября",w:"09:00",d:"Одинцово",ad:"СНТ «Лесное», уч. 14",st:"Одинцово (МЦД)",km:14,m:18,age:18,lim:300,cx:6,ub:0,cu:2,x:42,y:155,x2:"Около 30 метров, краска на месте.",nt:""}];
-var GEO={"Хамовники":[55.739,37.597],"Тверской":[55.765,37.607],"Центр":[55.748,37.590],"Выхино":[55.716,37.817],"Химки":[55.895,37.436],"Митино":[55.846,37.360],"Мытищи":[55.910,37.733],"Бутово":[55.547,37.542],"Люберцы":[55.676,37.898],"Одинцово":[55.679,37.278]};
-orders.forEach(function(o){var g=GEO[o.d];o.la=g[0];o.lo=g[1]});
+{id:10,t:"Покрасить забор на даче",c:"Дача и сад",p:3889,dt:"11 октября",w:"09:00",d:"Одинцово",ad:"СНТ «Лесное», уч. 14",st:"Одинцово (МЦД)",km:14,m:18,age:18,lim:300,cx:6,ub:0,cu:2,x:42,y:155,x2:"Около 30 метров, краска на месте.",nt:""},
+{id:11,t:"Выгулять двух корги, 1 час",c:"Животные",p:1111,dt:"8 октября",w:"20:00",d:"Арбат",ad:"ул. Арбат, 24, кв. 8",st:"Смоленская",km:1.6,m:4,age:14,lim:60,cx:2,ub:0,cu:0,x:146,y:152,x2:"Два спокойных корги, поводки у двери.",nt:""},
+{id:12,t:"Раздать флаеры у торгового центра",c:"Другое",p:1556,dt:"9 октября",w:"12:00",d:"Сокольники",ad:"Сокольнический Вал, 1",st:"Сокольники",km:5.2,m:6,age:14,lim:240,cx:2,ub:0,cu:2,x:182,y:130,x2:"Около 400 штук, выдам на месте.",nt:""},
+{id:13,t:"Срочно отвезти документы",c:"Доставка",p:2778,dt:"8 октября",w:"в течение 2 часов",d:"Тверской",ad:"Малая Дмитровка, 18",st:"Новослободская",km:1.9,m:5,age:18,lim:120,cx:3,ub:600,cu:2,x:152,y:128,x2:"Пакет документов в офис на другом конце города.",nt:"Нужен аккуратный человек с паспортом."},
+{id:14,t:"Срочно убрать после ремонта",c:"Уборка",p:4444,dt:"8 октября",w:"сегодня вечером",d:"Кунцево",ad:"Ярцевская ул., 25, кв. 61",st:"Кунцевская",km:8.1,m:9,age:18,lim:240,cx:6,ub:900,cu:1,x:96,y:150,x2:"Двухкомнатная, нужно вымыть полы и окна.",nt:""},
+{id:15,t:"Помочь повесить люстру",c:"Другое",p:778,dt:"10 октября",w:"15:00",d:"Ясенево",ad:"Новоясеневский пр-т, 12",st:"Ясенево",km:12,m:7,age:16,lim:60,cx:2,ub:0,cu:0,x:140,y:222,x2:"Нужны руки: подержать лестницу и люстру.",nt:""},
+{id:16,t:"Передать подарок по адресу",c:"Доставка",p:667,dt:"8 октября",w:"до 21:00",d:"Центр",ad:"Малая Бронная, 15",st:"Маяковская",km:2,m:6,age:14,lim:90,cx:1,ub:0,cu:2,x:152,y:142,x2:"Небольшая коробка, нужно вручить лично.",nt:""},
+{id:17,t:"Расшифровать аудио, 30 минут",c:"Другое",p:667,dt:"до 10 октября",w:"в любое время",d:"Удалённо",ad:"Онлайн",st:"",km:99,m:99,rem:1,age:14,lim:480,cx:2,ub:0,cu:1,x2:"Запись интервью, нужен текстовый файл.",nt:""},
+{id:18,t:"Описания для 10 товаров",c:"Другое",p:1667,dt:"до 11 октября",w:"в любое время",d:"Удалённо",ad:"Онлайн",st:"",km:99,m:99,rem:1,age:14,lim:720,cx:3,ub:0,cu:2,x2:"Короткие тексты для карточек на маркетплейсе.",nt:""},
+{id:19,t:"Обзвонить 30 клиентов по списку",c:"Другое",p:2222,dt:"9 октября",w:"с 10:00 до 18:00",d:"Удалённо",ad:"Онлайн",st:"",km:99,m:99,rem:1,age:16,lim:300,cx:4,ub:0,cu:0,x2:"Скрипт разговора дам, нужно отметить результат.",nt:""},
+{id:20,t:"Срочно перевести текст на английский",c:"Другое",p:2222,dt:"8 октября",w:"в течение 3 часов",d:"Удалённо",ad:"Онлайн",st:"",km:99,m:99,rem:1,age:16,lim:180,cx:5,ub:400,cu:1,x2:"Две страницы делового текста.",nt:""}];
+var GEO={"Хамовники":[55.739,37.597],"Тверской":[55.765,37.607],"Центр":[55.748,37.590],"Выхино":[55.716,37.817],"Химки":[55.895,37.436],"Митино":[55.846,37.360],"Мытищи":[55.910,37.733],"Бутово":[55.547,37.542],"Люберцы":[55.676,37.898],"Одинцово":[55.679,37.278],"Арбат":[55.752,37.592],"Сокольники":[55.789,37.680],"Кунцево":[55.730,37.445],"Ясенево":[55.606,37.533]};
+orders.forEach(function(o){var g=GEO[o.d];if(g){o.la=g[0];o.lo=g[1]}});
+orders[7].need=3;orders[8].need=2;orders[0].rp="каждую неделю";
 var SL=[{id:1,dt:"9 октября",a:"Выхино",f:10,t:18,h:350},{id:2,dt:"9 октября",a:"Мытищи",f:12,t:20,h:350},{id:3,dt:"9 октября",a:"Митино",f:9,t:17,h:350},{id:4,dt:"9 октября",a:"Центр, Арбатская",f:14,t:22,h:400},{id:5,dt:"10 октября",a:"Выхино",f:10,t:18,h:350},{id:6,dt:"10 октября",a:"Центр, Арбатская",f:12,t:20,h:400},{id:7,dt:"10 октября",a:"Митино",f:8,t:16,h:350}];
 var MS=[["Арбатская",150,152],["Тверская",150,138],["Парк культуры",138,162],["Выхино",205,178],["Речной вокзал",118,72],["Митино",85,98],["Медведково",190,70],["Котельники",228,200],["Бульвар Адм. Ушакова",150,238]];
-var S={role:null,pick:"worker",tab:"feed",view:"list",st:"all",region:REG[0],cat:"Все",sort:"km",min:0,maxKm:0,maxM:0,age:"all",mine:[],my:[],bk:{},bal:0,nid:100};
+var S={nt:{new:1,slots:1,chat:1,promo:0},unread:2,extra:[],lang:"ru",role:null,pick:"worker",tab:"feed",view:"list",st:"all",region:REG[0],cat:"Все",sort:"km",min:0,maxKm:0,maxM:0,age:"all",mine:[],my:[{id:900,t:"Выгулять корги",c:"Животные",p:1000,dt:"8 октября",w:"17:00",ad:"ул. Остоженка, 12",d:"Хамовники",st:"Парк культуры",km:1.2,m:5,age:14,cx:2,ub:0,cu:3,la:55.739,lo:37.597,x:140,y:165,x2:"Корги, поводок у двери.",nt:"",s:1,ex:"Иван М.",lim:60,stx:"Принят. Иван М. выгуливает собаку, будет готово примерно через час"},{id:901,t:"Уборка однокомнатной",c:"Уборка",p:3000,dt:"6 октября",w:"12:00",ad:"ул. Остоженка, 12",d:"Хамовники",st:"Парк культуры",km:1.2,m:5,age:16,cx:4,ub:0,cu:3,la:55.739,lo:37.597,x:140,y:165,x2:"Около 38 м².",nt:"",s:2,ex:"Анна Л.",lim:180}],bk:{},bal:0,nid:100};
 function $(i){return document.getElementById(i)}
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
 function rub(n){return Math.round(n).toLocaleString("ru-RU")+" ₽"}
@@ -116,16 +139,16 @@ function f1(n){return n.toFixed(1).replace(".",",")}
 function stars(n){return "★★★★★".slice(0,n)+"☆☆☆☆☆".slice(0,5-n)}
 function av(z){return '<svg width="'+z+'" height="'+z+'" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="20" fill="var(--line)"/><circle cx="20" cy="15" r="7" fill="var(--gold)"/><path d="M6 36c1-8 7-12 14-12s13 4 14 12a20 20 0 0 1-28 0z" fill="var(--gold)"/></svg>'}
 function toast(m){var t=$("toast");t.textContent=m;t.style.display="block";clearTimeout(toast.h);toast.h=setTimeout(function(){t.style.display="none"},2400)}
-function openSheet(h){$("sheet").innerHTML=(S.role?'<button class="x" data-x="1" aria-label="Закрыть">✕</button>':"")+h;$("sheet").scrollTop=0;$("bg").classList.add("open")}
+function openSheet(h){$("sheet").innerHTML=(S.role?'<button class="x" data-x="1" aria-label="Закрыть">✕</button>':"")+h;$("sheet").scrollTop=0;trN($("sheet"));$("bg").classList.add("open")}
 function closeSheet(){$("bg").classList.remove("open")}
 $("bg").addEventListener("click",function(e){if(e.target===this&&S.role)closeSheet()});
 document.addEventListener("keydown",function(e){if(e.key==="Escape"&&S.role)closeSheet()});
 function flt(){
- if(S.region!==REG[0])return[];
- return orders.filter(function(o){var q=wp(o);return(S.cat==="Все"||o.c===S.cat)&&q>=S.min&&(!S.maxKm||o.km<=S.maxKm)&&(!S.maxM||o.m<=S.maxM)&&(S.age==="all"||(S.age==="14"&&o.age===14)||(S.age==="18"&&o.age===18))}).sort(function(a,b){return S.sort==="p"?b.p-a.p:S.sort==="m"?a.m-b.m:a.km-b.km});
+ var base=S.region!==REG[0]?orders.filter(function(o){return o.rem}):orders;
+ return base.filter(function(o){var q=wp(o);return(S.cat==="Все"||o.c===S.cat)&&q>=S.min&&(o.rem||!S.maxKm||o.km<=S.maxKm)&&(o.rem||!S.maxM||o.m<=S.maxM)&&(S.age==="all"||(S.age==="14"&&o.age===14)||(S.age==="18"&&o.age===18))&&(!S.urg||o.ub>0)&&(!S.rem||o.rem)}).sort(function(a,b){return S.sort==="p"?b.p-a.p:S.sort==="m"?a.m-b.m:a.km-b.km});
 }
 function card(o){
- return '<div class="card" data-open="'+o.id+'" tabindex="0" role="button"><div class="row"><div><h3>'+esc(o.t)+'</h3><div class="meta">'+esc(o.dt)+', '+esc(o.w)+'</div></div><div class="price">'+rub(wp(o))+'</div></div><div class="tags"><span class="tag">'+esc(o.c)+'</span><span class="tag">'+esc(o.d)+' · '+String(o.km).replace(".",",")+' км</span><span class="tag">м. '+esc(o.st)+' · '+o.m+' мин пешком</span>'+(o.age===14?'<span class="tag teen">С 14 лет</span>':'<span class="tag">'+o.age+'+</span>')+(o.ub?'<span class="tag">Срочно +'+o.ub+' ₽</span>':'')+'</div></div>';
+ return '<div class="card" data-open="'+o.id+'" tabindex="0" role="button"><div class="row"><div><h3>'+esc(o.t)+'</h3><div class="meta">'+esc(o.dt)+', '+esc(o.w)+'</div></div><div class="price">'+rub(wp(o))+'</div></div><div class="tags"><span class="tag">'+esc(o.c)+'</span>'+(o.rem?'<span class="tag">Удалённо</span>':'<span class="tag">'+esc(o.d)+' · '+String(o.km).replace(".",",")+' км</span><span class="tag">м. '+esc(o.st)+' · '+o.m+' мин пешком</span>')+(o.age===14?'<span class="tag teen">С 14 лет</span>':'<span class="tag">'+o.age+'+</span>')+(o.ub>0?'<span class="tag urg">Срочно</span>':'')+(o.need>1?'<span class="tag">Команда: нужно '+o.need+'</span>':'')+(o.rp?'<span class="tag">Повтор</span>':'')+'</div></div>';
 }
 function mapSvg(l){
  var pins=l.map(function(o){var q=wp(o);return '<g class="pin" data-open="'+o.id+'" tabindex="0" role="button" aria-label="'+esc(o.t)+'"><circle cx="'+o.x+'" cy="'+o.y+'" r="12" fill="'+(o.age===14?'#C9772E':'#8A641F')+'" stroke="#fff" stroke-width="2"/><text class="pt" x="'+o.x+'" y="'+(o.y+3)+'" text-anchor="middle">'+(q>=1000?f1(q/1000)+"к":q)+'</text></g>'}).join("");
@@ -133,9 +156,9 @@ function mapSvg(l){
  return '<svg class="map" viewBox="0 0 300 300" role="img" aria-label="Схема заказов"><rect class="land" width="300" height="300"/><ellipse class="park" cx="105" cy="130" rx="22" ry="14"/><ellipse class="park" cx="195" cy="120" rx="18" ry="12"/><ellipse class="park" cx="70" cy="200" rx="26" ry="15"/><ellipse class="park" cx="235" cy="150" rx="15" ry="10"/><path class="river" d="M10 215 C70 195 105 150 150 165 S230 125 292 92"/><path class="rd" d="M150 150 L150 0M150 150 L150 300M150 150 L0 150M150 150 L300 150M150 150 L40 40M150 150 L260 40M150 150 L40 260M150 150 L260 260"/><path class="rd2" d="M0 100 H300M0 205 H300M100 0 V300M205 0 V300"/><circle class="ring2" cx="150" cy="150" r="125"/><circle class="ring" cx="150" cy="150" r="72"/><text class="lb" x="150" y="147" text-anchor="middle" style="font-size:9px">МОСКВА</text><text class="lb" x="150" y="12" text-anchor="middle">ЦКАД</text><text class="lb" x="150" y="85" text-anchor="middle">МКАД</text>'+mt+pins+'</svg><div class="leg"><span><i style="background:#C9772E"></i>можно с 14 лет</span><span><i style="background:#8A641F"></i>18+</span><span><i style="background:#D0342C"></i>метро</span><span><i style="background:var(--river)"></i>река</span><span><i style="background:var(--park)"></i>парки</span><span>─ МКАД · ┄ ЦКАД · число на метке: ваша оплата, ₽</span></div>';
 }
 function feed(){
- var l=flt(),act=(S.min||S.maxKm||S.maxM||S.age!=="all");
+ var l=flt(),act=(S.min||S.maxKm||S.maxM||S.age!=="all"),act2=act||S.cat!=="Все"||S.urg||S.rem||S.sort!=="km";
  var chips=['Все'].concat(CATS).map(function(c){return '<button class="chip '+(S.cat===c?'on':'')+'" data-cat="'+c+'">'+c+'</button>'}).join("");
- return '<header><div class="top"><h1>Заказы</h1><div class="meta">'+esc(S.region.split(" и ")[0])+'</div></div><div class="bar2"><div class="seg"><button class="'+(S.view==="list"?'on':'')+'" data-view="list">Список</button><button class="'+(S.view==="map"?'on':'')+'" data-view="map">Карта</button></div><button class="chip" data-filter="1">Фильтры'+(act?' ●':'')+'</button></div><div class="chips">'+chips+'</div></header><div class="meta" style="margin-bottom:8px">Найдено: '+l.length+'</div>'+(!l.length?'<div class="empty">'+(S.region!==REG[0]?'В этом регионе заказов пока нет, он подключится позже.':'Ничего не найдено. Измените фильтры.')+'</div>':S.view==="map"?'<div id="lmap"></div><div class="meta" style="margin-top:8px">Коричневые метки: 18+, оранжевые: можно с 14 лет. Число на метке: ваша оплата, ₽. Нажмите на метку, чтобы открыть заказ.</div>':l.map(card).join(""));
+ return '<header><div class="top"><h1>Заказы</h1><div class="meta">'+esc(S.region.split(" и ")[0])+'</div></div><div class="bar2"><div class="seg"><button class="'+(S.view==="list"?'on':'')+'" data-view="list">Список</button><button class="'+(S.view==="map"?'on':'')+'" data-view="map">Карта</button></div><button class="chip" data-filter="1">Фильтры'+(act?' ●':'')+'</button>'+(act2?'<button class="chip" data-a="reset:1">Сбросить</button>':'')+'</div><div class="chips"><button class="chip '+(S.urg?'on':'')+'" data-urg="1">Срочные</button><button class="chip '+(S.rem?'on':'')+'" data-rem="1">Удалённо</button>'+chips+'</div></header><div class="meta" style="margin-bottom:8px">Найдено: '+l.length+'</div>'+(!l.length?'<div class="empty">'+(S.region!==REG[0]?'В этом регионе заказов на месте пока нет. Попробуйте раздел «Удалённо».':'Ничего не найдено.<br><button class="btn" data-a="reset:1">Сбросить фильтры</button>')+'</div>':S.view==="map"?'<div id="lmap"></div><div class="meta" style="margin-top:8px">Коричневые метки: 18+, оранжевые: можно с 14 лет. Число на метке: ваша оплата, ₽. Нажмите на метку, чтобы открыть заказ.</div>':l.map(card).join(""));
 }
 function timerTxt(ms){if(ms<=0)return"время вышло";var s=Math.floor(ms/1000),h=Math.floor(s/3600),m=Math.floor(s%3600/60);s%=60;return(h?h+":":"")+("0"+m).slice(-2)+":"+("0"+s).slice(-2)}
 var ST=["Выполняется","Отмечено «готово», ждём заказчика","","Оплачено, деньги на балансе"];
@@ -143,7 +166,7 @@ function mineV(){
  if(!S.mine.length)return '<header><h1>Мои заказы</h1></header><div class="empty">Вы пока ничего не взяли.<br><button class="btn" data-tab="feed">Посмотреть заказы рядом</button></div>';
  return '<header><h1>Мои заказы</h1></header>'+S.mine.map(function(m,i){
   var o=m.o,b=m.s===0?'<button class="btn" data-fin="'+i+'">Я выполнил заказ</button>':m.s===1?'<button class="btn sec" data-conf="'+i+'">Демо: заказчик подтвердил</button>':'';
-  return '<div class="card"><div class="row"><h3>'+esc(o.t)+'</h3><div class="price">'+rub(wp(o))+'</div></div><div class="meta">'+esc(o.dt)+', '+esc(o.w)+' · '+esc(o.ad)+'</div>'+(m.s===0?'<div class="meta" style="margin-top:8px">Осталось времени</div><div class="timer" data-end="'+m.end+'">'+timerTxt(m.end-Date.now())+'</div>':'')+'<div class="meta" style="margin:6px 0 10px">'+ST[m.s]+'</div>'+b+'</div>';
+  return '<div class="card"><div class="row"><h3>'+esc(o.t)+'</h3><div class="price">'+rub(wp(o))+'</div></div><div class="meta">'+esc(o.dt)+', '+esc(o.w)+' · '+esc(o.ad)+'</div>'+(m.s===0?'<div class="meta" style="margin-top:8px">Осталось времени</div><div class="timer" data-end="'+m.end+'">'+timerTxt(m.end-Date.now())+'</div>':'')+'<div class="meta" style="margin:6px 0 10px">'+ST[m.s]+'</div><div class="bar2"><button class="btn sec sm" data-chat="w'+i+'">Чат с заказчиком</button><button class="btn sec sm" data-where="'+i+'">Где заказ</button><button class="btn sec sm" data-a="sos:1" style="color:#B3402A">SOS</button></div>'+(m.s<3?ph(m,i):'')+(m.disp?'<div class="note">Спор открыт: деньги заморожены до решения поддержки.</div>':'')+b+(m.s<3&&!m.disp?'<button class="lnk" style="margin-top:10px" data-a="disp:w'+i+'">Проблема с заказом</button>':'')+'</div>';
  }).join("");
 }
 function hrs(s){return s.t-s.f}
@@ -160,22 +183,106 @@ function rate(l){return '★ '+f1(avg(l))+' · '+l.length+' '+(l.length<5?'от�
 function bonusRow(n,need,name){var ok=n>=need;return '<div style="margin-top:12px"><div class="row"><b>'+name+'</b><b>'+(ok?'✓ ':'')+'+'+({1:300,5:1000,10:1500})[need]+' бонусов</b></div><div class="prog"><i style="width:'+Math.min(100,n/need*100)+'%"></i></div><div class="meta">выполнено '+Math.min(n,need)+' из '+need+'</div></div>'}
 function profV(){
  var n=S.mine.filter(function(m){return m.s===3}).length,bonus=(n>=1?300:0)+(n>=5?1000:0)+(n>=10?1500:0),w=S.role==="worker",l=w?WR:CU[3].rv;
- var held=S.mine.filter(function(m){return m.s<3}).reduce(function(a,m){return a+wp(m.o)},0);
- var h='<header><div class="top"><h1>Профиль</h1><span class="brand">ДЕЛО</span></div></header><div class="card"><div class="who">'+av(56)+'<div><h3 style="font-size:19px;margin:0">Алексей К.</h3><button class="lnk" data-revs="'+(w?'w':'c')+'"><span class="stars">★</span> '+f1(avg(l))+' · '+l.length+' '+(l.length<5?'отзыва':'отзывов')+' ›</button></div></div><label>Режим</label><div class="seg"><button class="'+(S.pick==="worker"?'on':'')+'" data-pick="worker">Исполнитель</button><button class="'+(S.pick==="customer"?'on':'')+'" data-pick="customer">Заказчик</button></div>'+(S.pick!==S.role?'<div style="height:10px"></div><button class="btn" data-apply="1">Готово</button>':'')+'<label for="rg">'+(w?'Регион, где я работаю':'Регион, где мне нужна помощь')+'</label><select id="rg">'+REG.map(function(r){return '<option'+(r===S.region?' selected':'')+'>'+r+'</option>'}).join("")+'</select><div style="height:10px"></div><button class="btn sec" id="rgs">Сохранить регион</button></div>';
- if(w)h+='<div class="card"><h3>Баланс</h3><div class="big">'+rub(S.bal)+'</div><div class="meta">В ожидании подтверждения: '+rub(held)+'</div><div style="height:10px"></div><button class="btn sec" id="wd">Вывести деньги</button></div><div class="card"><h3>Бонусы: '+bonus+'</h3><div class="meta">Вы недавно создали аккаунт, поэтому вам доступны приветственные бонусы. Они начисляются за выполненные заказы:</div>'+bonusRow(n,1,'Первый заказ')+bonusRow(n,5,'5 заказов')+bonusRow(n,10,'10 заказов')+'</div>';
+ var held=S.mine.filter(function(m){return m.s<3}).reduce(function(a,m){return a+wp(m.o)},0),heldL=S.mine.filter(function(m){return m.s<3}).map(function(m){return '<div class="row" style="margin-top:6px"><span>'+esc(m.o.t)+'</span><b>'+rub(wp(m.o))+'</b></div>'}).join("");
+ var h='<header><div class="top"><h1>Профиль</h1><span class="brand">ДЕЛО</span></div></header><div class="card"><div class="who">'+av(56)+'<div><h3 style="font-size:19px;margin:0">Алексей К.</h3><button class="lnk" data-revs="'+(w?'w':'c')+'"><span class="stars">★</span> '+f1(avg(l))+' · '+l.length+' '+(l.length<5?'отзыва':'отзывов')+' ›</button>'+lvTxt(n,w)+'</div></div><label>Режим</label><div class="seg"><button class="'+(S.pick==="worker"?'on':'')+'" data-pick="worker">Исполнитель</button><button class="'+(S.pick==="customer"?'on':'')+'" data-pick="customer">Заказчик</button></div>'+(S.pick!==S.role?'<div style="height:10px"></div><button class="btn" data-apply="1">Готово</button>':'')+'<label for="rg">'+(w?'Регион, где я работаю':'Регион, где мне нужна помощь')+'</label><div class="bar2"><select id="rg" style="flex:1">'+REG.map(function(r){return '<option'+(r===S.region?' selected':'')+'>'+r+'</option>'}).join("")+'</select><button class="btn sm" id="rgs">Сохранить</button></div></div>';
+ if(w)h+='<div class="card"><h3>Баланс</h3><div class="two"><div><div class="meta">Доступно</div><div class="big">'+rub(S.bal)+'</div></div><div><div class="meta">На удержании</div><div class="big" style="color:var(--mute)">'+rub(held)+'</div></div></div>'+(heldL?'<div class="note">Вы получите после подтверждения заказов, которые сейчас в работе:'+heldL+'</div>':'<div class="meta" style="margin-top:8px">Заказов в работе сейчас нет.</div>')+'<div style="height:10px"></div><button class="btn sec" id="wd">Вывести деньги</button></div><div class="card"><h3>Бонусы: '+bonus+'</h3><div class="meta">Вы недавно создали аккаунт, поэтому вам доступны приветственные бонусы. Они начисляются за выполненные заказы:</div>'+bonusRow(n,1,'Первый заказ')+bonusRow(n,5,'5 заказов')+bonusRow(n,10,'10 заказов')+'</div>';
  h+='<div class="card"><h3>Пригласи друга</h3><div class="meta">Вы получаете 5% от первых 10 заказов друга. Друг, который выполнит 10 заказов в течение месяца после регистрации, получает 800 ₽.</div><div class="note"><b>Ваш код: DELO-7K2M</b></div><button class="btn sec" id="cp">Скопировать код</button></div>';
+ h+=menuV(w);
  return h;
 }
 function myV(){
- return '<header><h1>Мои заказы</h1></header><button class="btn" data-tab="new" style="margin-bottom:12px">Создать заказ</button>'+(S.my.length?S.my.map(function(o,i){return '<div class="card"><div class="row"><h3>'+esc(o.t)+'</h3><div class="price">'+rub(o.p)+'</div></div><div class="meta">'+esc(o.dt)+', '+esc(o.w)+' · '+esc(o.ad)+'</div><div class="meta" style="margin:6px 0 10px">'+(o.fin?'Выполнен, оплата передана исполнителю':'Ищем исполнителя')+'</div>'+(o.fin?'':'<button class="btn sec" data-cfin="'+i+'">Демо: подтвердить выполнение</button>')+'</div>'}).join(""):'<div class="empty">Вы ещё не создавали заказы.</div>');
+ return '<header><h1>Мои заказы</h1></header><button class="btn" data-tab="new" style="margin-bottom:12px">Создать заказ</button>'+(S.my.length?S.my.map(function(o,i){
+  var st=o.s===2?'Выполнен, оплата передана исполнителю':o.s===1?(o.stx||'Принят. '+o.ex+' выполняет заказ, будет готово примерно через '+o.lim+' мин'):'Ищем исполнителя';
+  var b=o.s===0?'<button class="btn sec" data-dem="'+i+'">Демо: исполнитель принял заказ</button>':o.s===1?'<div class="bar2" style="flex-wrap:wrap"><button class="btn sec sm" data-chat="c'+i+'">Чат</button><button class="btn sec sm" data-a="trk:'+i+'">Где исполнитель</button><button class="btn sm" data-cfin="'+i+'">Подтвердить</button></div>':'<div class="bar2" style="flex-wrap:wrap"><button class="btn sec sm" data-a="tip:'+i+'">'+(o.tip!=null?'Оценка отправлена':'Оценить и чаевые')+'</button><button class="btn sec sm" data-a="rpt:'+i+'">Повторить заказ</button></div>';
+  return '<div class="card"><div class="row"><h3>'+esc(o.t)+'</h3><div class="price">'+rub(o.p)+'</div></div><div class="meta">'+esc(o.dt)+', '+esc(o.w)+' · '+esc(o.ad)+'</div><div class="tags" style="margin-top:8px">'+(o.ub>0?'<span class="tag urg">Срочно</span>':'')+(o.rem?'<span class="tag">Удалённо</span>':'')+(o.need>1?'<span class="tag">Команда: '+o.need+'</span>':'')+(o.rp?'<span class="tag">Повтор: '+esc(o.rp)+'</span>':'')+'</div><div style="margin:10px 0 12px"><b>'+st+'</b></div>'+(o.disp?'<div class="note">Спор открыт: деньги заморожены до решения поддержки.</div>':'')+b+(o.s<2&&!o.disp?'<button class="lnk" style="margin-top:10px" data-a="disp:c'+i+'">Проблема с заказом</button>':'')+'</div>';
+ }).join(""):'<div class="empty">Вы ещё не создавали заказы.</div>');
+}
+function ic(p,z){z=z||22;return '<svg width="'+z+'" height="'+z+'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+p+'</svg>'}
+var IC={feed:ic('<path d="M8 6h12M8 12h12M8 18h12M4 6h.01M4 12h.01M4 18h.01"/>'),mine:ic('<circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/>'),slots:ic('<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>'),prof:ic('<circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/>'),my:ic('<path d="M3 7l9-4 9 4v10l-9 4-9-4z"/><path d="M3 7l9 4 9-4M12 11v10"/>'),bell:ic('<path d="M6 17h12l-1.5-2V11a4.5 4.5 0 0 0-9 0v4zM10 20a2 2 0 0 0 4 0"/>')};
+var ICS=ic('<path d="M5 12h14M13 6l6 6-6 6"/>',20),ICM=ic('<rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/>',20),ICP=ic('<path d="M7 5l11 7-11 7z" fill="currentColor"/>',16);
+var CH={},CHK=null,rec=null,t0=0;
+var SEEDV=[[1,"Здравствуйте! Я взял ваш заказ, приеду вовремя."],[0,"Отлично, спасибо! Позвоните в домофон 45."],[1,"Понял, скоро буду."],[0,null,5]];
+var REPL=["Хорошо, договорились.","Спасибо, жду!","Да, всё верно.","Понял, уточню и напишу.","Отлично, на связи."];
+function chatOpen(k,nm){
+ CHK=k;if(!CH[k])CH[k]=k[0]==="s"?[{me:0,t:"Здравствуйте! Это служба поддержки «Дело». Чем можем помочь?"}]:SEEDV.map(function(m){return{me:k[0]==="w"?m[0]:1-m[0],t:m[1],d:m[2]}});
+ openSheet('<h2>'+esc(nm)+'</h2><div class="meta">Чат по заказу</div><div id="msgs"></div><div class="cbar"><input id="ci" placeholder="Сообщение" aria-label="Сообщение"><button class="btn sm" data-send="1" aria-label="Отправить">'+ICS+'</button><button class="btn sec sm" id="mic" data-mic="1" aria-label="Голосовое сообщение">'+ICM+'</button></div>');
+ paint();$("ci").addEventListener("keydown",function(e){if(e.key==="Enter")send()});
+}
+function paint(){var l=CH[CHK],b=$("msgs");if(!b)return;b.innerHTML=l.map(function(m,i){return '<div class="msg'+(m.me?' me':'')+'">'+(m.t!=null?esc(m.t):'<button class="lnk" data-play="'+i+'" aria-label="Воспроизвести">'+ICP+'</button><span class="wave">▁▃▅▂▆▃▅▂▄▂</span>'+Math.floor(m.d/60)+':'+('0'+m.d%60).slice(-2))+'</div>'}).join("");b.scrollTop=b.scrollHeight}
+function send(){var i=$("ci"),v=i.value.trim();if(!v)return;var k=CHK;CH[k].push({me:1,t:v});i.value="";paint();setTimeout(function(){if(CHK===k&&$("msgs")){CH[k].push({me:0,t:k[0]==="s"?"Спасибо, мы получили ваше сообщение. Оператор ответит в ближайшее время (демо).":REPL[Math.floor(Math.random()*REPL.length)]});paint()}},1200)}
+function mic(){
+ var b=$("mic");if(rec){rec.stop();return}
+ function fin(u){var d=Math.max(1,Math.round((Date.now()-t0)/1000));CH[CHK].push({me:1,v:u,d:d,t:null});if(b)b.classList.remove("rec");paint()}
+ function fake(){b.classList.add("rec");t0=Date.now();rec={stop:function(){rec=null;fin(null)}}}
+ if(!navigator.mediaDevices||!window.MediaRecorder){fake();return}
+ navigator.mediaDevices.getUserMedia({audio:true}).then(function(st){var ch=[],r=new MediaRecorder(st);r.ondataavailable=function(e){ch.push(e.data)};r.onstop=function(){st.getTracks().forEach(function(t){t.stop()});rec=null;fin(URL.createObjectURL(new Blob(ch)))};rec=r;t0=Date.now();r.start();b.classList.add("rec")}).catch(fake)
+}
+function whereSheet(i){
+ var o=S.mine[i].o,c=CU[o.cu];
+ openSheet('<h2>Где заказ</h2><div class="note"><b>'+esc(o.t)+'</b><br>'+esc(o.dt)+', '+esc(o.w)+'<br><b>Адрес:</b> '+esc(o.ad)+(o.rem?'':'<br><b>Метро:</b> '+esc(o.st)+', '+o.m+' мин пешком')+'</div><div class="who">'+av(44)+'<div><b>'+esc(c.n)+'</b><div><span class="stars">★</span> '+f1(avg(c.rv))+' · заказов: '+c.o+'</div></div></div>'+(o.rem?'':'<div style="height:12px"></div><a class="btn" style="display:block;text-align:center;text-decoration:none" target="_blank" rel="noopener" href="https://yandex.ru/maps/?text='+encodeURIComponent("Москва, "+o.ad)+'">Открыть в Яндекс.Картах</a>'));
+}
+var EN={"Заказы":"Orders","Мои":"Mine","Слоты":"Slots","События":"Events","Профиль":"Profile","Мои заказы":"My orders","Создать заказ":"Create order","Список":"List","Карта":"Map","Фильтры":"Filters","Сбросить":"Reset","Сбросить фильтры":"Reset filters","Срочные":"Urgent","Удалённо":"Remote","Все":"All","Режим":"Mode","Исполнитель":"Worker","Заказчик":"Customer","Готово":"Done","Баланс":"Balance","Доступно":"Available","На удержании":"On hold","Вывести деньги":"Withdraw","Пригласи друга":"Invite a friend","Взять заказ":"Take order","Забронировать":"Book","Свободные":"Free slots","Сохранить":"Save","Настройки":"Settings","Помощь и поддержка":"Help and support","Вопросы и ответы":"FAQ","Служба поддержки":"Support","Чат с заказчиком":"Chat with customer","Чат с исполнителем":"Chat with worker","Где заказ":"Order location","Я выполнил заказ":"Job done","Показать заказы":"Show orders","Новый заказ":"New order","Опубликовать":"Publish","Животные":"Pets","Уборка":"Cleaning","Переезд":"Moving","Стройка и ремонт":"Repairs","Доставка":"Delivery","Сборка":"Assembly","Дача и сад":"Garden","Другое":"Other","Уровень и награды":"Level and rewards","Обучение для новичков":"Training for newcomers","Безопасность и страховка":"Safety and insurance","Знакомство с сайтом":"Site tour","Подписка «Дело+»":"Subscription Delo+","Тема":"Theme","Язык / Language":"Language","Уведомления":"Notifications","Дальше":"Next","Начать":"Start","Пропустить":"Skip","Проблема с заказом":"Report a problem","Повторить заказ":"Repeat order","Подтвердить":"Confirm","Где исполнитель":"Track worker","Награды":"Rewards","Тест":"Quiz","Проверить":"Check","Отзывы":"Reviews","Бонусы":"Bonuses","Заказов в работе сейчас нет.":"No orders in progress.","Вы пока ничего не взяли.":"You haven't taken anything yet.","Посмотреть заказы рядом":"See orders nearby"};
+function trN(root){if(S.lang!=="en"||!root||!document.createTreeWalker)return;var w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT),n,l=[];while(n=w.nextNode())l.push(n);l.forEach(function(n){var t=n.nodeValue.trim();if(EN[t])n.nodeValue=n.nodeValue.replace(t,EN[t])})}
+function trAll(){trN($("app"));trN($("nav"));trN($("sheet"))}
+function nDone(){return S.mine.filter(function(m){return m.s===3}).length}
+function lv(n){return n>=15?"Профи":n>=5?"Проверенный":"Новичок"}
+function lvTxt(n,w){return w?'<div class="meta">Уровень: <b>'+lv(n)+'</b>'+(S.plus?' · Дело+':'')+'</div>':(S.plus?'<div class="meta">Подписка Дело+</div>':'')}
+var NW=[["Новый заказ рядом: выгул собаки, 800 ₽","5 минут назад"],["Слот на 9 октября ждёт подтверждения","1 час назад"],["Заказчик оставил отзыв: ★ 5","вчера"]];
+var NC=[["Исполнитель принял ваш заказ","10 минут назад"],["Исполнитель в пути, будет через 7 минут","только что"],["Заказ выполнен, оцените исполнителя","вчера"]];
+function bellV(){var l=S.extra.concat(S.role==="worker"?NW:NC);return '<header><h1>События</h1></header>'+l.map(function(n){return '<div class="card"><div>'+esc(n[0])+'</div><div class="meta">'+n[1]+'</div></div>'}).join("")+'<button class="btn sec" data-a="test:1">Показать тестовое уведомление</button><div class="meta" style="margin-top:10px">Какие уведомления получать, выбирается в «Настройки» (профиль).</div>'}
+function menuV(w){var r=(w?[["rew","Уровень и награды"],["train","Обучение для новичков"]]:[]).concat([["sub","Подписка «Дело+»"],["safe","Безопасность и страховка"],["help","Помощь и поддержка"],["faq","Вопросы и ответы"],["tour","Знакомство с сайтом"],["set","Настройки"]]);return '<div class="card" style="padding:2px 14px">'+r.map(function(x){return '<button class="mi" data-a="menu:'+x[0]+'"><span>'+x[1]+'</span><span>›</span></button>'}).join("")+'</div>'}
+function resetF(){S.sort="km";S.min=S.maxKm=S.maxM=0;S.age="all";S.cat="Все";S.urg=S.rem=false;render()}
+function ph(m,i){m.ph=m.ph||{b:[],a:[]};function row(k,t){return '<div class="meta" style="margin-top:8px">'+t+'</div><div class="bar2" style="flex-wrap:wrap">'+m.ph[k].map(function(u){return '<img src="'+u+'" alt="" width="60" height="60" style="object-fit:cover;border-radius:8px">'}).join("")+'<label class="btn sec sm" style="cursor:pointer;margin:0">+ Фото<input type="file" accept="image/*" hidden data-ph="'+k+i+'"></label></div>'}return row("b","Фото «до»")+row("a","Фото «после»")}
+var TPL=[["Выгул собаки","Животные","Выгулять собаку, 40 минут",900,60,"Поводок и пакеты дома."],["Уборка квартиры","Уборка","Убраться в квартире",2500,180,"Моющие средства есть."],["Помощь с переездом","Переезд","Погрузить вещи и мебель",3000,150,"Нужны двое, лифта нет."],["Доставка продуктов","Доставка","Купить и привезти продукты",700,90,"Список пришлю в чат."],["Сборка мебели","Сборка","Собрать шкаф",2000,120,"Инструменты есть."]];
+var PR={"Животные":[600,1500],"Уборка":[2000,4000],"Переезд":[2500,6000],"Стройка и ремонт":[3000,8000],"Доставка":[400,1200],"Сборка":[1500,3500],"Дача и сад":[2500,5000],"Другое":[500,2000]};
+function hint(){var c=$("n_c"),h=$("n_h");if(!c||!h)return;var r=PR[c.value]||PR["Другое"],a=Math.round((r[0]+r[1])/2);h.innerHTML='Обычно за такие задачи платят '+rub(r[0])+'–'+rub(r[1])+'. <button class="lnk" data-a="avg:'+a+'">Поставить '+rub(a)+'</button>'}
+function tplFill(i){var t=TPL[i];$("n_t").value=t[2];$("n_c").value=t[1];$("n_p").value=t[3];$("n_l").value=t[4];$("n_n").value=t[5];hint()}
+function rewSheet(){
+ var n=nDone(),nx=n<5?[5,"Проверенный"]:n<15?[15,"Профи"]:null;
+ var B=[["Первый заказ",n>=1],["5 заказов",n>=5],["10 заказов",n>=10],["Обучение пройдено",!!S.train],["Рейтинг 4,8+",avg(WR)>=4.8],["Серия 3 дня",false]];
+ openSheet('<h2>Уровень и награды</h2><div class="note"><b>Ваш уровень: '+lv(n)+'</b>'+(nx?'<div class="prog"><i style="width:'+Math.min(100,n/nx[0]*100)+'%"></i></div>До уровня «'+nx[1]+'»: '+n+' из '+nx[0]+' заказов':'<br>Максимальный уровень')+'<div class="meta" style="margin-top:8px">Новичок: простые заказы. Проверенный: любые заказы и ранний доступ к слотам. Профи: приоритет в подборе и сложные заказы. В демо ограничения не действуют.</div></div><h3>Награды</h3><div class="two">'+B.map(function(b){return '<div class="card" style="margin:0;text-align:center;opacity:'+(b[1]?1:.45)+'"><div style="font-size:22px">'+(b[1]?'★':'○')+'</div><b>'+b[0]+'</b></div>'}).join("")+'</div>');
+}
+var QZ=[["Что делать, если заказчик просит сделать работу вне заказа?",["Согласиться молча","Обсудить в чате и изменить заказ на сайте","Уйти без объяснений"],1],["Когда исполнитель получает деньги?",["Сразу при взятии заказа","После подтверждения заказа обеими сторонами","Через неделю"],1],["Что делать, если на заказе небезопасно?",["Нажать SOS и написать в поддержку","Промолчать","Удалить аккаунт"],0]];
+function trainSheet(){
+ openSheet('<h2>Обучение</h2><details open><summary><b>1. Общение с заказчиком</b></summary><p>Все договорённости фиксируйте в чате: цену, время, адрес. Вежливость и точность важнее скорости.</p></details><details><summary><b>2. Фото и подтверждение</b></summary><p>Сделайте фото «до» и «после» и отметьте заказ выполненным. Деньги придут после подтверждения заказчиком.</p></details><details><summary><b>3. Безопасность</b></summary><p>Сообщите близкому, куда едете. Если ситуация опасна, нажмите SOS и покиньте место.</p></details><h3 style="margin-top:14px">Тест</h3>'+QZ.map(function(q,i){return '<label for="q'+i+'">'+(i+1)+'. '+q[0]+'</label><select id="q'+i+'"><option value="">Выберите ответ</option>'+q[1].map(function(o,j){return '<option value="'+j+'">'+o+'</option>'}).join("")+'</select>'}).join("")+'<div style="height:12px"></div><button class="btn" data-a="quiz:1">Проверить</button>'+(S.train?'<div class="note">Обучение пройдено ✓</div>':''));
+}
+function dispSheet(k){S.dk=k;openSheet('<h2>Проблема с заказом</h2><div class="meta">Деньги за заказ будут заморожены, пока поддержка не разберётся.</div><label for="dr">Что случилось</label><select id="dr"><option>Исполнитель или заказчик не пришёл</option><option>Работа выполнена плохо</option><option>Ущерб имуществу</option><option>Спор о цене или условиях</option><option>Другое</option></select><label for="dd">Подробности</label><textarea id="dd" rows="3"></textarea><div style="height:14px"></div><button class="btn" data-a="dsend:1">Отправить в поддержку</button>')}
+function trkSheet(i){var P="M30 130 C90 30 170 150 270 40";openSheet('<h2>Исполнитель в пути</h2><div class="meta">'+esc(S.my[i].ex||"Исполнитель")+' · прибудет примерно через 7 минут</div><svg viewBox="0 0 300 160" style="width:100%;margin-top:12px;border:1px solid var(--line);border-radius:12px;background:var(--bg)" role="img" aria-label="Маршрут исполнителя"><path d="'+P+'" fill="none" stroke="#C9A24F" stroke-width="3" stroke-dasharray="6 6"/><circle cx="30" cy="130" r="6" fill="#8A7761"/><circle cx="270" cy="40" r="9" fill="#8A641F"/><circle r="7" fill="#C9772E" stroke="#fff" stroke-width="2"><animateMotion dur="8s" repeatCount="indefinite" path="'+P+'"/></circle></svg><div class="meta" style="margin-top:8px">Демо: движение имитируется. В реальной версии будет по геолокации исполнителя.</div>')}
+function tipSheet(i){S.tk=i;openSheet('<h2>Оценка и чаевые</h2><label for="tr">Оценка исполнителя</label><select id="tr"><option value="5">★★★★★ Отлично</option><option value="4">★★★★ Хорошо</option><option value="3">★★★ Нормально</option><option value="2">★★ Плохо</option><option value="1">★ Ужасно</option></select><label for="tt">Чаевые</label><select id="tt"><option value="0">Без чаевых</option><option value="100">100 ₽</option><option value="200">200 ₽</option><option value="300">300 ₽</option><option value="500">500 ₽</option></select><div style="height:14px"></div><button class="btn" data-a="tsend:1">Отправить</button>')}
+function rptDo(i){var o=Object.assign({},S.my[i],{id:S.nid++,s:0,ex:null,stx:null,tip:null,disp:0});orders.unshift(o);S.my.unshift(o);toast("Заказ создан повторно");render()}
+function subSheet(){var w=S.role==="worker";openSheet('<h2>Дело+</h2><div class="note">'+(w?'Ранний доступ к новым заказам и слотам, приоритет в подборе, значок в профиле.':'Приоритетный показ ваших заказов, поддержка без очереди, значок в профиле.')+'</div><div class="big">299 ₽ <span class="meta">в месяц</span></div><div class="meta">Цена и условия ориентировочные.</div><div style="height:14px"></div><button class="btn'+(S.plus?' sec':'')+'" data-a="sub:1">'+(S.plus?'Отключить (демо)':'Подключить (демо)')+'</button>')}
+function safeSheet(sos){openSheet('<h2'+(sos?' style="color:#B3402A"':'')+'>'+(sos?'SOS':'Безопасность')+'</h2>'+(sos?'<div class="note">Если вам угрожает опасность, сразу звоните 112.</div><a class="btn" style="display:block;text-align:center;text-decoration:none;background:#B3402A" href="tel:112">Позвонить 112</a><div style="height:8px"></div>':'')+'<label for="tc">Доверенный контакт (имя и телефон)</label><input id="tc" value="'+esc(S.tc||"")+'" placeholder="Мама, +7 ..."><div style="height:8px"></div><button class="btn sec" data-a="tc:1">Сохранить контакт</button><div style="height:8px"></div><button class="btn sec" data-a="loc:1">Отправить мою геолокацию контакту</button><div style="height:8px"></div><button class="btn sec" data-a="chat:s0">Написать в поддержку</button><h3 style="margin-top:16px">Страховка заказа</h3><div class="meta">В полной версии заказы будут застрахованы от ущерба имуществу (в демо: до 30 000 ₽). Условия и стоимость определим вместе со страховой компанией.</div>')}
+function helpSheet(){openSheet('<h2>Помощь и поддержка</h2><div class="meta">Поддержка работает ежедневно с 9:00 до 21:00 (демо).</div><div style="height:14px"></div><button class="btn" data-a="chat:s0">Написать в чат поддержки</button><div style="height:8px"></div><button class="btn sec" data-a="menu:faq">Вопросы и ответы</button><div style="height:8px"></div><button class="btn sec" data-a="menu:safe">Безопасность и SOS</button>')}
+var FQ=[["Как работает оплата?","Заказчик оплачивает заказ заранее, деньги хранятся на сайте. Исполнитель получает их после подтверждения с обеих сторон."],["Когда я получу деньги?","После того как вы отметили заказ выполненным и заказчик его подтвердил. Деньги поступят на баланс, их можно вывести."],["С какого возраста можно работать?","С 14 лет. Для подростков действуют ограничения по видам работ, нужно согласие родителей."],["Что если заказчик не подтверждает заказ?","Откройте «Проблема с заказом» или напишите в поддержку, мы разберёмся."],["Как отменить заказ?","Напишите исполнителю в чат и обратитесь в поддержку. Условия отмены будут описаны в правилах сервиса."],["Что такое слоты?","Готовые окна работы в районе с гарантированной оплатой за час. Нужно забронировать слот и подтвердить участие за 12 часов до начала."],["Как работает таймер?","Заказчик задаёт время на выполнение. Таймер запускается, когда вы берёте заказ."],["Как обеспечена безопасность?","Чат внутри сервиса, оценки и отзывы, кнопка SOS, доверенный контакт, поддержка. Страховка запланирована."]];
+function faqSheet(){openSheet('<h2>Вопросы и ответы</h2>'+FQ.map(function(q){return '<details style="border-top:1px solid var(--line);padding:10px 0"><summary><b>'+q[0]+'</b></summary><p class="meta" style="margin:8px 0 0">'+q[1]+'</p></details>'}).join("")+'<div style="height:14px"></div><button class="btn sec" data-a="chat:s0">Не нашли ответ? Написать в поддержку</button>')}
+var TS=[["Выбирайте заказы","В ленте и на карте видны задачи рядом: выгул собак, уборка, доставка, помощь по дому и удалённая работа."],["Деньги под защитой","Заказчик платит заранее, деньги хранятся на сайте и уходят исполнителю только после подтверждения с обеих сторон."],["Слоты и таймер","Бронируйте готовые слоты с гарантированной оплатой или берите заказы по одному. Таймер показывает, сколько времени на выполнение."],["Безопасность","Чат, кнопка SOS, оценки и отзывы, фото до и после. Если что-то не так, пишите в поддержку."]];
+function tourSheet(i){if(i>=TS.length){closeSheet();return}var t=TS[i],d="";for(var k=0;k<TS.length;k++)d+='<i style="display:inline-block;width:'+(k===i?22:8)+'px;height:8px;border-radius:4px;margin-right:6px;background:'+(k===i?'var(--gold)':'var(--line)')+'"></i>';openSheet('<div style="margin:6px 0 14px">'+d+'</div><h2>'+t[0]+'</h2><p>'+t[1]+'</p><button class="btn" data-a="tour:'+(i+1)+'">'+(i===TS.length-1?'Начать':'Дальше')+'</button><div style="height:6px"></div><button class="lnk" data-a="tour:9" style="padding:10px 0">Пропустить</button>')}
+function setSheet(){var T=[["auto","Авто"],["light","Светлая"],["dark","Тёмная"]],N=[["new","Новые заказы рядом"],["slots","Слоты"],["chat","Сообщения"],["promo","Акции"]];
+ openSheet('<h2>Настройки</h2><label>Тема</label><div class="seg">'+T.map(function(t){return '<button class="'+((S.theme||"auto")===t[0]?'on':'')+'" data-a="thm:'+t[0]+'">'+t[1]+'</button>'}).join("")+'</div><label>Язык / Language</label><div class="seg"><button class="'+(S.lang!=="en"?'on':'')+'" data-a="lg:ru">Русский</button><button class="'+(S.lang==="en"?'on':'')+'" data-a="lg:en">English</button></div><div class="meta" style="margin-top:6px">Английская версия пока частичная: переведены основные разделы и кнопки.</div><label>Уведомления</label><div class="chips" style="flex-wrap:wrap">'+N.map(function(n){return '<button class="chip '+(S.nt[n[0]]?'on':'')+'" data-a="nt:'+n[0]+'">'+n[1]+'</button>'}).join("")+'</div>')}
+function menu(v){({rew:rewSheet,train:trainSheet,sub:subSheet,safe:function(){safeSheet(0)},help:helpSheet,faq:faqSheet,tour:function(){tourSheet(0)},set:setSheet})[v]()}
+function act(n,v){
+ if(n==="menu")menu(v);else if(n==="reset")resetF();else if(n==="tpl")tplFill(+v);else if(n==="avg")$("n_p").value=v;
+ else if(n==="sos")safeSheet(1);else if(n==="disp")dispSheet(v);else if(n==="trk")trkSheet(+v);else if(n==="tip")tipSheet(+v);else if(n==="rpt")rptDo(+v);
+ else if(n==="tour"){if(+v>8){closeSheet()}else tourSheet(+v)}
+ else if(n==="thm"){S.theme=v;if(v==="auto")document.documentElement.removeAttribute("data-theme");else document.documentElement.setAttribute("data-theme",v);setSheet()}
+ else if(n==="lg"){S.lang=v;closeSheet();render()}
+ else if(n==="nt"){S.nt[v]=!S.nt[v];setSheet()}
+ else if(n==="test"){var m="Новый заказ рядом: выгул собаки, 800 ₽";S.extra.unshift([m,"только что"]);toast(m);try{if(window.Notification&&Notification.permission==="granted")new Notification("Дело",{body:m});else if(window.Notification&&Notification.permission==="default")Notification.requestPermission()}catch(x){}render()}
+ else if(n==="sub"){S.plus=!S.plus;subSheet();render()}
+ else if(n==="chat")chatOpen("s0","Служба поддержки")
+ else if(n==="tc"){S.tc=$("tc").value.trim();toast(S.tc?"Контакт сохранён":"Введите контакт")}
+ else if(n==="loc")toast(S.tc?"Геолокация отправлена: "+S.tc+" (демо)":"Сначала укажите доверенный контакт")
+ else if(n==="quiz"){var ok=0,all=1;QZ.forEach(function(q,i){var x=$("q"+i).value;if(x==="")all=0;else if(+x===q[2])ok++});if(!all)toast("Ответьте на все вопросы");else if(ok===QZ.length){S.train=1;toast("Тест пройден!");trainSheet()}else toast("Верно "+ok+" из "+QZ.length+". Попробуйте ещё раз")}
+ else if(n==="dsend"){var i=+S.dk.slice(1),ob=S.dk[0]==="c"?S.my[i]:S.mine[i];ob.disp=1;closeSheet();toast("Спор открыт, поддержка свяжется с вами");render()}
+ else if(n==="tsend"){var o=S.my[S.tk],a=+$("tt").value;o.tip=a;o.rate=+$("tr").value;closeSheet();toast("Спасибо! "+(a?"Чаевые: "+rub(a):"Оценка отправлена"));render()}
 }
 var LM=null;
 function pl(o){var q=wp(o);return q>=1000?f1(q/1000)+"к":q}
 function mapFallback(l){var e=$("lmap");if(LM){LM.remove();LM=null}if(e)e.outerHTML='<div class="meta" style="margin-bottom:8px">Настоящая карта здесь не загрузилась (она работает на опубликованном сайте), показываю схему.</div>'+mapSvg(l)}
 function initMap(){
- var e=$("lmap");if(!e)return;var l=flt();
+ var e=$("lmap");if(!e)return;var l=flt().filter(function(o){return !o.rem});
  if(LM){LM.remove();LM=null}
- if(typeof L==="undefined"||!l.length){if(l.length)mapFallback(l);return}
+ if(!l.length){e.innerHTML='<div class="empty">Заказов на месте нет, удалённые на карте не показываются.</div>';e.style.height="auto";return}if(typeof L==="undefined"){mapFallback(l);return}
  try{
   LM=L.map("lmap",{zoomControl:true}).setView([55.75,37.62],10);
   var bad=0,tl=L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:18,attribution:"© OpenStreetMap"}).addTo(LM);
@@ -189,11 +296,13 @@ function render(){
  if(!S.role){openRole();return}
  var w=S.role==="worker";
  if(w&&S.tab==="my")S.tab="feed";if(!w&&(S.tab==="feed"||S.tab==="mine"||S.tab==="slots"))S.tab="my";
- $("app").innerHTML=S.tab==="feed"?feed():S.tab==="mine"?mineV():S.tab==="slots"?slotsV():S.tab==="my"?myV():profV();
- var it=w?[["feed","📋","Заказы"],["mine","✅","Мои"],["slots","🕒","Слоты"],["prof","👤","Профиль"]]:[["my","📦","Заказы"],["new","+",""],["prof","👤","Профиль"]];
+ var un=S.unread;if(S.tab==="bell")S.unread=0;
+ $("app").innerHTML=S.tab==="feed"?feed():S.tab==="mine"?mineV():S.tab==="slots"?slotsV():S.tab==="my"?myV():S.tab==="bell"?bellV():profV();
+ var it=w?[["feed",IC.feed,"Заказы"],["mine",IC.mine,"Мои"],["slots",IC.slots,"Слоты"],["bell",IC.bell,"События"],["prof",IC.prof,"Профиль"]]:[["my",IC.my,"Заказы"],["new","+",""],["bell",IC.bell,"События"],["prof",IC.prof,"Профиль"]];
  if(S.tab==="feed"&&S.view==="map")initMap();else if(LM){LM.remove();LM=null}
  $("nav").style.gridTemplateColumns="repeat("+it.length+",1fr)";
- $("nav").innerHTML=it.map(function(x){return x[0]==="new"?'<button class="plus" data-tab="new" aria-label="Создать заказ">+</button>':'<button class="'+(S.tab===x[0]?'on':'')+'" data-tab="'+x[0]+'"><span>'+x[1]+'</span>'+x[2]+'</button>'}).join("");
+ $("nav").innerHTML=it.map(function(x){return x[0]==="new"?'<button class="plus" data-tab="new" aria-label="Создать заказ">+</button>':'<button class="'+(S.tab===x[0]?'on':'')+'" data-tab="'+x[0]+'"><span>'+x[1]+(x[0]==="bell"&&S.unread?'<b class="dot">'+S.unread+'</b>':'')+'</span>'+x[2]+'</button>'}).join("");
+ trAll();
 }
 function openRole(){openSheet('<h2>Добро пожаловать в Дело</h2><div class="meta">Роль можно сменить в любой момент в профиле. Аккаунт один.</div><div style="height:14px"></div><button class="btn" data-role="customer">Хочу заказать</button><div style="height:10px"></div><button class="btn sec" data-role="worker">Хочу подработать</button>')}
 function revList(l){return l.map(function(r){return '<div style="margin-top:14px"><div class="who">'+av(34)+'<div><b>'+esc(r[1])+'</b><div class="stars">'+stars(r[0])+'</div></div></div>'+(r[2]?'<div style="margin-top:6px">'+esc(r[2])+'</div>':'')+'</div>'}).join("")}
@@ -207,21 +316,22 @@ function custSheet(i){
 }
 function detail(id){
  var o=orders.filter(function(x){return x.id===id})[0];if(!o)return;var w=S.role==="worker",c=CU[o.cu];
- openSheet('<h2>'+esc(o.t)+'</h2><div class="meta">'+esc(o.c)+' · '+esc(o.d)+'</div><div class="note"><b>Когда:</b> '+esc(o.dt)+', '+esc(o.w)+'<br><b>Адрес:</b> '+esc(o.ad)+'<br><b>Метро:</b> '+esc(o.st)+', '+o.m+' мин пешком<br><b>Сложность:</b> '+o.cx+' из 10'+(o.ub?'<br><b>За срочность:</b> +'+o.ub+' ₽ уже входит в оплату':'')+'<br><b>Время на выполнение:</b> '+o.lim+' мин<br><b>Возраст исполнителя:</b> от '+o.age+' лет</div><p style="margin:0 0 6px">'+esc(o.x2)+'</p>'+(o.nt?'<p class="meta" style="margin:0 0 8px">Примечание заказчика: '+esc(o.nt)+'</p>':'')+'<div style="margin:10px 0"><span class="meta">Заказчик: </span><button class="lnk" data-cust="'+o.cu+'">'+esc(c.n)+' · ★ '+f1(avg(c.rv))+' ›</button></div><div class="row" style="align-items:center;margin-bottom:12px"><b>Ваша оплата</b><div class="price">'+rub(wp(o))+'</div></div>'+(w?'<button class="btn" id="take">Взять заказ</button>':'<div class="meta">Чтобы брать заказы, переключитесь на роль «Исполнитель» в профиле.</div>'));
- if(w)$("take").onclick=function(){S.mine.push({o:o,s:0,end:Date.now()+o.lim*60000});orders=orders.filter(function(x){return x.id!==id});closeSheet();toast("Заказ взят, таймер запущен");render()};
+ openSheet('<h2>'+esc(o.t)+'</h2><div class="meta">'+esc(o.c)+' · '+esc(o.d)+'</div><div class="note"><b>Когда:</b> '+esc(o.dt)+', '+esc(o.w)+'<br><b>Адрес:</b> '+esc(o.ad)+''+(o.rem?'':'<br><b>Метро:</b> '+esc(o.st)+', '+o.m+' мин пешком')+'<br><b>Сложность:</b> '+o.cx+' из 10'+(o.ub>0?'<br><b>Срочный заказ:</b> оплата повышена':'')+'<br><b>Время на выполнение:</b> '+o.lim+' мин<br><b>Возраст исполнителя:</b> от '+o.age+' лет'+(o.need>1?'<br><b>Нужно исполнителей:</b> '+o.need:'')+(o.rp?'<br><b>Повтор:</b> '+esc(o.rp):'')+'<br><b>Страховка:</b> ущерб до 30 000 ₽ (демо)</div><p style="margin:0 0 6px">'+esc(o.x2)+'</p>'+(o.nt?'<p class="meta" style="margin:0 0 8px">Примечание заказчика: '+esc(o.nt)+'</p>':'')+'<div style="margin:10px 0"><span class="meta">Заказчик: </span><button class="lnk" data-cust="'+o.cu+'">'+esc(c.n)+' · ★ '+f1(avg(c.rv))+' ›</button></div><div class="row" style="align-items:center;margin-bottom:12px"><b>Ваша оплата</b><div class="price">'+rub(wp(o))+'</div></div>'+(w?(S.mine.some(function(m){return m.o.id===o.id})?'<button class="btn" disabled>Вы уже взяли этот заказ</button>':'<button class="btn" id="take">'+(o.need>1?'Вступить в команду':'Взять заказ')+'</button>'):'<div class="meta">Чтобы брать заказы, переключитесь на роль «Исполнитель» в профиле.</div>'));
+ var tk=$("take");if(w&&tk)tk.onclick=function(){S.mine.push({o:Object.assign({},o),s:0,end:Date.now()+o.lim*60000});if(o.need>1){o.need--;toast("Вы в команде, осталось мест: "+o.need)}else{orders=orders.filter(function(x){return x.id!==id});toast("Заказ взят, таймер запущен")}closeSheet();render()};
 }
 function filterSheet(){
  function op(a,v){return a.map(function(x){return '<option value="'+x[0]+'"'+(String(v)===String(x[0])?' selected':'')+'>'+x[1]+'</option>'}).join("")}
  openSheet('<h2>Фильтры</h2><label for="fs">Сортировать</label><select id="fs">'+op([["km","Сначала ближайшие"],["p","Сначала дороже"],["m","Ближе к метро"]],S.sort)+'</select><label for="fp">Оплата от, ₽</label><input id="fp" type="number" min="0" value="'+(S.min||"")+'" placeholder="1000"><label for="fk">Расстояние</label><select id="fk">'+op([[0,"Любое"],[3,"до 3 км"],[5,"до 5 км"],[10,"до 10 км"]],S.maxKm)+'</select><label for="fm">От метро пешком</label><select id="fm">'+op([[0,"Любое"],[5,"до 5 мин"],[10,"до 10 мин"],[15,"до 15 мин"]],S.maxM)+'</select><label for="fa">Возраст</label><select id="fa">'+op([["all","Любой"],["14","Только с 14 лет"],["18","Только 18+"]],S.age)+'</select><div style="height:14px"></div><button class="btn" id="fok">Показать заказы</button><div style="height:8px"></div><button class="btn sec" id="frs">Сбросить</button>');
  $("fok").onclick=function(){S.sort=$("fs").value;S.min=parseInt($("fp").value,10)||0;S.maxKm=+$("fk").value;S.maxM=+$("fm").value;S.age=$("fa").value;closeSheet();render()};
- $("frs").onclick=function(){S.sort="km";S.min=S.maxKm=S.maxM=0;S.age="all";S.cat="Все";closeSheet();render()};
+ $("frs").onclick=function(){S.sort="km";S.min=S.maxKm=S.maxM=0;S.age="all";S.cat="Все";S.urg=S.rem=false;closeSheet();render()};
 }
 function createForm(){
  var cx="";for(var i=0;i<=10;i++)cx+='<option>'+i+'</option>';
- openSheet('<h2>Новый заказ</h2><label for="n_t">Что нужно сделать</label><input id="n_t" placeholder="Выгулять собаку"><label for="n_c">Категория</label><select id="n_c">'+CATS.map(function(c){return '<option>'+c+'</option>'}).join("")+'</select><label for="n_a">Адрес</label><input id="n_a" placeholder="Улица, дом, квартира"><label for="n_dt">Дата</label><input id="n_dt" placeholder="9 октября"><label for="n_w">Время</label><input id="n_w" placeholder="10:00"><label for="n_p">Цена, ₽</label><input id="n_p" type="number" min="100" placeholder="1000"><label for="n_x">Сложность задачи (0–10)</label><select id="n_x">'+cx+'</select><label for="n_u">Доплата за срочность, ₽ (необязательно)</label><input id="n_u" type="number" min="0" placeholder="0"><label for="n_l">Время на выполнение, мин</label><input id="n_l" type="number" min="15" placeholder="60"><label for="n_n">Примечания к исполнителю</label><textarea id="n_n" rows="2" placeholder="Например: нужен аккуратный человек, лучше пожилой"></textarea><div style="height:14px"></div><button class="btn" id="n_go">Опубликовать</button>');
+ openSheet('<h2>Новый заказ</h2><div class="meta">Шаблоны:</div><div class="chips" style="padding:4px 0 0">'+TPL.map(function(t,i){return '<button class="chip" data-a="tpl:'+i+'">'+t[0]+'</button>'}).join("")+'</div><label for="n_t">Что нужно сделать</label><input id="n_t" placeholder="Выгулять собаку"><label for="n_c">Категория</label><select id="n_c">'+CATS.map(function(c){return '<option>'+c+'</option>'}).join("")+'</select><label for="n_a">Адрес</label><input id="n_a" placeholder="Улица, дом, квартира"><label for="n_dt">Дата</label><input id="n_dt" placeholder="9 октября"><label for="n_w">Время</label><input id="n_w" placeholder="10:00"><label for="n_p">Цена, ₽</label><input id="n_p" type="number" min="100" placeholder="1000"><div class="meta" id="n_h" style="margin-top:6px"></div><label for="n_x">Сложность задачи (0–10)</label><select id="n_x">'+cx+'</select><label for="n_k">Сколько исполнителей нужно</label><select id="n_k"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select><label for="n_rp">Повторять заказ</label><select id="n_rp"><option value="">Не повторять</option><option>каждый день</option><option>каждую неделю</option><option>раз в месяц</option></select><label class="chk"><input type="checkbox" id="n_ur"> Срочный заказ: +30% к цене, его увидят первыми</label><label class="chk"><input type="checkbox" id="n_rm"> Удалённая работа (можно сделать из дома)</label><label for="n_l">Время на выполнение, мин</label><input id="n_l" type="number" min="15" placeholder="60"><label for="n_n">Примечания к исполнителю</label><textarea id="n_n" rows="2" placeholder="Например: нужен аккуратный человек, лучше пожилой"></textarea><div style="height:14px"></div><button class="btn" id="n_go">Опубликовать</button>');
+ hint();
  $("n_go").onclick=function(){
   var t=$("n_t").value.trim(),p=parseInt($("n_p").value,10);if(!t||!p||p<100){toast("Укажите задачу и цену от 100 ₽");return}
-  var u=parseInt($("n_u").value,10)||0,o={id:S.nid++,t:t,c:$("n_c").value,p:p+u,dt:$("n_dt").value||"Дата уточняется",w:$("n_w").value||"",d:"Рядом",ad:$("n_a").value||"Адрес уточняется",st:"Ближайшее",km:.5,m:5,age:18,lim:parseInt($("n_l").value,10)||60,cx:+$("n_x").value,ub:u,cu:3,la:55.75+Math.random()*.03,lo:37.6+Math.random()*.04,x:120+Math.random()*60,y:120+Math.random()*60,x2:"Ваш заказ.",nt:$("n_n").value.trim()};
+  var u=$("n_ur").checked?Math.round(p*.3/50)*50:0,rm=$("n_rm").checked,o={s:0,rem:rm?1:0,id:S.nid++,t:t,c:$("n_c").value,p:p+u,dt:$("n_dt").value||"Дата уточняется",w:$("n_w").value||"",d:rm?"Удалённо":"Рядом",ad:rm?"Онлайн":($("n_a").value||"Адрес уточняется"),st:"Ближайшее",km:rm?99:.5,m:rm?99:5,age:18,lim:parseInt($("n_l").value,10)||60,cx:+$("n_x").value,ub:u,cu:3,need:+$("n_k").value,rp:$("n_rp").value,la:55.75+Math.random()*.03,lo:37.6+Math.random()*.04,x:120+Math.random()*60,y:120+Math.random()*60,x2:"Ваш заказ.",nt:$("n_n").value.trim()};
   orders.unshift(o);S.my.unshift(o);closeSheet();S.tab="my";toast("Заказ опубликован");render();
  };
 }
@@ -231,30 +341,42 @@ function wdSheet(){
  $("wgo").onclick=function(){go(parseInt($("wa").value,10))};$("wall").onclick=function(){go(S.bal)};
 }
 document.addEventListener("click",function(e){
- var el=e.target.closest("[data-open],[data-cat],[data-view],[data-filter],[data-tab],[data-role],[data-pick],[data-apply],[data-fin],[data-conf],[data-cfin],[data-sl],[data-slb],[data-slx],[data-slok],[data-revs],[data-cust],[data-x],#rgs,#wd,#cp");if(!el)return;var d=el.dataset;
+ var el=e.target.closest("[data-open],[data-cat],[data-view],[data-filter],[data-tab],[data-role],[data-pick],[data-apply],[data-fin],[data-conf],[data-cfin],[data-sl],[data-slb],[data-slx],[data-slok],[data-revs],[data-cust],[data-x],[data-urg],[data-rem],[data-dem],[data-chat],[data-where],[data-send],[data-mic],[data-play],[data-a],#rgs,#wd,#cp");if(!el)return;var d=el.dataset;
  if(d.x)closeSheet();
+ else if(d.a){var q=d.a.split(":");act(q[0],q.slice(1).join(":"))}
  else if(d.open)detail(+d.open);
  else if(d.cat){S.cat=d.cat;render()}
  else if(d.view){S.view=d.view;render()}
  else if(d.filter)filterSheet();
  else if(d.tab){if(d.tab==="new")createForm();else{S.tab=d.tab;render();scrollTo(0,0)}}
- else if(d.role){S.role=S.pick=d.role;S.tab=d.role==="worker"?"feed":"my";closeSheet();render()}
+ else if(d.role){S.role=S.pick=d.role;S.tab=d.role==="worker"?"feed":"my";closeSheet();render();if(!S.toured){S.toured=1;tourSheet(0)}}
  else if(d.pick){S.pick=d.pick;render()}
  else if(d.apply){S.role=S.pick;S.tab="prof";toast("Режим переключён");render()}
  else if(d.fin){S.mine[+d.fin].s=1;render()}
  else if(d.conf){var m=S.mine[+d.conf];m.s=3;S.bal+=wp(m.o);toast("+"+rub(wp(m.o))+" на баланс");render()}
- else if(d.cfin){S.my[+d.cfin].fin=1;render()}
+ else if(d.cfin){S.my[+d.cfin].s=2;toast("Выполнение подтверждено");render()}
  else if(d.sl){S.st=d.sl;render()}
  else if(d.slb){S.bk[d.slb]="b";toast("Слот забронирован. Подтвердите его за 12 часов до начала");render()}
  else if(d.slx){delete S.bk[d.slx];render()}
  else if(d.slok){S.bk[d.slok]="ok";toast("Участие подтверждено");render()}
  else if(d.revs)revSheet(d.revs);
  else if(d.cust)custSheet(+d.cust);
+ else if(d.urg){S.urg=!S.urg;render()}
+ else if(d.rem){S.rem=!S.rem;render()}
+ else if(d.dem){var oo=S.my[+d.dem];oo.s=1;oo.ex="Иван М.";toast("Заказ принят исполнителем");render()}
+ else if(d.chat){var k=d.chat,ix=+k.slice(1);chatOpen(k,k[0]==="w"?CU[S.mine[ix].o.cu].n:S.my[ix].ex)}
+ else if(d.where)whereSheet(+d.where)
+ else if(d.send)send()
+ else if(d.mic)mic()
+ else if(d.play){var pm=CH[CHK][+d.play];if(pm.v)new Audio(pm.v).play();else toast("Демо: голосовое без записи")}
  else if(el.id==="rgs"){S.region=$("rg").value;toast("Регион сохранён")}
  else if(el.id==="wd")wdSheet();
  else if(el.id==="cp"){try{navigator.clipboard.writeText("DELO-7K2M")}catch(x){}toast("Код скопирован")}
 });
 document.addEventListener("keydown",function(e){if((e.key==="Enter"||e.key===" ")&&e.target.dataset&&e.target.dataset.open){e.preventDefault();detail(+e.target.dataset.open)}});
+document.addEventListener("change",function(e){var t=e.target;
+ if(t.dataset&&t.dataset.ph&&t.files&&t.files[0]){var k=t.dataset.ph[0],i=+t.dataset.ph.slice(1);S.mine[i].ph[k].push(URL.createObjectURL(t.files[0]));render()}
+ if(t.id==="n_c")hint()});
 setInterval(function(){var n=document.querySelectorAll("[data-end]");for(var i=0;i<n.length;i++)n[i].textContent=timerTxt(+n[i].dataset.end-Date.now())},1000);
 render();
 </script>
