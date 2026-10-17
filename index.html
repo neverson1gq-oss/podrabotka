@@ -4,10 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Дело — подработка рядом</title>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <style>
 :root{--bg:#F2F6FD;--card:#FFFFFF;--ink:#0E1B3A;--mute:#5B6B8B;--line:#DCE5F3;--pri:#1F4FD8;--onpri:#fff;--gold:#4C84F0;--star:#F2B01E;--ok:#1F9D63;--teen:#DCE8FF;--teenink:#123A9C;--park:#D8EBDD;--river:#BCD8F7;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0B1226;--card:#131C36;--ink:#E8EEFF;--mute:#93A2C4;--line:#243256;--pri:#6E9BFF;--onpri:#0B1226;--gold:#6E9BFF;--star:#F5C04A;--ok:#4FD39A;--teen:#1B2B57;--teenink:#CFE0FF;--park:#1C3326;--river:#1D3556}}
@@ -103,11 +101,8 @@ select{appearance:none;-webkit-appearance:none;background-image:url("data:image/
 @keyframes su{from{transform:translateY(40px);opacity:.6}to{transform:none;opacity:1}}
 @keyframes fi{from{opacity:0}to{opacity:1}}
 @keyframes fu{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-.sheet-bg.open{animation:fi .18s}.sheet-bg.open .sheet{animation:su .26s cubic-bezier(.2,.8,.2,1)}
-.sheet-bg.out{opacity:0;transition:opacity .18s}.sheet-bg.out .sheet{transform:translateY(40px);transition:transform .18s}
-#app>*{animation:fu .24s both}
-.app>header{position:sticky;top:env(safe-area-inset-top,0px);z-index:4;background:var(--bg)}
-body.sc .app>header .bar2,body.sc .app>header .chips{display:none}body.sc .app>header h1{font-size:19px}
+.sheet-bg.open{animation:fi .12s}.sheet-bg.open .sheet{animation:su .18s cubic-bezier(.2,.8,.2,1)}
+.sheet-bg.out{opacity:0;transition:opacity .12s}.sheet-bg.out .sheet{transform:translateY(30px);transition:transform .12s}
 #burst{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;z-index:40}
 #burst .ring{width:96px;height:96px;border-radius:50%;background:var(--ok);display:flex;align-items:center;justify-content:center;animation:pop .5s cubic-bezier(.2,1.4,.4,1) both}
 #burst .ring svg path{stroke-dasharray:40;stroke-dashoffset:40;animation:dr .4s .25s forwards}
@@ -155,6 +150,8 @@ details summary{cursor:pointer}details p{margin:8px 0}
 <div class="toast" id="toast"></div>
 <div id="wl"></div>
 <script>
+function ldScript(u,css,ok,bad){var e=document.createElement(css?"link":"script");if(css){e.rel="stylesheet";e.href=u}else{e.src=u;e.async=true}e.onload=function(){if(ok)ok()};e.onerror=function(){if(bad)bad()};document.head.appendChild(e)}
+ldScript("https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&display=swap",1);
 var FEE=.1,CATS=["Животные","Уборка","Переезд","Стройка и ремонт","Доставка","Сборка","Дача и сад","Другое"];
 var REG=["Москва и Московская область","Санкт-Петербург и Ленинградская область","Казань","Екатеринбург","Новосибирск","Нижний Новгород","Краснодар","Сочи","Самара","Ростов-на-Дону","Уфа","Красноярск","Воронеж","Пермь","Челябинск","Калининград","Другой регион"];
 var CU=[{n:"Мария С.",o:14,rv:[[5,"Анна","Всё чётко объяснила, оплата пришла сразу."],[5,"Игорь","Приятная, ключи передала вовремя."],[4,"Олег","Адрес указан точно, всё как договорились."]]},
@@ -198,7 +195,7 @@ function f1(n){return n.toFixed(1).replace(".",",")}
 function stars(n){return "★★★★★".slice(0,n)+"☆☆☆☆☆".slice(0,5-n)}
 function toast(m){var t=$("toast");t.textContent=m;t.style.display="block";clearTimeout(toast.h);toast.h=setTimeout(function(){t.style.display="none"},2400)}
 function openSheet(h){$("sheet").innerHTML=(S.role?'<button class="x" data-x="1" aria-label="Закрыть">✕</button>':"")+h;$("sheet").scrollTop=0;trN($("sheet"));CT++;$("bg").classList.remove("out");$("bg").classList.add("open")}
-var CT=0;function closeSheet(){var b=$("bg");if(!b.classList.contains("open"))return;b.classList.add("out");var t=++CT;setTimeout(function(){if(t===CT)b.classList.remove("open","out")},190)}
+var CT=0;function closeSheet(){var b=$("bg");if(!b.classList.contains("open"))return;b.classList.add("out");var t=++CT;setTimeout(function(){if(t===CT)b.classList.remove("open","out")},130)}
 $("bg").addEventListener("click",function(e){if(e.target===this&&S.role)closeSheet()});
 document.addEventListener("keydown",function(e){if(e.key==="Escape"&&S.role)closeSheet()});
 function flt(){
@@ -287,7 +284,7 @@ function mapFallback(l){var e=$("lmap");if(LM){LM.remove();LM=null}if(e)e.outerH
 function initMap(){
  var e=$("lmap");if(!e)return;var l=flt().filter(function(o){return !o.rem});
  if(LM){LM.remove();LM=null}
- if(!l.length){e.innerHTML='<div class="empty">Заказов на месте нет, удалённые на карте не показываются.</div>';e.style.height="auto";return}if(typeof L==="undefined"){mapFallback(l);return}
+ if(!l.length){e.innerHTML='<div class="empty">Заказов на месте нет, удалённые на карте не показываются.</div>';e.style.height="auto";return}if(typeof L==="undefined"){e.innerHTML='<div class="sk" style="height:100%"></div>';if(!window._lq){window._lq=1;ldScript("https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css",1);ldScript("https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js",0,function(){if(S.tab==="feed"&&S.view==="map")initMap()},function(){window._lq=0;if($("lmap"))mapFallback(l)})}return}e.innerHTML="";
  try{
   LM=L.map("lmap",{zoomControl:true}).setView([55.75,37.62],10);
   var bad=0,tl=L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:18,attribution:"© OpenStreetMap"}).addTo(LM);
@@ -310,7 +307,7 @@ document.addEventListener("click",function(e){
  else if(d.cat){S.cat=d.cat;render()}
  else if(d.view){S.view=d.view;render()}
  else if(d.filter)filterSheet();
- else if(d.tab){if(d.tab==="new")createForm();else{S.sk2=S.tab!==d.tab&&(d.tab==="feed"||d.tab==="slots"||d.tab==="my"||d.tab==="mine");S.tab=d.tab;render();scrollTo(0,0)}}
+ else if(d.tab){if(d.tab==="new")createForm();else{S.tab=d.tab;render();scrollTo(0,0)}}
  else if(d.role){S.role=S.pick=d.role;S.tab=d.role==="worker"?"feed":"my";closeSheet();render()}
  else if(d.pick){S.pick=d.pick;render()}
  else if(d.apply){S.role=S.pick;S.tab="prof";toast("Режим переключён");render()}
@@ -692,7 +689,6 @@ try{if(document.createElement&&document.head){var pst=document.createElement("st
 function burst(){try{var b=document.getElementById("burst");if(!b){b=document.createElement("div");b.id="burst";document.body.appendChild(b)}var c="";for(var i=0;i<10;i++){var a=i/10*6.283,r=90+(i%3)*18;c+='<i class="coin" style="--dx:'+Math.round(Math.cos(a)*r)+'px;--dy:'+Math.round(Math.sin(a)*r)+'px"></i>'}b.innerHTML='<div class="ring"><svg width="52" height="52" viewBox="0 0 52 52"><path d="M14 27l8 8 16-18" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>'+c;clearTimeout(burst.h);burst.h=setTimeout(function(){b.innerHTML=""},1100)}catch(e){}}
 var AC=null;
 function fb(k){if(S.snd===false)return;try{if(navigator.vibrate)navigator.vibrate(k==="ok"?[30,40,30]:15)}catch(e){}try{var C=window.AudioContext||window.webkitAudioContext;if(!C)return;AC=AC||new C();var o=AC.createOscillator(),g=AC.createGain(),t=AC.currentTime;o.connect(g);g.connect(AC.destination);o.frequency.value=k==="ok"?740:520;g.gain.setValueAtTime(.001,t);g.gain.exponentialRampToValueAtTime(.08,t+.02);g.gain.exponentialRampToValueAtTime(.001,t+.22);o.start();o.stop(t+.25)}catch(e){}}
-try{if(window.addEventListener){var y0=0;window.addEventListener("scroll",function(){var y=window.scrollY||0;if(Math.abs(y-y0)<8)return;document.body.classList.toggle("sc",y>y0&&y>60);y0=y},{passive:true})}}catch(e){}
 /* icons, cards */
 IC.pic=ic('<rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="11" r="2"/><path d="M21 17l-5-5-9 7"/>',20);
 var CIC={"Животные":'<circle cx="7" cy="10" r="1.8"/><circle cx="12" cy="7" r="1.8"/><circle cx="17" cy="10" r="1.8"/><path d="M12 12c-3 0-5 2.500-4 5 .7 1.800 2.500 2 4 2s3.300-.2 4-2c1-2.500-1-5-4-5z"/>',"Уборка":'<path d="M5 8h14l-1.500 12h-11z"/><path d="M8 8a4 4 0 0 1 8 0"/>',"Переезд":'<path d="M3 7l9-4 9 4v10l-9 4-9-4z"/><path d="M3 7l9 4 9-4M12 11v10"/>',"Стройка и ремонт":'<path d="M14 4l6 6-3 3-6-6z"/><path d="M12 9L4 17l3 3 8-8"/>',"Доставка":'<path d="M5 8h14l-1 12H6z"/><path d="M9 8a3 3 0 0 1 6 0"/>',"Сборка":'<path d="M14 6a4 4 0 0 0 5 5l-9 9-3-3 9-9a4 4 0 0 0-2-2z"/>',"Дача и сад":'<path d="M5 19c0-8 5-14 15-14 0 10-6 15-14 15"/><path d="M5 19l8-8"/>',"Другое":'<circle cx="6" cy="12" r="1.600"/><circle cx="12" cy="12" r="1.600"/><circle cx="18" cy="12" r="1.600"/>'};
@@ -712,15 +708,16 @@ function render(){
  var it=w?[["feed",IC.feed,"Заказы"],["mine",IC.mine,"Мои"],["slots",IC.slots,"Слоты"],["prof",IC.prof,"Профиль"]]:[["my",IC.my,"Заказы"],["new","+",""],["prof",IC.prof,"Профиль"]];
  $("nav").style.gridTemplateColumns="repeat("+it.length+",1fr)";
  $("nav").innerHTML=it.map(function(x){return x[0]==="new"?'<button class="plus" data-tab="new" aria-label="Создать заказ">+</button>':'<button class="'+(S.tab===x[0]||(x[0]==="prof"&&S.tab==="stat")?'on':'')+'" data-tab="'+x[0]+'"><span>'+x[1]+'</span>'+x[2]+'</button>'}).join("");
- if(S.sk2){S.sk2=false;$("app").innerHTML=skel();trAll();setTimeout(render,420);return}
+ 
  $("app").innerHTML=S.tab==="feed"?feed():S.tab==="mine"?mineV():S.tab==="slots"?slotsV():S.tab==="stat"?statV():S.tab==="my"?myV():S.tab==="bell"?bellV():profV();
  if(S.tab==="feed"&&S.view==="map")initMap();
  trAll();
 }
 /* profile extras */
 function statTile(){var e=STD.d.e;S.mine.forEach(function(m){if(m.s===3)e+=wp(m.o)});var mx=Math.max.apply(null,STD.w.b.map(function(x){return x[1]}));return '<button class="card" data-tab="stat" style="width:100%;text-align:left;cursor:pointer;color:inherit"><div class="row"><h3>Статистика</h3><span class="meta">Подробнее ›</span></div><div class="row" style="align-items:flex-end"><div><div class="meta">Сегодня заработано</div><div class="big">'+rub(e)+'</div></div><svg viewBox="0 0 120 44" width="120" height="44" aria-hidden="true">'+STD.w.b.map(function(b,i){var h=Math.round(b[1]/mx*40);return '<rect x="'+(i*17+2)+'" y="'+(44-h)+'" width="11" height="'+h+'" rx="3" style="fill:var(--gold)"/>'}).join("")+'</svg></div></button>'}
+function lazyQR(){if(typeof qrcode!=="function"){ldScript("https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js",0,function(){var b=$("qrb");if(b)b.innerHTML=qrHtml("https://delo.example/invite/DELO-ALEKSEY-7K2M9X")})}}
 function qrHtml(t){try{if(typeof qrcode==="function"){var q=qrcode(0,"M");q.addData(t);q.make();return q.createSvgTag(4,0)}}catch(e){}return '<div class="note" style="text-align:center">QR-код появится при подключении к интернету</div>'}
-function cardSheet(){var w=S.role==="worker",n=nDone();openSheet('<h2>Моя визитка</h2><div class="card" style="text-align:center;margin-top:10px"><div style="display:flex;justify-content:center">'+av(72,"Алексей К.")+'</div><h3 style="font-size:20px;margin:10px 0 2px">'+esc(myName())+'</h3><div class="meta">'+(w?'Исполнитель · '+lv(n):'Заказчик')+' · ★ '+f1(avg(w?WR:CU[3].rv))+'</div><div id="qrb" style="margin:14px auto 6px;width:170px">'+qrHtml("https://delo.example/invite/DELO-ALEKSEY-7K2M9X")+'</div><div class="meta">Наведите камеру, чтобы присоединиться к «Дело»</div></div><button class="btn" data-a="share:1">Поделиться визиткой</button>')}
+function cardSheet(){var w=S.role==="worker",n=nDone();openSheet('<h2>Моя визитка</h2><div class="card" style="text-align:center;margin-top:10px"><div style="display:flex;justify-content:center">'+av(72,"Алексей К.")+'</div><h3 style="font-size:20px;margin:10px 0 2px">'+esc(myName())+'</h3><div class="meta">'+(w?'Исполнитель · '+lv(n):'Заказчик')+' · ★ '+f1(avg(w?WR:CU[3].rv))+'</div><div id="qrb" style="margin:14px auto 6px;width:170px">'+qrHtml("https://delo.example/invite/DELO-ALEKSEY-7K2M9X")+'</div><div class="meta">Наведите камеру, чтобы присоединиться к «Дело»</div></div><button class="btn" data-a="share:1">Поделиться визиткой</button>');lazyQR()}
 function setSheet(){var T=[["auto","Авто"],["light","Светлая"],["dark","Тёмная"]],G=[["ru","Русский"],["en","English"],["es","Español"],["fr","Français"]],w=S.role==="worker";
  openSheet('<h2>Настройки</h2><label for="rg">'+(w?'Регион, где я работаю':'Регион, где мне нужна помощь')+'</label><div class="bar2"><select id="rg" style="flex:1">'+REG.map(function(r){return '<option'+(r===S.region?' selected':'')+'>'+r+'</option>'}).join("")+'</select><button class="btn sm" id="rgs">Сохранить</button></div><label>Тема</label><div class="seg">'+T.map(function(t){return '<button class="'+((S.theme||"auto")===t[0]?'on':'')+'" data-a="thm:'+t[0]+'">'+t[1]+'</button>'}).join("")+'</div><label>Цветовая схема <span class="meta">(временно, потом оставим одну)</span></label><div class="chips" style="flex-wrap:wrap">'+PAL.map(function(p){var c=p[2].split(" ");return '<button class="chip pal'+((S.pal||"blue")===p[0]?' on':'')+'" data-a="pal:'+p[0]+'"><i style="background:#'+c[5]+'"></i><i style="background:#'+c[7]+'"></i>'+p[1]+'</button>'}).join("")+'</div><label>Язык / Language</label><div class="chips" style="flex-wrap:wrap">'+G.map(function(g){return '<button class="chip '+((S.lang||"ru")===g[0]?'on':'')+'" data-a="lg:'+g[0]+'">'+g[1]+'</button>'}).join("")+'</div><div class="meta" style="margin-top:6px">Переведены основные разделы и кнопки, остальные тексты пока на русском.</div>')}
 /* order page */
