@@ -769,6 +769,32 @@ document.addEventListener("change",function(e){var t=e.target;
  if(t.id==="n_ph"&&t.files&&t.files[0]){S.nph=URL.createObjectURL(t.files[0]);$("n_pv").innerHTML='<img class="pv" src="'+S.nph+'" alt="Фото заказа">'}
  if(t.id==="rph"&&t.files&&t.files[0]){S.rph=URL.createObjectURL(t.files[0]);$("rpv").innerHTML='<img class="pv" src="'+S.rph+'" alt="Фото к отзыву">'}});
 
+// Реальная авторизация через FastAPI
+var AUTH_TOKEN_KEY="delo_access_token";
+var currentAccount=null;
+function authToken(){try{return localStorage.getItem(AUTH_TOKEN_KEY)||""}catch(e){return ""}}
+function authHeaders(extra){var h=Object.assign({"Accept":"application/json"},extra||{});var t=authToken();if(t)h.Authorization="Bearer "+t;return h}
+async function apiRequest(path,options){options=options||{};var headers=authHeaders(options.headers||{});if(options.body&&!headers["Content-Type"])headers["Content-Type"]="application/json";var r=await fetch(API_URL+path,Object.assign({},options,{headers:headers}));var data={};try{data=await r.json()}catch(e){}if(!r.ok)throw new Error(data.detail||("Ошибка сервера: "+r.status));return data}
+function loginSheet(){
+ openSheet('<h2 id="auth_title">Вход в аккаунт</h2><div class="meta">Аккаунт сохраняется на сервере. Подтверждение по коду пока не подключено.</div><div class="seg" style="margin:14px 0"><button id="auth_login_tab" class="on" data-a="authview:login">Войти</button><button id="auth_register_tab" data-a="authview:register">Регистрация</button></div><div id="auth_form"><label for="auth_email">Email</label><input id="auth_email" type="email" autocomplete="email" placeholder="name@example.com"><label for="auth_password">Пароль</label><input id="auth_password" type="password" autocomplete="current-password" placeholder="Не менее 8 символов"><div id="auth_role_wrap" style="display:none"><label for="auth_role">Я хочу быть</label><select id="auth_role"><option value="worker">Исполнителем — искать подработку</option><option value="customer">Заказчиком — публиковать задания</option></select></div><div style="height:14px"></div><button class="btn" data-a="authsubmit:login" id="auth_submit">Войти</button></div>');
+}
+function authView(mode){var reg=mode==="register",t=$("auth_title"),pw=$("auth_password"),wrap=$("auth_role_wrap"),sub=$("auth_submit"),lt=$("auth_login_tab"),rt=$("auth_register_tab");if(!t)return;t.textContent=reg?"Создать аккаунт":"Вход в аккаунт";pw.autocomplete=reg?"new-password":"current-password";wrap.style.display=reg?"block":"none";sub.textContent=reg?"Зарегистрироваться":"Войти";sub.setAttribute("data-a","authsubmit:"+mode);lt.classList.toggle("on",!reg);rt.classList.toggle("on",reg)}
+async function authSubmit(mode){var email=($("auth_email").value||"").trim().toLowerCase(),password=$("auth_password").value,role=$("auth_role")?$("auth_role").value:"worker";if(!email||email.indexOf("@")<1){toast("Введите корректный email");return}if(password.length<8){toast("Пароль должен быть не короче 8 символов");return}try{if(mode==="register"){await apiRequest("/register",{method:"POST",body:JSON.stringify({email:email,password:password,role:role})})}var result=await apiRequest("/login",{method:"POST",body:JSON.stringify({email:email,password:password})});localStorage.setItem(AUTH_TOKEN_KEY,result.access_token);currentAccount=await apiRequest("/me");S.role=currentAccount.role;S.pick=S.role;S.me.em=currentAccount.email;S.tab=S.role==="worker"?"feed":"my";closeSheet();render();toast(mode==="register"?"Аккаунт создан":"Вы вошли в аккаунт")}catch(e){toast(e.message||"Не удалось подключиться к серверу")}}
+async function switchAccountRole(){var role=S.role==="worker"?"customer":"worker";try{currentAccount=await apiRequest("/me/role",{method:"POST",body:JSON.stringify({role:role})});S.role=role;S.pick=role;S.tab=role==="worker"?"feed":"my";closeSheet();render();toast("Роль изменена")}catch(e){toast("Не удалось изменить роль: "+e.message)}}
+function logoutAccount(){try{localStorage.removeItem(AUTH_TOKEN_KEY)}catch(e){}currentAccount=null;S.role=null;S.pick="worker";S.tab="feed";closeSheet();render();toast("Вы вышли из аккаунта")}
+var oldSetSheet=setSheet;
+setSheet=function(){oldSetSheet();var holder=$("sheet");if(!holder)return;var roleText=S.role==="worker"?"Исполнитель":"Заказчик";holder.insertAdjacentHTML("beforeend",'<div class="card" style="margin-top:14px"><h3>Аккаунт</h3><div class="meta" style="margin:6px 0 12px">'+esc(currentAccount?currentAccount.email:(S.me.em||"Не выполнен вход"))+' · Роль: '+roleText+'</div><button class="btn sec" data-a="authrole:1">Сменить роль</button><div style="height:8px"></div><button class="btn sec" data-a="authlogout:1">Выйти из аккаунта</button><div style="height:8px"></div><button class="btn" data-a="menu:login">Войти / зарегистрироваться</button></div>')};
+var oldAct=act;
+act=function(n,v){
+ if(n==="authview"){authView(v);return}
+ if(n==="authsubmit"){authSubmit(v);return}
+ if(n==="authrole"){if(!authToken()){toast("Сначала войдите в аккаунт");loginSheet();return}switchAccountRole();return}
+ if(n==="authlogout"){logoutAccount();return}
+ if(n==="modeok"){if(!authToken()){toast("Войдите, чтобы сохранить смену роли");loginSheet();return}switchAccountRole();return}
+ return oldAct(n,v)
+};
+async function restoreAccount(){var token=authToken();if(!token)return;try{currentAccount=await apiRequest("/me");S.role=currentAccount.role;S.pick=S.role;S.me.em=currentAccount.email;S.tab=S.role==="worker"?"feed":"my";render()}catch(e){try{localStorage.removeItem(AUTH_TOKEN_KEY)}catch(x){}currentAccount=null}}
+
 // Подключение реальных объявлений к FastAPI
 var API_URL="https://podrabotka-backend.onrender.com";
 function apiDate(v){
@@ -809,6 +835,7 @@ async function loadApiOrders(){
  }
 }
 loadApiOrders();
+restoreAccount();
 render();
 </script>
 </body>
