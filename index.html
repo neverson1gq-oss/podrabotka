@@ -769,6 +769,46 @@ document.addEventListener("change",function(e){var t=e.target;
  if(t.id==="n_ph"&&t.files&&t.files[0]){S.nph=URL.createObjectURL(t.files[0]);$("n_pv").innerHTML='<img class="pv" src="'+S.nph+'" alt="Фото заказа">'}
  if(t.id==="rph"&&t.files&&t.files[0]){S.rph=URL.createObjectURL(t.files[0]);$("rpv").innerHTML='<img class="pv" src="'+S.rph+'" alt="Фото к отзыву">'}});
 
+// Подключение реальных объявлений к FastAPI
+var API_URL="https://podrabotka-backend.onrender.com";
+function apiDate(v){
+ if(!v)return "Дата уточняется";
+ var d=new Date(v);
+ return isNaN(d.getTime())?String(v):d.toLocaleDateString("ru-RU",{day:"numeric",month:"long"});
+}
+function apiOrderToCard(a){
+ var city=a.city||a.address||"Город не указан";
+ var remote=!!a.is_remote;
+ var cat=CATS.indexOf(a.category)>=0?a.category:"Другое";
+ var workTime=a.work_time||"Время уточняется";
+ var price=Number(a.price)||0;
+ return {
+  id:Number(a.id),t:String(a.title||"Подработка"),c:cat,p:price,
+  dt:apiDate(a.work_date),w:String(workTime),d:remote?"Удалённо":String(city),
+  ad:String(a.address||city),st:"",km:remote?99:5,m:remote?99:5,
+  rem:remote?1:0,age:18,lim:60,cx:0,ub:a.is_urgent?Math.round(price*.1):0,
+  cu:0,x:150,y:150,x2:String(a.description||""),nt:String(a.notes||""),
+  la:55.75,lo:37.61,need:1,api:true
+ };
+}
+async function loadApiOrders(){
+ try{
+  var response=await fetch(API_URL+"/orders",{headers:{"Accept":"application/json"}});
+  if(!response.ok)throw new Error("HTTP "+response.status);
+  var data=await response.json();
+  if(!Array.isArray(data))throw new Error("API вернул не список объявлений");
+  // Пустая база не должна скрывать демонстрационные объявления.
+  var real=data.map(apiOrderToCard).filter(function(o){return Number.isFinite(o.id)&&o.t&&o.p>=0;});
+  if(real.length){
+   orders.splice(0,orders.length,...real);
+   render();
+  }
+  console.info("API /orders: загружено объявлений",real.length);
+ }catch(err){
+  console.warn("Не удалось загрузить объявления из API; оставлены демо-данные:",err);
+ }
+}
+loadApiOrders();
 render();
 </script>
 </body>
