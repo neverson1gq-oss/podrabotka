@@ -364,7 +364,16 @@ function detail(id){
  var kv=[["Когда",o.dt+", "+o.w],["Адрес",o.ad]];if(!o.rem)kv.push(["Метро",metroTxt(o)]);kv.push(["Время на выполнение",dur(o.lim)]);kv.push(["Возраст исполнителя","С "+o.age+" лет"]);kv.push(["Оплата",o.cash?"Наличными при встрече":"Через платформу"]);if(o.rcv)kv.push(["Получатель",o.rcv.n]);if(o.need>1)kv.push(["Нужно исполнителей",o.need]);if(o.rp)kv.push(["Повтор",o.rp]);
  var taken=S.mine.some(function(m){return m.o.id===o.id});
  openSheet('<h2>'+esc(o.t)+'</h2><div class="tags" style="margin:0 0 12px"><span class="tag">'+esc(o.c)+'</span>'+(o.rem?'<span class="tag">Удалённо</span>':'')+('<span class="tag">С '+o.age+' лет</span>')+(o.ub>0?'<span class="tag urg">Срочно</span>':'')+'</div><div class="kv">'+kv.map(function(r){return '<div><span>'+r[0]+'</span><b>'+esc(r[1])+'</b></div>'}).join("")+'</div>'+(o.ph?'<img class="pv" src="'+o.ph+'" alt="Фото заказа">':'')+'<p style="margin:12px 0 4px">'+esc(o.x2)+'</p>'+(o.nt?'<p class="meta" style="margin:0 0 4px">Примечание заказчика: '+esc(o.nt)+'</p>':'')+'<button class="cust" data-cust="'+o.cu+'">'+av(40,c.n)+'<div><b>'+esc(c.n)+'</b><div class="meta"><span class="stars">★</span> '+f1(avg(c.rv))+' · '+c.s+'</div></div><span style="margin-left:auto">›</span></button><div class="row" style="align-items:center;margin:14px 0 4px"><b>Ваша оплата</b><div class="price" style="font-size:24px">'+rub(wp(o))+'</div></div><div class="meta" style="margin-bottom:12px">'+(o.cash?"Оплата наличными при встрече. Комиссия сервиса 10% ("+rub(Math.round(o.p*FEE))+") удержится с вашего баланса. Защита платежа сервиса не действует.":"Оплата принимается только через платформу: так вас не обманут.")+'</div><button class="lnk" style="margin-bottom:12px" data-a="cmpl:o'+o.id+'">Пожаловаться на заказ</button>'+(w?(taken?'<button class="btn" disabled>Вы уже взяли этот заказ</button>':'<button class="btn" id="take">'+(o.need>1?'Вступить в команду':'Взять заказ')+'</button>'):'<div class="meta">Чтобы брать заказы, переключитесь на роль «Исполнитель» в профиле.</div>'));
- var tk=$("take");if(w&&tk)tk.onclick=function(){S.mine.push({o:Object.assign({},o),s:0,end:Date.now()+o.lim*60000});if(o.need>1){o.need--;toast("Вы в команде, осталось мест: "+o.need)}else{orders=orders.filter(function(x){return x.id!==id});toast("Заказ взят, таймер запущен")}closeSheet();render();burst();fb("ok")};
+ var tk=$("take");if(w&&tk)tk.onclick=async function(){
+  if(o.api){
+   if(!authToken()){toast("Войдите в аккаунт, чтобы взять заказ");loginSheet();return}
+   tk.disabled=true;tk.textContent="Сохраняем…";
+   try{await apiRequest("/orders/"+encodeURIComponent(o.id)+"/accept",{method:"POST"});toast("Заказ закреплён за вами");closeSheet();await loadApiOrders();await loadTakenApiOrders();render();burst();fb("ok")}
+   catch(e){tk.disabled=false;tk.textContent="Взять заказ";toast(e.message||"Не удалось взять заказ")}
+   return;
+  }
+  S.mine.push({o:Object.assign({},o),s:0,end:Date.now()+o.lim*60000});if(o.need>1){o.need--;toast("Вы в команде, осталось мест: "+o.need)}else{orders=orders.filter(function(x){return x.id!==id});toast("Заказ взят, таймер запущен")}closeSheet();render();burst();fb("ok")
+ };
 }
 function filterSheet(){
  function op(a,v){return a.map(function(x){return '<option value="'+x[0]+'"'+(String(v)===String(x[0])?' selected':'')+'>'+x[1]+'</option>'}).join("")}
@@ -527,15 +536,21 @@ function topSheet(){S.ta=0;openSheet('<h2>Пополнить баланс</h2><l
 var FID=["n_t","n_c","n_a","n_dt","n_f","n_e","n_p","n_pm","n_pr","n_o","n_rn","n_rp","n_k","n_l","n_ur","n_rm","n_n"];
 function formVals(){var v={};FID.forEach(function(i){var e=$(i);if(e)v[i]=e.type==="checkbox"?e.checked:e.value});return v}
 function fillVals(v){FID.forEach(function(i){var e=$(i);if(e&&v[i]!=null){if(e.type==="checkbox")e.checked=!!v[i];else e.value=v[i]}});var b=$("n_ob");if(b)b.style.display=v.n_o?"block":"none";var pd=$("n_pd");if(v.n_pr&&PROMO[(v.n_pr+"").toUpperCase()]){S.pc=(v.n_pr+"").toUpperCase()}}
-function pubOrder(){
+async function pubOrder(){
  var v=formVals(),t=(v.n_t||"").trim(),p=parseInt(v.n_p,10);
  if(!t){toast("Опишите задачу");return}if(!v.n_c){toast("Выберите категорию");return}if(!p||p<500){toast("Минимальная цена — 500 ₽");return}
  if(v.n_o&&(v.n_rp||"").replace(/\D/g,"").length<10){toast("Укажите телефон получателя");return}
+ if(!authToken()||!currentAccount){toast("Чтобы опубликовать заказ, войдите в аккаунт заказчика");loginSheet();return}
+ if(S.role!=="customer"){toast("Сначала смените роль на «Заказчик» в настройках");return}
  var u=v.n_ur?Math.round(p*.3/50)*50:0,rm=v.n_rm,total=p+u,code=S.pc&&PROMO[S.pc]?S.pc:"",pay=total-disc(total,code),cash=v.n_pm==="cash",f=v.n_f,e=v.n_e;
- var o={s:0,rem:rm?1:0,id:S.nid++,t:t,c:v.n_c,p:total,pay:pay,promo:code,cash:cash,rcv:v.n_o?{n:(v.n_rn||"").trim()||"Получатель",ph:v.n_rp}:null,dt:fd(v.n_dt),w:f&&e?f+"–"+e:(f||""),d:rm?"Удалённо":"Рядом",ad:rm?"Онлайн":(v.n_a||"Адрес уточняется"),st:"Ближайшее",km:rm?99:.5,m:rm?99:5,age:18,lim:parseInt(v.n_l,10)||60,cx:0,ub:u,cu:3,need:+v.n_k,rp:"",la:55.75+Math.random()*.03,lo:37.6+Math.random()*.04,x:120+Math.random()*60,y:120+Math.random()*60,x2:"Ваш заказ.",nt:(v.n_n||"").trim(),ph:S.nph||null};
+ var payload={title:t,description:(v.n_n||"").trim()||t,price:total,city:typeof S.region==="string"?S.region:"Москва",category:v.n_c,address:rm?"Удалённо":((v.n_a||"").trim()||"Адрес уточняется"),work_date:v.n_dt||"",work_time:f&&e?f+"–"+e:(f||""),is_remote:!!rm,is_urgent:!!v.n_ur,notes:(v.n_n||"").trim()};
+ var saved;
+ try{saved=await apiRequest("/orders",{method:"POST",body:JSON.stringify(payload)})}
+ catch(err){toast("Не удалось сохранить заказ: "+(err.message||"ошибка сервера"));return}
+ var o={s:0,rem:rm?1:0,id:Number(saved.id)||S.nid++,t:String(saved.title||t),c:saved.category||v.n_c,p:Number(saved.price)||total,pay:pay,promo:code,cash:cash,rcv:v.n_o?{n:(v.n_rn||"").trim()||"Получатель",ph:v.n_rp}:null,dt:fd(v.n_dt),w:f&&e?f+"–"+e:(f||""),d:rm?"Удалённо":(v.n_a||"Адрес уточняется"),ad:String(saved.address||"Адрес уточняется"),st:"Ближайшее",km:rm?99:.5,m:rm?99:5,age:18,lim:parseInt(v.n_l,10)||60,cx:0,ub:u,cu:3,need:+v.n_k,rp:"",la:55.75+Math.random()*.03,lo:37.6+Math.random()*.04,x:120+Math.random()*60,y:120+Math.random()*60,x2:String(saved.description||"Ваш заказ."),nt:(v.n_n||"").trim(),ph:S.nph||null,api:true};
  if(!cash&&S.cbal>=pay)S.cbal-=pay;
  if(S.de!=null){S.dr.splice(S.de,1);S.de=null}
- orders.unshift(o);S.my.unshift(o);S.pc=null;S.nph=null;closeSheet();S.tab="my";S.cm="cur";burst();fb("ok");toast("Заказ опубликован");render();
+ orders.unshift(o);S.my.unshift(o);S.pc=null;S.nph=null;closeSheet();S.tab="my";S.cm="cur";burst();fb("ok");toast("Заказ сохранён на сервере");render();
 }
 function myV(){
  var cm=S.cm||"cur",cur=[],dn=[];S.my.forEach(function(o,i){(o.s<2?cur:dn).push([o,i])});
@@ -779,8 +794,8 @@ function loginSheet(){
  openSheet('<h2 id="auth_title">Вход в аккаунт</h2><div class="meta">Аккаунт сохраняется на сервере. Подтверждение по коду пока не подключено.</div><div class="seg" style="margin:14px 0"><button id="auth_login_tab" class="on" data-a="authview:login">Войти</button><button id="auth_register_tab" data-a="authview:register">Регистрация</button></div><div id="auth_form"><label for="auth_email">Email</label><input id="auth_email" type="email" autocomplete="email" placeholder="name@example.com"><label for="auth_password">Пароль</label><input id="auth_password" type="password" autocomplete="current-password" placeholder="Не менее 8 символов"><div id="auth_role_wrap" style="display:none"><label for="auth_role">Я хочу быть</label><select id="auth_role"><option value="worker">Исполнителем — искать подработку</option><option value="customer">Заказчиком — публиковать задания</option></select></div><div style="height:14px"></div><button class="btn" data-a="authsubmit:login" id="auth_submit">Войти</button></div>');
 }
 function authView(mode){var reg=mode==="register",t=$("auth_title"),pw=$("auth_password"),wrap=$("auth_role_wrap"),sub=$("auth_submit"),lt=$("auth_login_tab"),rt=$("auth_register_tab");if(!t)return;t.textContent=reg?"Создать аккаунт":"Вход в аккаунт";pw.autocomplete=reg?"new-password":"current-password";wrap.style.display=reg?"block":"none";sub.textContent=reg?"Зарегистрироваться":"Войти";sub.setAttribute("data-a","authsubmit:"+mode);lt.classList.toggle("on",!reg);rt.classList.toggle("on",reg)}
-async function authSubmit(mode){var email=($("auth_email").value||"").trim().toLowerCase(),password=$("auth_password").value,role=$("auth_role")?$("auth_role").value:"worker";if(!email||email.indexOf("@")<1){toast("Введите корректный email");return}if(password.length<8){toast("Пароль должен быть не короче 8 символов");return}try{if(mode==="register"){await apiRequest("/register",{method:"POST",body:JSON.stringify({email:email,password:password,role:role})})}var result=await apiRequest("/login",{method:"POST",body:JSON.stringify({email:email,password:password})});localStorage.setItem(AUTH_TOKEN_KEY,result.access_token);currentAccount=await apiRequest("/me");S.role=currentAccount.role;S.pick=S.role;S.me.em=currentAccount.email;S.tab=S.role==="worker"?"feed":"my";closeSheet();render();toast(mode==="register"?"Аккаунт создан":"Вы вошли в аккаунт")}catch(e){toast(e.message||"Не удалось подключиться к серверу")}}
-async function switchAccountRole(){var role=S.role==="worker"?"customer":"worker";try{currentAccount=await apiRequest("/me/role",{method:"POST",body:JSON.stringify({role:role})});S.role=role;S.pick=role;S.tab=role==="worker"?"feed":"my";closeSheet();render();toast("Роль изменена")}catch(e){toast("Не удалось изменить роль: "+e.message)}}
+async function authSubmit(mode){var email=($("auth_email").value||"").trim().toLowerCase(),password=$("auth_password").value,role=$("auth_role")?$("auth_role").value:"worker";if(!email||email.indexOf("@")<1){toast("Введите корректный email");return}if(password.length<8){toast("Пароль должен быть не короче 8 символов");return}try{if(mode==="register"){await apiRequest("/register",{method:"POST",body:JSON.stringify({email:email,password:password,role:role})})}var result=await apiRequest("/login",{method:"POST",body:JSON.stringify({email:email,password:password})});localStorage.setItem(AUTH_TOKEN_KEY,result.access_token);currentAccount=await apiRequest("/me");S.role=currentAccount.role;S.pick=S.role;S.me.em=currentAccount.email;S.tab=S.role==="worker"?"feed":"my";closeSheet();render();await loadMyApiOrders();await loadTakenApiOrders();toast(mode==="register"?"Аккаунт создан":"Вы вошли в аккаунт")}catch(e){toast(e.message||"Не удалось подключиться к серверу")}}
+async function switchAccountRole(){var role=S.role==="worker"?"customer":"worker";try{currentAccount=await apiRequest("/me/role",{method:"POST",body:JSON.stringify({role:role})});S.role=role;S.pick=role;S.tab=role==="worker"?"feed":"my";closeSheet();render();if(role==="customer")await loadMyApiOrders();toast("Роль изменена")}catch(e){toast("Не удалось изменить роль: "+e.message)}}
 function logoutAccount(){try{localStorage.removeItem(AUTH_TOKEN_KEY)}catch(e){}currentAccount=null;S.role=null;S.pick="worker";S.tab="feed";closeSheet();render();toast("Вы вышли из аккаунта")}
 var oldSetSheet=setSheet;
 setSheet=function(){oldSetSheet();var holder=$("sheet");if(!holder)return;var roleText=S.role==="worker"?"Исполнитель":"Заказчик";holder.insertAdjacentHTML("beforeend",'<div class="card" style="margin-top:14px"><h3>Аккаунт</h3><div class="meta" style="margin:6px 0 12px">'+esc(currentAccount?currentAccount.email:(S.me.em||"Не выполнен вход"))+' · Роль: '+roleText+'</div><button class="btn sec" data-a="authrole:1">Сменить роль</button><div style="height:8px"></div><button class="btn sec" data-a="authlogout:1">Выйти из аккаунта</button><div style="height:8px"></div><button class="btn" data-a="menu:login">Войти / зарегистрироваться</button></div>')};
@@ -793,7 +808,7 @@ act=function(n,v){
  if(n==="modeok"){if(!authToken()){toast("Войдите, чтобы сохранить смену роли");loginSheet();return}switchAccountRole();return}
  return oldAct(n,v)
 };
-async function restoreAccount(){var token=authToken();if(!token)return;try{currentAccount=await apiRequest("/me");S.role=currentAccount.role;S.pick=S.role;S.me.em=currentAccount.email;S.tab=S.role==="worker"?"feed":"my";render()}catch(e){try{localStorage.removeItem(AUTH_TOKEN_KEY)}catch(x){}currentAccount=null}}
+async function restoreAccount(){var token=authToken();if(!token)return;try{currentAccount=await apiRequest("/me");S.role=currentAccount.role;S.pick=S.role;S.me.em=currentAccount.email;S.tab=S.role==="worker"?"feed":"my";render();await loadMyApiOrders();await loadTakenApiOrders()}catch(e){try{localStorage.removeItem(AUTH_TOKEN_KEY)}catch(x){}currentAccount=null}}
 
 // Подключение реальных объявлений к FastAPI
 var API_URL="https://podrabotka-backend.onrender.com";
@@ -817,6 +832,34 @@ function apiOrderToCard(a){
   la:55.75,lo:37.61,need:1,api:true
  };
 }
+function apiOrderToCustomerCard(a){
+ var o=apiOrderToCard(a);
+ o.s=0;o.ex=null;o.stx=null;o.tip=null;o.rate=null;o.rv="";o.cash=false;o.promo=null;o.pay=o.p;o.api=true;
+ o.dt=apiDate(a.work_date);o.w=String(a.work_time||"Время уточняется");o.ad=String(a.address||a.city||"Адрес уточняется");
+ o.d=a.is_remote?"Удалённо":String(a.city||"");o.nt=String(a.notes||"");o.x2=String(a.description||"");
+ o.need=1;o.cu=3;o.lim=60;o.ub=a.is_urgent?Math.round(o.p*.3):0;
+ return o;
+}
+async function loadMyApiOrders(){
+ if(!authToken())return;
+ try{
+  var data=await apiRequest("/orders/mine");
+  if(!Array.isArray(data))throw new Error("API вернул не список заказов");
+  S.my=data.map(apiOrderToCustomerCard).filter(function(o){return Number.isFinite(o.id)&&o.t;});
+  if(currentAccount&&currentAccount.role==="customer")render();
+ }catch(err){console.warn("Не удалось загрузить мои заказы:",err);}
+}
+
+async function loadTakenApiOrders(){
+ if(!authToken()||!currentAccount||currentAccount.role!=="worker")return;
+ try{
+  var data=await apiRequest("/orders/taken");
+  if(!Array.isArray(data))throw new Error("API вернул не список заказов");
+  var existing=S.mine.filter(function(m){return !m.o.api});
+  S.mine=existing.concat(data.map(function(a){var o=apiOrderToCard(a);return {o:o,s:0,end:Date.now()+60*60000};}));
+ }catch(err){console.warn("Не удалось загрузить взятые заказы:",err);}
+}
+
 async function loadApiOrders(){
  try{
   var response=await fetch(API_URL+"/orders",{headers:{"Accept":"application/json"}});
