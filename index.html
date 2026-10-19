@@ -7,9 +7,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <style>
-:root{--bg:#F2F6FD;--card:#FFFFFF;--ink:#0E1B3A;--mute:#5B6B8B;--line:#DCE5F3;--pri:#1F4FD8;--onpri:#fff;--gold:#4C84F0;--star:#F2B01E;--ok:#1F9D63;--teen:#DCE8FF;--teenink:#123A9C;--park:#D8EBDD;--river:#BCD8F7;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0B1226;--card:#131C36;--ink:#E8EEFF;--mute:#93A2C4;--line:#243256;--pri:#6E9BFF;--onpri:#0B1226;--gold:#6E9BFF;--star:#F5C04A;--ok:#4FD39A;--teen:#1B2B57;--teenink:#CFE0FF;--park:#1C3326;--river:#1D3556}}
-:root[data-theme="dark"]{--bg:#0B1226;--card:#131C36;--ink:#E8EEFF;--mute:#93A2C4;--line:#243256;--pri:#6E9BFF;--onpri:#0B1226;--gold:#6E9BFF;--star:#F5C04A;--ok:#4FD39A;--teen:#1B2B57;--teenink:#CFE0FF;--park:#1C3326;--river:#1D3556}
+ :root{--bg:#0A0A0A;--card:#151515;--ink:#F5F5F5;--mute:#9A9A9A;--line:#2A2A2A;--pri:#F5F5F5;--onpri:#0A0A0A;--gold:#FF5A4F;--star:#FF5A4F;--ok:#72D6A0;--teen:#262626;--teenink:#F5F5F5;--park:#202820;--river:#454545;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+:root[data-theme="dark"]{--bg:#0A0A0A;--card:#151515;--ink:#F5F5F5;--mute:#9A9A9A;--line:#2A2A2A;--pri:#F5F5F5;--onpri:#0A0A0A;--gold:#FF5A4F;--star:#FF5A4F;--ok:#72D6A0;--teen:#262626;--teenink:#F5F5F5;--park:#202820;--river:#454545}
+:root[data-theme="light"]{--bg:#F5F5F5;--card:#FFFFFF;--ink:#111111;--mute:#6B6B6B;--line:#E2E2E2;--pri:#111111;--onpri:#FFFFFF;--gold:#D9342B;--star:#D9342B;--ok:#18794E;--teen:#EDEDED;--teenink:#111111;--park:#E2F0E7;--river:#C8D3D8}
 *{box-sizing:border-box}html,body{margin:0}
 body{background:var(--bg);color:var(--ink);font-family:Manrope,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-weight:500;line-height:1.4}
 .app{max-width:560px;margin:0 auto;padding:0 14px 118px}
@@ -141,6 +141,9 @@ details summary{cursor:pointer}details p{margin:8px 0}
 .x{position:sticky;top:0;float:right;width:36px;height:36px;border-radius:50%;border:1px solid var(--line);background:var(--card);color:var(--ink);font-size:18px;line-height:1;cursor:pointer;margin:0 0 6px 8px;z-index:2}
 .leg{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:8px;font-size:13px;color:var(--mute)}
 .leg i{display:inline-block;width:11px;height:11px;border-radius:50%;margin-right:5px;vertical-align:-1px}
+
+.rolepick{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:8px 0 4px}.roleoption{display:flex;flex-direction:column;align-items:flex-start;gap:5px;padding:14px 12px;background:var(--bg);border:1px solid var(--line);border-radius:12px;color:var(--ink);text-align:left;cursor:pointer}.roleoption.selected{border:2px solid var(--gold);padding:13px 11px;background:color-mix(in srgb,var(--gold) 8%,var(--card))}.roleicon{display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:10px;background:var(--teen);font-size:22px;color:var(--gold)}
+.btn{background:var(--pri);color:var(--onpri)}.btn.sec{border-color:var(--gold)}.lnk{color:var(--gold)}.brand{color:var(--gold)}.chip.on{background:var(--gold);color:#fff;border-color:var(--gold)}nav button.on{color:var(--gold)}nav .plus{background:var(--gold);color:#fff}
 </style>
 </head>
 <body>
@@ -150,6 +153,8 @@ details summary{cursor:pointer}details p{margin:8px 0}
 <div class="toast" id="toast"></div>
 <div id="wl"></div>
 <script>
+document.documentElement.setAttribute("data-theme", localStorage.getItem("delo-theme") || "dark");
+document.documentElement.setAttribute("data-pal", "mono");
 function ldScript(u,css,ok,bad){var e=document.createElement(css?"link":"script");if(css){e.rel="stylesheet";e.href=u}else{e.src=u;e.async=true}e.onload=function(){if(ok)ok()};e.onerror=function(){if(bad)bad()};document.head.appendChild(e)}
 ldScript("https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&display=swap",1);
 var FEE=.1,CATS=["Животные","Уборка","Переезд","Стройка и ремонт","Доставка","Сборка","Дача и сад","Другое"];
@@ -266,7 +271,8 @@ function act0(n,v){
  if(n==="menu")menu(v);else if(n==="reset")resetF();else if(n==="tpl")tplFill(+v);else if(n==="avg")$("n_p").value=v;
  else if(n==="sos")safeSheet(1);else if(n==="disp")dispSheet(v);else if(n==="trk")trkSheet(+v);else if(n==="tip")tipSheet(+v);else if(n==="rpt")rptDo(+v);
  else if(n==="tour"){if(+v>8){closeSheet()}else tourSheet(+v)}
- else if(n==="thm"){S.theme=v;if(v==="auto")document.documentElement.removeAttribute("data-theme");else document.documentElement.setAttribute("data-theme",v);setSheet()}
+ else if(n==="thm"){S.theme=v;document.documentElement.setAttribute("data-theme",v);localStorage.setItem("delo-theme",v);setSheet()}
+ else if(n==="logout"){localStorage.removeItem("delo-token");S.role=null;S.tab="feed";closeSheet();authSheet("register");toast("Вы вышли из аккаунта")}
  else if(n==="lg"){S.lang=v;closeSheet();render()}
  else if(n==="nt"){S.nt[v]=!S.nt[v];setSheet()}
  else if(n==="test"){var m="Новый заказ рядом: выгул собаки, 800 ₽";S.extra.unshift([m,"только что"]);toast(m);fb("n");try{if(window.Notification&&Notification.permission==="granted")new Notification("Дело",{body:m});else if(window.Notification&&Notification.permission==="default")Notification.requestPermission()}catch(x){}render()}
@@ -308,6 +314,9 @@ document.addEventListener("click",function(e){
  else if(d.view){S.view=d.view;render()}
  else if(d.filter)filterSheet();
  else if(d.tab){if(d.tab==="new")createForm();else{S.tab=d.tab;render();scrollTo(0,0)}}
+ else if(d.pick){S.pick=d.pick;var aa=document.querySelectorAll(".roleoption");for(var ai=0;ai<aa.length;ai++)aa[ai].classList.toggle("selected",aa[ai].getAttribute("data-pick")===S.pick);var sub=document.querySelector('[data-a^="authsubmit:"]');if(sub&&sub.getAttribute("data-a")==="authsubmit:register")sub.textContent="Зарегистрироваться"}
+ else if(d.a&&d.a.indexOf("authmode:")===0){authSheet(d.a.split(":")[1])}
+ else if(d.a&&d.a.indexOf("authsubmit:")===0){authSubmit(d.a.split(":")[1])}
  else if(d.role){S.role=S.pick=d.role;S.tab=d.role==="worker"?"feed":"my";closeSheet();render()}
  else if(d.pick){S.pick=d.pick;render()}
  else if(d.apply){S.role=S.pick;S.tab="prof";toast("Режим переключён");render()}
@@ -364,16 +373,7 @@ function detail(id){
  var kv=[["Когда",o.dt+", "+o.w],["Адрес",o.ad]];if(!o.rem)kv.push(["Метро",metroTxt(o)]);kv.push(["Время на выполнение",dur(o.lim)]);kv.push(["Возраст исполнителя","С "+o.age+" лет"]);kv.push(["Оплата",o.cash?"Наличными при встрече":"Через платформу"]);if(o.rcv)kv.push(["Получатель",o.rcv.n]);if(o.need>1)kv.push(["Нужно исполнителей",o.need]);if(o.rp)kv.push(["Повтор",o.rp]);
  var taken=S.mine.some(function(m){return m.o.id===o.id});
  openSheet('<h2>'+esc(o.t)+'</h2><div class="tags" style="margin:0 0 12px"><span class="tag">'+esc(o.c)+'</span>'+(o.rem?'<span class="tag">Удалённо</span>':'')+('<span class="tag">С '+o.age+' лет</span>')+(o.ub>0?'<span class="tag urg">Срочно</span>':'')+'</div><div class="kv">'+kv.map(function(r){return '<div><span>'+r[0]+'</span><b>'+esc(r[1])+'</b></div>'}).join("")+'</div>'+(o.ph?'<img class="pv" src="'+o.ph+'" alt="Фото заказа">':'')+'<p style="margin:12px 0 4px">'+esc(o.x2)+'</p>'+(o.nt?'<p class="meta" style="margin:0 0 4px">Примечание заказчика: '+esc(o.nt)+'</p>':'')+'<button class="cust" data-cust="'+o.cu+'">'+av(40,c.n)+'<div><b>'+esc(c.n)+'</b><div class="meta"><span class="stars">★</span> '+f1(avg(c.rv))+' · '+c.s+'</div></div><span style="margin-left:auto">›</span></button><div class="row" style="align-items:center;margin:14px 0 4px"><b>Ваша оплата</b><div class="price" style="font-size:24px">'+rub(wp(o))+'</div></div><div class="meta" style="margin-bottom:12px">'+(o.cash?"Оплата наличными при встрече. Комиссия сервиса 10% ("+rub(Math.round(o.p*FEE))+") удержится с вашего баланса. Защита платежа сервиса не действует.":"Оплата принимается только через платформу: так вас не обманут.")+'</div><button class="lnk" style="margin-bottom:12px" data-a="cmpl:o'+o.id+'">Пожаловаться на заказ</button>'+(w?(taken?'<button class="btn" disabled>Вы уже взяли этот заказ</button>':'<button class="btn" id="take">'+(o.need>1?'Вступить в команду':'Взять заказ')+'</button>'):'<div class="meta">Чтобы брать заказы, переключитесь на роль «Исполнитель» в профиле.</div>'));
- var tk=$("take");if(w&&tk)tk.onclick=async function(){
-  if(o.api){
-   if(!authToken()){toast("Войдите в аккаунт, чтобы взять заказ");loginSheet();return}
-   tk.disabled=true;tk.textContent="Сохраняем…";
-   try{await apiRequest("/orders/"+encodeURIComponent(o.id)+"/accept",{method:"POST"});toast("Заказ закреплён за вами");closeSheet();await loadApiOrders();await loadTakenApiOrders();render();burst();fb("ok")}
-   catch(e){tk.disabled=false;tk.textContent="Взять заказ";toast(e.message||"Не удалось взять заказ")}
-   return;
-  }
-  S.mine.push({o:Object.assign({},o),s:0,end:Date.now()+o.lim*60000});if(o.need>1){o.need--;toast("Вы в команде, осталось мест: "+o.need)}else{orders=orders.filter(function(x){return x.id!==id});toast("Заказ взят, таймер запущен")}closeSheet();render();burst();fb("ok")
- };
+ var tk=$("take");if(w&&tk)tk.onclick=function(){S.mine.push({o:Object.assign({},o),s:0,end:Date.now()+o.lim*60000});if(o.need>1){o.need--;toast("Вы в команде, осталось мест: "+o.need)}else{orders=orders.filter(function(x){return x.id!==id});toast("Заказ взят, таймер запущен")}closeSheet();render();burst();fb("ok")};
 }
 function filterSheet(){
  function op(a,v){return a.map(function(x){return '<option value="'+x[0]+'"'+(String(v)===String(x[0])?' selected':'')+'>'+x[1]+'</option>'}).join("")}
@@ -446,7 +446,7 @@ function act1(n,v){
  else if(n==="nt2"){S.nt[v]=!S.nt[v];nsetSheet()}
  else if(n==="nsnd"){S.snd=v==="on";nsetSheet()}
  else if(n==="mode")modeSheet()
- else if(n==="modeok"){S.role=S.role==="worker"?"customer":"worker";S.tab=S.role==="worker"?"feed":"my";closeSheet();render();toast("Режим переключён")}
+ else if(n==="modeok"){S.role=S.role==="worker"?"customer":"worker";S.tab=S.role==="worker"?"feed":"my";var tok=localStorage.getItem("delo-token");if(tok)fetch(API_BASE+"/me/role",{method:"POST",headers:{"Content-Type":"application/json",Authorization:"Bearer "+tok},body:JSON.stringify({role:S.role})}).catch(function(){});closeSheet();render();toast("Режим переключён")}
  else if(n==="self"){S.self=!S.self;rewSheet();render()}
  else if(n==="tv"){S.tv=+v;var c=$("tcu");if(c)c.value="";var cs=document.querySelectorAll(".tipc");for(var i=0;i<cs.length;i++)cs[i].classList.toggle("on",cs[i].getAttribute("data-a")==="tv:"+v)}
  else if(n==="tsend"){var ob=S.my[S.tk],cu=parseInt($("tcu").value,10),a=cu>0?cu:S.tv;ob.tip=a;ob.rate=+$("tr").value;ob.rv=$("tx").value.trim();ob.rph=S.rph||null;S.rph=null;closeSheet();toast("Спасибо! "+(a?"Чаевые: "+rub(a):"Оценка отправлена"));render()}
@@ -470,6 +470,34 @@ function sLabel(p,o){
  if(p==="w"){if(o===0)return"Эта неделя";if(o===-1)return"Прошлая неделя";var a=new Date(b.getTime());a.setDate(a.getDate()-((b.getDay()+6)%7)+7*o);var e=new Date(a.getTime());e.setDate(e.getDate()+6);return fdm(a)+" – "+fdm(e)}
  return cap(new Date(b.getFullYear(),b.getMonth()+o,1).toLocaleDateString("ru-RU",{month:"long",year:"numeric"}));
 }
+/* Authentication: backend-backed registration/login */
+var API_BASE="https://podrabotka-backend.onrender.com";
+function authSheet(mode,err){
+ var reg=mode!=="login";
+ openSheet('<div style="text-align:center;padding:8px 0 12px"><span class="brand" style="color:var(--ink);font-size:22px;letter-spacing:.22em">ДЕЛО</span><div class="meta" style="margin-top:6px">Подработка рядом</div></div><h2>'+(reg?'Создать аккаунт':'Войти в аккаунт')+'</h2><div class="meta">'+(reg?'Зарегистрируйтесь один раз — потом входите через профиль.':'Введите данные своего аккаунта.')+'</div>'+(reg?'<label>Кем вы хотите быть?</label><div class="rolepick"><button type="button" class="roleoption '+(S.pick!=="customer"?'selected':'')+'" data-pick="worker"><span class="roleicon">↗</span><b>Исполнитель</b><span class="meta">Ищу подработку</span></button><button type="button" class="roleoption '+(S.pick==="customer"?'selected':'')+'" data-pick="customer"><span class="roleicon">＋</span><b>Заказчик</b><span class="meta">Мне нужна помощь</span></button></div><div class="meta">Роль можно изменить позже в аккаунте.</div>':'')+'<label for="auth-email">Электронная почта</label><input id="auth-email" type="email" autocomplete="email" placeholder="name@example.com" value="'+esc(S.me&&S.me.em||"")+'"><label for="auth-password">Пароль</label><input id="auth-password" type="password" autocomplete="'+(reg?'new-password':'current-password')+'" placeholder="Не менее 8 символов">'+(err?'<div class="note" style="color:#FF5A4F">'+esc(err)+'</div>':'')+'<div style="height:14px"></div><button class="btn" data-a="authsubmit:'+(reg?'register':'login')+'">'+(reg?'Зарегистрироваться':'Войти')+'</button><div style="height:12px"></div><div style="text-align:center"><button class="lnk" data-a="authmode:'+(reg?'login':'register')+'">'+(reg?'Уже есть аккаунт? Войти':'Нет аккаунта? Зарегистрироваться')+'</button></div>');
+}
+async function authSubmit(mode){
+ var email=($("auth-email")&&$("auth-email").value||"").trim().toLowerCase(),password=$("auth-password")&&$("auth-password").value||"";
+ if(!email||email.indexOf("@")<1){authSheet(mode,"Введите корректную электронную почту.");return}
+ if(password.length<8){authSheet(mode,"Пароль должен содержать не менее 8 символов.");return}
+ var btn=document.querySelector('[data-a="authsubmit:'+mode+'"]');if(btn){btn.disabled=true;btn.textContent="Подождите…"}
+ try{
+  var url=API_BASE+(mode==="register"?"/register":"/login"),body={email:email,password:password};if(mode==="register")body.role=S.pick||"worker";
+  var response=await fetch(url,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)});
+  var data={};try{data=await response.json()}catch(_e){}
+  if(!response.ok){var detail=typeof data.detail==="string"?data.detail:(mode==="register"?"Не удалось зарегистрироваться. Возможно, почта уже занята.":"Неверная почта или пароль.");authSheet(mode,detail);return}
+  var token=data.access_token||data.token;if(!token&&mode==="register"){
+   var lr=await fetch(API_BASE+"/login",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)});var ld={};try{ld=await lr.json()}catch(_e){}if(lr.ok)token=ld.access_token||ld.token;
+  }
+  if(!token){authSheet(mode,"Аккаунт создан, но сервер не вернул токен входа. Попробуйте войти.");return}
+  localStorage.setItem("delo-token",token);S.me.em=email;
+  var me={};try{var mr=await fetch(API_BASE+"/me",{headers:{Authorization:"Bearer "+token}});if(mr.ok)me=await mr.json()}catch(_e){}
+  S.role=me.role||body.role||S.pick||"worker";S.pick=S.role;S.tab=S.role==="worker"?"feed":"my";closeSheet();render();toast(mode==="register"?"Аккаунт создан":"Вы вошли в аккаунт");
+ }catch(e){authSheet(mode,"Не удалось связаться с сервером. Проверьте интернет и попробуйте ещё раз.")}
+}
+function authBoot(){var token=localStorage.getItem("delo-token");if(!token){S.role=null;authSheet("register");return}
+ fetch(API_BASE+"/me",{headers:{Authorization:"Bearer "+token}}).then(function(r){if(!r.ok)throw new Error("auth");return r.json()}).then(function(me){S.role=me.role||"worker";S.pick=S.role;S.me.em=me.email||S.me.em;S.tab=S.role==="worker"?"feed":"my";render()}).catch(function(){localStorage.removeItem("delo-token");S.role=null;authSheet("login","Сессия завершилась. Войдите снова.")})
+}
 /* welcome + employers */
 function art(n){var c='style="fill:var(--pri)"',g='style="fill:var(--gold)"',cd='style="fill:var(--card);stroke:var(--line)"';
  if(n===0)return '<svg viewBox="0 0 240 180" width="100%" style="max-width:270px" aria-hidden="true"><circle cx="120" cy="92" r="72" '+cd+'/><circle cx="120" cy="92" r="46" style="fill:none;stroke:var(--line)" stroke-dasharray="4 5"/><path d="M120 38c-17 0-30 13-30 30 0 22 30 52 30 52s30-30 30-52c0-17-13-30-30-30z" '+c+'/><circle cx="120" cy="68" r="10" style="fill:var(--card)"/><circle cx="58" cy="122" r="13" '+g+'/><text x="58" y="127" text-anchor="middle" font-size="14" font-weight="800" fill="#fff">₽</text><circle cx="186" cy="118" r="13" '+g+'/><text x="186" y="123" text-anchor="middle" font-size="14" font-weight="800" fill="#fff">₽</text><path d="M70 132c22 20 70 22 102 0" style="fill:none;stroke:var(--gold)" stroke-width="2" stroke-dasharray="3 5"/></svg>';
@@ -478,7 +506,7 @@ function art(n){var c='style="fill:var(--pri)"',g='style="fill:var(--gold)"',cd=
 var WS=[["Подработка рядом с вами","Выгул собак, уборка, доставка, помощь по дому и удалённая работа. Берите задачи, которые удобно выполнить по пути."],["Деньги под защитой","Заказчик платит заранее, а исполнитель получает деньги только после подтверждения обеими сторонами."],["Для всех, с 14 лет","Отзывы и рейтинги, чат внутри сервиса и поддержка. Подросткам доступны подходящие заказы."]];
 function welcome(i){S.wi=i;var w=$("wl");w.style.display="block";
  w.innerHTML='<div class="wi" data-sw2="1"><div style="text-align:center"><span class="brand">ДЕЛО</span></div><div class="wslide">'+art(i)+'<h1>'+WS[i][0]+'</h1><p class="meta" style="font-size:16px">'+WS[i][1]+'</p></div><div class="dots">'+WS.map(function(x,k){return '<button class="dt'+(k===i?' on':'')+'" data-a="wi:'+k+'" aria-label="Слайд '+(k+1)+'"></button>'}).join("")+'</div><button class="btn big2" data-role="worker">Найти подработку</button><div style="height:10px"></div><button class="btn sec big2" data-role="customer">Нужна помощь</button><div class="meta" style="text-align:center;margin-top:12px">Роль можно сменить позже в профиле</div></div>'}
-function openRole(){welcome(S.wi||0)}
+function openRole(){authSheet("register")}
 var tx1=null;
 document.addEventListener("touchstart",function(e){var c=e.target.closest&&e.target.closest("[data-sw2]");tx1=c?e.touches[0].clientX:null},{passive:true});
 document.addEventListener("touchend",function(e){if(tx1===null)return;var dx=e.changedTouches[0].clientX-tx1;tx1=null;if(Math.abs(dx)>45){var i=(S.wi||0)+(dx<0?1:-1);if(i>=0&&i<WS.length)welcome(i)}},{passive:true});
@@ -536,21 +564,15 @@ function topSheet(){S.ta=0;openSheet('<h2>Пополнить баланс</h2><l
 var FID=["n_t","n_c","n_a","n_dt","n_f","n_e","n_p","n_pm","n_pr","n_o","n_rn","n_rp","n_k","n_l","n_ur","n_rm","n_n"];
 function formVals(){var v={};FID.forEach(function(i){var e=$(i);if(e)v[i]=e.type==="checkbox"?e.checked:e.value});return v}
 function fillVals(v){FID.forEach(function(i){var e=$(i);if(e&&v[i]!=null){if(e.type==="checkbox")e.checked=!!v[i];else e.value=v[i]}});var b=$("n_ob");if(b)b.style.display=v.n_o?"block":"none";var pd=$("n_pd");if(v.n_pr&&PROMO[(v.n_pr+"").toUpperCase()]){S.pc=(v.n_pr+"").toUpperCase()}}
-async function pubOrder(){
+function pubOrder(){
  var v=formVals(),t=(v.n_t||"").trim(),p=parseInt(v.n_p,10);
  if(!t){toast("Опишите задачу");return}if(!v.n_c){toast("Выберите категорию");return}if(!p||p<500){toast("Минимальная цена — 500 ₽");return}
  if(v.n_o&&(v.n_rp||"").replace(/\D/g,"").length<10){toast("Укажите телефон получателя");return}
- if(!authToken()||!currentAccount){toast("Чтобы опубликовать заказ, войдите в аккаунт заказчика");loginSheet();return}
- if(S.role!=="customer"){toast("Сначала смените роль на «Заказчик» в настройках");return}
  var u=v.n_ur?Math.round(p*.3/50)*50:0,rm=v.n_rm,total=p+u,code=S.pc&&PROMO[S.pc]?S.pc:"",pay=total-disc(total,code),cash=v.n_pm==="cash",f=v.n_f,e=v.n_e;
- var payload={title:t,description:(v.n_n||"").trim()||t,price:total,city:typeof S.region==="string"?S.region:"Москва",category:v.n_c,address:rm?"Удалённо":((v.n_a||"").trim()||"Адрес уточняется"),work_date:v.n_dt||"",work_time:f&&e?f+"–"+e:(f||""),is_remote:!!rm,is_urgent:!!v.n_ur,notes:(v.n_n||"").trim()};
- var saved;
- try{saved=await apiRequest("/orders",{method:"POST",body:JSON.stringify(payload)})}
- catch(err){toast("Не удалось сохранить заказ: "+(err.message||"ошибка сервера"));return}
- var o={s:0,rem:rm?1:0,id:Number(saved.id)||S.nid++,t:String(saved.title||t),c:saved.category||v.n_c,p:Number(saved.price)||total,pay:pay,promo:code,cash:cash,rcv:v.n_o?{n:(v.n_rn||"").trim()||"Получатель",ph:v.n_rp}:null,dt:fd(v.n_dt),w:f&&e?f+"–"+e:(f||""),d:rm?"Удалённо":(v.n_a||"Адрес уточняется"),ad:String(saved.address||"Адрес уточняется"),st:"Ближайшее",km:rm?99:.5,m:rm?99:5,age:18,lim:parseInt(v.n_l,10)||60,cx:0,ub:u,cu:3,need:+v.n_k,rp:"",la:55.75+Math.random()*.03,lo:37.6+Math.random()*.04,x:120+Math.random()*60,y:120+Math.random()*60,x2:String(saved.description||"Ваш заказ."),nt:(v.n_n||"").trim(),ph:S.nph||null,api:true};
+ var o={s:0,rem:rm?1:0,id:S.nid++,t:t,c:v.n_c,p:total,pay:pay,promo:code,cash:cash,rcv:v.n_o?{n:(v.n_rn||"").trim()||"Получатель",ph:v.n_rp}:null,dt:fd(v.n_dt),w:f&&e?f+"–"+e:(f||""),d:rm?"Удалённо":"Рядом",ad:rm?"Онлайн":(v.n_a||"Адрес уточняется"),st:"Ближайшее",km:rm?99:.5,m:rm?99:5,age:18,lim:parseInt(v.n_l,10)||60,cx:0,ub:u,cu:3,need:+v.n_k,rp:"",la:55.75+Math.random()*.03,lo:37.6+Math.random()*.04,x:120+Math.random()*60,y:120+Math.random()*60,x2:"Ваш заказ.",nt:(v.n_n||"").trim(),ph:S.nph||null};
  if(!cash&&S.cbal>=pay)S.cbal-=pay;
  if(S.de!=null){S.dr.splice(S.de,1);S.de=null}
- orders.unshift(o);S.my.unshift(o);S.pc=null;S.nph=null;closeSheet();S.tab="my";S.cm="cur";burst();fb("ok");toast("Заказ сохранён на сервере");render();
+ orders.unshift(o);S.my.unshift(o);S.pc=null;S.nph=null;closeSheet();S.tab="my";S.cm="cur";burst();fb("ok");toast("Заказ опубликован");render();
 }
 function myV(){
  var cm=S.cm||"cur",cur=[],dn=[];S.my.forEach(function(o,i){(o.s<2?cur:dn).push([o,i])});
@@ -604,8 +626,8 @@ STD.all={e:148600,n:132,t:9400,ot:121,rf:6,b:[["Май",9800],["Июн",18400],[
  }
 })();
 /* menu */
-function menuV(w){var r=[["data","Мои данные"],["card","Моя визитка"]];r=r.concat(w?[["rew","Уровень и награды"]]:[["promo","Промокоды"],["sub","Подписка «Дело+»"]],[["invite","Пригласить друга"],["login","Вход и пароль"],["info","Информация"],["help","Помощь и поддержка"],["set","Настройки"]]);return '<div class="card" style="padding:2px 14px">'+r.map(function(x){return '<button class="mi" data-a="menu:'+x[0]+'"><span>'+x[1]+'</span><span>›</span></button>'}).join("")+'</div>'}
-function menu(v){({stat:function(){closeSheet();S.tab="stat";render();scrollTo(0,0)},data:dataSheet,card:cardSheet,rew:rewSheet,train:function(){slideSheet("train",0)},sub:subSheet,invite:inviteSheet,login:loginSheet,info:infoSheet,promo:promoSheet,safe:function(){safeSheet(0)},help:helpSheet,faq:helpSheet,tour:function(){slideSheet("tour",0)},set:setSheet})[v]()}
+function menuV(w){var r=[["data","Мои данные"],["card","Моя визитка"]];r=r.concat(w?[["rew","Уровень и награды"]]:[["promo","Промокоды"],["sub","Подписка «Дело+»"]],[["invite","Пригласить друга"],[localStorage.getItem("delo-token")?"logout":"login",localStorage.getItem("delo-token")?"Выйти из аккаунта":"Войти в аккаунт"],["info","Информация"],["help","Помощь и поддержка"],["set","Настройки"]]);return '<div class="card" style="padding:2px 14px">'+r.map(function(x){return '<button class="mi" data-a="menu:'+x[0]+'"><span>'+x[1]+'</span><span>›</span></button>'}).join("")+'</div>'}
+function menu(v){({stat:function(){closeSheet();S.tab="stat";render();scrollTo(0,0)},data:dataSheet,card:cardSheet,rew:rewSheet,train:function(){slideSheet("train",0)},sub:subSheet,invite:inviteSheet,login:function(){authSheet("login")},logout:function(){localStorage.removeItem("delo-token");S.role=null;closeSheet();authSheet("register")},info:infoSheet,promo:promoSheet,safe:function(){safeSheet(0)},help:helpSheet,faq:helpSheet,tour:function(){slideSheet("tour",0)},set:setSheet})[v]()}
 function helpSheet(){openSheet('<h2>Помощь и поддержка</h2><div class="meta">Служба поддержки работает ежедневно с 8:00 до 22:00.</div><div style="height:12px"></div><button class="btn" data-a="chat:s0">Написать в чат поддержки</button><div style="height:8px"></div><button class="btn sec" data-a="menu:tour">Знакомство с сайтом</button><h3 style="margin-top:18px">Вопросы и ответы</h3>'+FQ.map(function(q){return '<details style="border-top:1px solid var(--line);padding:10px 0"><summary><b>'+q[0]+'</b></summary><p class="meta" style="margin:8px 0 0">'+q[1]+'</p></details>'}).join(""))}
 function nsetSheet(){var N=[["new","Новые заказы рядом"],["slots","Слоты"],["chat","Сообщения"],["promo","Акции"]];openSheet('<h2>Уведомления</h2><label>Что присылать</label><div class="chips" style="flex-wrap:wrap">'+N.map(function(n){return '<button class="chip '+(S.nt[n[0]]?'on':'')+'" data-a="nt2:'+n[0]+'">'+n[1]+'</button>'}).join("")+'</div><label>Куда присылать</label><div class="chips" style="flex-wrap:wrap"><button class="chip on" data-a="x:1">В приложении</button><button class="chip '+(S.emn?'on':'')+'" data-a="nem:1">На почту</button></div><label>Звук</label><div class="seg"><button class="'+(S.snd!==false?'on':'')+'" data-a="nsnd:on">Со звуком</button><button class="'+(S.snd===false?'on':'')+'" data-a="nsnd:off">Без звука</button></div>')}
 /* statistics */
@@ -733,8 +755,8 @@ function statTile(){var e=STD.d.e;S.mine.forEach(function(m){if(m.s===3)e+=wp(m.
 function lazyQR(){if(typeof qrcode!=="function"){ldScript("https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js",0,function(){var b=$("qrb");if(b)b.innerHTML=qrHtml("https://delo.example/invite/DELO-ALEKSEY-7K2M9X")})}}
 function qrHtml(t){try{if(typeof qrcode==="function"){var q=qrcode(0,"M");q.addData(t);q.make();return q.createSvgTag(4,0)}}catch(e){}return '<div class="note" style="text-align:center">QR-код появится при подключении к интернету</div>'}
 function cardSheet(){var w=S.role==="worker",n=nDone();openSheet('<h2>Моя визитка</h2><div class="card" style="text-align:center;margin-top:10px"><div style="display:flex;justify-content:center">'+av(72,"Алексей К.")+'</div><h3 style="font-size:20px;margin:10px 0 2px">'+esc(myName())+'</h3><div class="meta">'+(w?'Исполнитель · '+lv(n):'Заказчик')+' · ★ '+f1(avg(w?WR:CU[3].rv))+'</div><div id="qrb" style="margin:14px auto 6px;width:170px">'+qrHtml("https://delo.example/invite/DELO-ALEKSEY-7K2M9X")+'</div><div class="meta">Наведите камеру, чтобы присоединиться к «Дело»</div></div><button class="btn" data-a="share:1">Поделиться визиткой</button>');lazyQR()}
-function setSheet(){var T=[["auto","Авто"],["light","Светлая"],["dark","Тёмная"]],G=[["ru","Русский"],["en","English"],["es","Español"],["fr","Français"]],w=S.role==="worker";
- openSheet('<h2>Настройки</h2><label for="rg">'+(w?'Регион, где я работаю':'Регион, где мне нужна помощь')+'</label><div class="bar2"><select id="rg" style="flex:1">'+REG.map(function(r){return '<option'+(r===S.region?' selected':'')+'>'+r+'</option>'}).join("")+'</select><button class="btn sm" id="rgs">Сохранить</button></div><label>Тема</label><div class="seg">'+T.map(function(t){return '<button class="'+((S.theme||"auto")===t[0]?'on':'')+'" data-a="thm:'+t[0]+'">'+t[1]+'</button>'}).join("")+'</div><label>Цветовая схема <span class="meta">(временно, потом оставим одну)</span></label><div class="chips" style="flex-wrap:wrap">'+PAL.map(function(p){var c=p[2].split(" ");return '<button class="chip pal'+((S.pal||"blue")===p[0]?' on':'')+'" data-a="pal:'+p[0]+'"><i style="background:#'+c[5]+'"></i><i style="background:#'+c[7]+'"></i>'+p[1]+'</button>'}).join("")+'</div><label>Язык / Language</label><div class="chips" style="flex-wrap:wrap">'+G.map(function(g){return '<button class="chip '+((S.lang||"ru")===g[0]?'on':'')+'" data-a="lg:'+g[0]+'">'+g[1]+'</button>'}).join("")+'</div><div class="meta" style="margin-top:6px">Переведены основные разделы и кнопки, остальные тексты пока на русском.</div>')}
+function setSheet(){var T=[["dark","Тёмная"],["light","Светлая"]],G=[["ru","Русский"],["en","English"],["es","Español"],["fr","Français"]],w=S.role==="worker";
+ openSheet('<h2>Настройки</h2><label for="rg">'+(w?'Регион, где я работаю':'Регион, где мне нужна помощь')+'</label><div class="bar2"><select id="rg" style="flex:1">'+REG.map(function(r){return '<option'+(r===S.region?' selected':'')+'>'+r+'</option>'}).join("")+'</select><button class="btn sm" id="rgs">Сохранить</button></div><label>Тема оформления</label><div class="seg">'+T.map(function(t){return '<button class="'+((document.documentElement.getAttribute("data-theme")||"dark")===t[0]?'on':'')+'" data-a="thm:'+t[0]+'">'+t[1]+'</button>'}).join("")+'</div><div class="meta" style="margin-top:6px">По умолчанию включена тёмная тема. Красный используется для акцентов.</div><label>Язык / Language</label><div class="chips" style="flex-wrap:wrap">'+G.map(function(g){return '<button class="chip '+((S.lang||"ru")===g[0]?'on':'')+'" data-a="lg:'+g[0]+'">'+g[1]+'</button>'}).join("")+'</div><div style="height:12px"></div><button class="btn sec" data-a="logout:1">Выйти из аккаунта</button>')}
 /* order page */
 function ordSheet(i){var m=S.mine[i],o=m.o,c=CU[o.cu],step=m.s===0?1:m.s===1?2:3;
  var stp=["Взят","В работе","Сдан","Оплачен"].map(function(t,k){return '<div class="s'+(k<=step?' on':'')+'"><div class="dotp"></div>'+t+'</div>'}).join("");
@@ -769,7 +791,9 @@ function createForm(di){
  $("n_go").onclick=function(){pubOrder()};
 }
 function act7(n,v){
- if(n==="pal"){S.pal=v;document.documentElement.setAttribute("data-pal",v);setSheet()}
+ if(n==="authsubmit"){authSubmit(v);return true}
+ else if(n==="authmode"){authSheet(v);return true}
+ else if(n==="pal"){setSheet()}
  else if(n==="cat"){$("n_c").value=v;syncForm();hint()}
  else if(n==="pm"){$("n_pm").value=v;syncPm()}
  else if(n==="kq"){var k=Math.max(1,Math.min(9,(+$("n_k").value||1)+(+v)));$("n_k").value=k;$("n_kt").textContent=k}
@@ -784,102 +808,7 @@ document.addEventListener("change",function(e){var t=e.target;
  if(t.id==="n_ph"&&t.files&&t.files[0]){S.nph=URL.createObjectURL(t.files[0]);$("n_pv").innerHTML='<img class="pv" src="'+S.nph+'" alt="Фото заказа">'}
  if(t.id==="rph"&&t.files&&t.files[0]){S.rph=URL.createObjectURL(t.files[0]);$("rpv").innerHTML='<img class="pv" src="'+S.rph+'" alt="Фото к отзыву">'}});
 
-// Реальная авторизация через FastAPI
-var AUTH_TOKEN_KEY="delo_access_token";
-var currentAccount=null;
-function authToken(){try{return localStorage.getItem(AUTH_TOKEN_KEY)||""}catch(e){return ""}}
-function authHeaders(extra){var h=Object.assign({"Accept":"application/json"},extra||{});var t=authToken();if(t)h.Authorization="Bearer "+t;return h}
-async function apiRequest(path,options){options=options||{};var headers=authHeaders(options.headers||{});if(options.body&&!headers["Content-Type"])headers["Content-Type"]="application/json";var r=await fetch(API_URL+path,Object.assign({},options,{headers:headers}));var data={};try{data=await r.json()}catch(e){}if(!r.ok)throw new Error(data.detail||("Ошибка сервера: "+r.status));return data}
-function loginSheet(){
- openSheet('<h2 id="auth_title">Вход в аккаунт</h2><div class="meta">Аккаунт сохраняется на сервере. Подтверждение по коду пока не подключено.</div><div class="seg" style="margin:14px 0"><button id="auth_login_tab" class="on" data-a="authview:login">Войти</button><button id="auth_register_tab" data-a="authview:register">Регистрация</button></div><div id="auth_form"><label for="auth_email">Email</label><input id="auth_email" type="email" autocomplete="email" placeholder="name@example.com"><label for="auth_password">Пароль</label><input id="auth_password" type="password" autocomplete="current-password" placeholder="Не менее 8 символов"><div id="auth_role_wrap" style="display:none"><label for="auth_role">Я хочу быть</label><select id="auth_role"><option value="worker">Исполнителем — искать подработку</option><option value="customer">Заказчиком — публиковать задания</option></select></div><div style="height:14px"></div><button class="btn" data-a="authsubmit:login" id="auth_submit">Войти</button></div>');
-}
-function authView(mode){var reg=mode==="register",t=$("auth_title"),pw=$("auth_password"),wrap=$("auth_role_wrap"),sub=$("auth_submit"),lt=$("auth_login_tab"),rt=$("auth_register_tab");if(!t)return;t.textContent=reg?"Создать аккаунт":"Вход в аккаунт";pw.autocomplete=reg?"new-password":"current-password";wrap.style.display=reg?"block":"none";sub.textContent=reg?"Зарегистрироваться":"Войти";sub.setAttribute("data-a","authsubmit:"+mode);lt.classList.toggle("on",!reg);rt.classList.toggle("on",reg)}
-async function authSubmit(mode){var email=($("auth_email").value||"").trim().toLowerCase(),password=$("auth_password").value,role=$("auth_role")?$("auth_role").value:"worker";if(!email||email.indexOf("@")<1){toast("Введите корректный email");return}if(password.length<8){toast("Пароль должен быть не короче 8 символов");return}try{if(mode==="register"){await apiRequest("/register",{method:"POST",body:JSON.stringify({email:email,password:password,role:role})})}var result=await apiRequest("/login",{method:"POST",body:JSON.stringify({email:email,password:password})});localStorage.setItem(AUTH_TOKEN_KEY,result.access_token);currentAccount=await apiRequest("/me");S.role=currentAccount.role;S.pick=S.role;S.me.em=currentAccount.email;S.tab=S.role==="worker"?"feed":"my";closeSheet();render();await loadMyApiOrders();await loadTakenApiOrders();toast(mode==="register"?"Аккаунт создан":"Вы вошли в аккаунт")}catch(e){toast(e.message||"Не удалось подключиться к серверу")}}
-async function switchAccountRole(){var role=S.role==="worker"?"customer":"worker";try{currentAccount=await apiRequest("/me/role",{method:"POST",body:JSON.stringify({role:role})});S.role=role;S.pick=role;S.tab=role==="worker"?"feed":"my";closeSheet();render();if(role==="customer")await loadMyApiOrders();toast("Роль изменена")}catch(e){toast("Не удалось изменить роль: "+e.message)}}
-function logoutAccount(){try{localStorage.removeItem(AUTH_TOKEN_KEY)}catch(e){}currentAccount=null;S.role=null;S.pick="worker";S.tab="feed";closeSheet();render();toast("Вы вышли из аккаунта")}
-var oldSetSheet=setSheet;
-setSheet=function(){oldSetSheet();var holder=$("sheet");if(!holder)return;var roleText=S.role==="worker"?"Исполнитель":"Заказчик";holder.insertAdjacentHTML("beforeend",'<div class="card" style="margin-top:14px"><h3>Аккаунт</h3><div class="meta" style="margin:6px 0 12px">'+esc(currentAccount?currentAccount.email:(S.me.em||"Не выполнен вход"))+' · Роль: '+roleText+'</div><button class="btn sec" data-a="authrole:1">Сменить роль</button><div style="height:8px"></div><button class="btn sec" data-a="authlogout:1">Выйти из аккаунта</button><div style="height:8px"></div><button class="btn" data-a="menu:login">Войти / зарегистрироваться</button></div>')};
-var oldAct=act;
-act=function(n,v){
- if(n==="authview"){authView(v);return}
- if(n==="authsubmit"){authSubmit(v);return}
- if(n==="authrole"){if(!authToken()){toast("Сначала войдите в аккаунт");loginSheet();return}switchAccountRole();return}
- if(n==="authlogout"){logoutAccount();return}
- if(n==="modeok"){if(!authToken()){toast("Войдите, чтобы сохранить смену роли");loginSheet();return}switchAccountRole();return}
- return oldAct(n,v)
-};
-async function restoreAccount(){var token=authToken();if(!token)return;try{currentAccount=await apiRequest("/me");S.role=currentAccount.role;S.pick=S.role;S.me.em=currentAccount.email;S.tab=S.role==="worker"?"feed":"my";render();await loadMyApiOrders();await loadTakenApiOrders()}catch(e){try{localStorage.removeItem(AUTH_TOKEN_KEY)}catch(x){}currentAccount=null}}
-
-// Подключение реальных объявлений к FastAPI
-var API_URL="https://podrabotka-backend.onrender.com";
-function apiDate(v){
- if(!v)return "Дата уточняется";
- var d=new Date(v);
- return isNaN(d.getTime())?String(v):d.toLocaleDateString("ru-RU",{day:"numeric",month:"long"});
-}
-function apiOrderToCard(a){
- var city=a.city||a.address||"Город не указан";
- var remote=!!a.is_remote;
- var cat=CATS.indexOf(a.category)>=0?a.category:"Другое";
- var workTime=a.work_time||"Время уточняется";
- var price=Number(a.price)||0;
- return {
-  id:Number(a.id),t:String(a.title||"Подработка"),c:cat,p:price,
-  dt:apiDate(a.work_date),w:String(workTime),d:remote?"Удалённо":String(city),
-  ad:String(a.address||city),st:"",km:remote?99:5,m:remote?99:5,
-  rem:remote?1:0,age:18,lim:60,cx:0,ub:a.is_urgent?Math.round(price*.1):0,
-  cu:0,x:150,y:150,x2:String(a.description||""),nt:String(a.notes||""),
-  la:55.75,lo:37.61,need:1,api:true
- };
-}
-function apiOrderToCustomerCard(a){
- var o=apiOrderToCard(a);
- o.s=0;o.ex=null;o.stx=null;o.tip=null;o.rate=null;o.rv="";o.cash=false;o.promo=null;o.pay=o.p;o.api=true;
- o.dt=apiDate(a.work_date);o.w=String(a.work_time||"Время уточняется");o.ad=String(a.address||a.city||"Адрес уточняется");
- o.d=a.is_remote?"Удалённо":String(a.city||"");o.nt=String(a.notes||"");o.x2=String(a.description||"");
- o.need=1;o.cu=3;o.lim=60;o.ub=a.is_urgent?Math.round(o.p*.3):0;
- return o;
-}
-async function loadMyApiOrders(){
- if(!authToken())return;
- try{
-  var data=await apiRequest("/orders/mine");
-  if(!Array.isArray(data))throw new Error("API вернул не список заказов");
-  S.my=data.map(apiOrderToCustomerCard).filter(function(o){return Number.isFinite(o.id)&&o.t;});
-  if(currentAccount&&currentAccount.role==="customer")render();
- }catch(err){console.warn("Не удалось загрузить мои заказы:",err);}
-}
-
-async function loadTakenApiOrders(){
- if(!authToken()||!currentAccount||currentAccount.role!=="worker")return;
- try{
-  var data=await apiRequest("/orders/taken");
-  if(!Array.isArray(data))throw new Error("API вернул не список заказов");
-  var existing=S.mine.filter(function(m){return !m.o.api});
-  S.mine=existing.concat(data.map(function(a){var o=apiOrderToCard(a);return {o:o,s:0,end:Date.now()+60*60000};}));
- }catch(err){console.warn("Не удалось загрузить взятые заказы:",err);}
-}
-
-async function loadApiOrders(){
- try{
-  var response=await fetch(API_URL+"/orders",{headers:{"Accept":"application/json"}});
-  if(!response.ok)throw new Error("HTTP "+response.status);
-  var data=await response.json();
-  if(!Array.isArray(data))throw new Error("API вернул не список объявлений");
-  // Пустая база не должна скрывать демонстрационные объявления.
-  var real=data.map(apiOrderToCard).filter(function(o){return Number.isFinite(o.id)&&o.t&&o.p>=0;});
-  if(real.length){
-   orders.splice(0,orders.length,...real);
-   render();
-  }
-  console.info("API /orders: загружено объявлений",real.length);
- }catch(err){
-  console.warn("Не удалось загрузить объявления из API; оставлены демо-данные:",err);
- }
-}
-loadApiOrders();
-restoreAccount();
-render();
+authBoot();
 </script>
 </body>
 </html>
